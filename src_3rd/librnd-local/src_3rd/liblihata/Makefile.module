@@ -1,0 +1,4 @@
+# module Makefile
+
+$(ROOT)/liblihata/liblihata.a:
+	cd $(ROOT)/liblihata && make all

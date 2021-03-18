@@ -1,0 +1,129 @@
+prefix pcb_bxl
+by_score
+
+top_code
+	/*
+	 *                            COPYRIGHT
+	 *
+	 *  pcb-rnd, interactive printed circuit board design
+	 *
+	 *  BXL IO plugin - bxl lexer
+	 *  pcb-rnd Copyright (C) 2020 Tibor 'Igor2' Palinkas
+	 *  (Supported by NLnet NGI0 PET Fund in 2020)
+	 *
+	 *  This program is free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 2 of the License, or
+	 *  (at your option) any later version.
+	 *
+	 *  This program is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  You should have received a copy of the GNU General Public License
+	 *  along with this program; if not, write to the Free Software
+	 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	 *
+	 *  Contact:
+	 *    Project page: http://repo.hu/projects/pcb-rnd
+	 *    lead developer: http://repo.hu/projects/pcb-rnd/contact.html
+	 *    mailing list: pcb-rnd (at) list.repo.hu (send "subscribe")
+	 */
+	#include <stdlib.h>
+	#include <librnd/core/compat_misc.h>
+	#include "../src_plugins/io_bxl/bxl_gram.h"
+	#define lval  ((pcb_bxl_STYPE *)(user_ctx))
+
+rule integer
+regex [-]?[0-9]+
+code
+	lval->un.i = atoi(ULX_BUF);
+	return T_INTEGER;
+
+rule real
+regex [-]?[0-9]*[.][0-9Ee+-]*
+code
+	lval->un.d = strtod(ULX_BUF, NULL);
+	return T_REAL_ONLY;
+
+rule id
+regex [a-zA-Z][a-zA-Z0-9_-]*
+code
+	lval->un.s = rnd_strdup(ULX_BUF);
+	return T_ID;
+
+rule quoted string
+regex "\([^"]*\)"
+code
+	lval->un.s = rnd_strndup(ULX_TAGP(1), ULX_TAGL(1));
+	return T_QSTR;
+
+rule chars
+regex [():,\n]
+code
+	return *ULX_BUF;
+
+rule blank
+regex [ \t\r]+
+code
+	ULX_IGNORE;
+
+rulestring 3D_DXF            lval->un.s = rnd_strdup(ULX_BUF); return T_ID;
+
+rulestring True              return T_TRUE;
+rulestring False             return T_FALSE;
+rulestring TextStyle         return T_TEXTSTYLE;
+rulestring FontWidth         return T_FONTWIDTH;
+rulestring FontCharWidth     return T_FONTCHARWIDTH;
+rulestring FontHeight        return T_FONTHEIGHT;
+rulestring PadStack          return T_PADSTACK;
+rulestring EndPadStack       return T_ENDPADSTACK;
+rulestring Shapes            return T_SHAPES;
+rulestring PadShape          return T_PADSHAPE;
+rulestring HoleDiam          return T_HOLEDIAM;
+rulestring Surface           return T_SURFACE;
+rulestring Plated            return T_PLATED;
+rulestring NoPaste           return T_NOPASTE;
+rulestring Width             return T_WIDTH;
+rulestring Height            return T_HEIGHT;
+rulestring PadType           return T_PADTYPE;
+rulestring Layer             return T_LAYER;
+rulestring Pattern           return T_PATTERN;
+rulestring EndPattern        return T_ENDPATTERN;
+rulestring Data              return T_DATA;
+rulestring EndData           return T_ENDDATA;
+rulestring OriginPoint       return T_ORIGINPOINT;
+rulestring PickPoint         return T_PICKPOINT;
+rulestring GluePoint         return T_GLUEPOINT;
+rulestring Pad               return T_PAD;
+rulestring Number            return T_NUMBER;
+rulestring PinName           return T_PINNAME;
+rulestring PadStyle          return T_PADSTYLE;
+rulestring OriginalPadStyle  return T_ORIGINALPADSTYLE;
+rulestring Origin            return T_ORIGIN;
+rulestring OriginalPinNumber return T_ORIGINALPINNUMBER;
+rulestring Rotate            return T_ROTATE;
+rulestring Poly              return T_POLY;
+rulestring Line              return T_LINE;
+rulestring EndPoint          return T_ENDPOINT;
+rulestring Width             return T_WIDTH;
+rulestring Attribute         return T_ATTRIBUTE;
+rulestring Attr              return T_ATTR;
+rulestring Justify           return T_JUSTIFY;
+rulestring Arc               return T_ARC;
+rulestring Radius            return T_RADIUS;
+rulestring StartAngle        return T_STARTANGLE;
+rulestring SweepAngle        return T_SWEEPANGLE;
+rulestring Text              return T_TEXT;
+rulestring IsVisible         return T_ISVISIBLE;
+rulestring IsFlipped         return T_ISFLIPPED;
+rulestring Property          return T_PROPERTY;
+rulestring Wizard            return T_WIZARD;
+rulestring Templatedata      return T_TEMPLATEDATA;
+rulestring VarName           return T_VARNAME;
+rulestring VarData           return T_VARDATA;
+rulestring Symbol            return T_SYMBOL;
+rulestring EndSymbol         return T_ENDSYMBOL;
+rulestring Component         return T_COMPONENT;
+rulestring EndComponent      return T_ENDCOMPONENT;

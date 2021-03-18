@@ -1,0 +1,17 @@
+list root
+ symlink 'key1' = 'val1'
+ symlink 'key2' = 'val2'
+ symlink 'key3' = 'val3'
+ symlink 'key4' = 'val4'
+ symlink 'key5' = 'val5'
+ symlink 'key6' = 'val6'
+ symlink '' = 'anon1'
+ symlink '' = 'anon2'
+ symlink '' = 'anon3'
+ symlink 'empty' = ''
+ symlink 'empty2' = ''
+ symlink '' = ''
+ symlink '' = ''
+ symlink 'symlink_ok' = '/'
+ symlink 'symlink_broken' = '/3478783'
+*EOF*

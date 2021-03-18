@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd - config sources </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+</head>
+<body>
+<H1> The new config system in pcb-rnd </H1>
+<H2> Sources </H2>
+There are different sources of configuration settings. These are
+different configuration files, sometimes located on the file system.
+The full list of config sources is:
+
+<table border=1>
+<tr><th> role     <th> default<br>setting<br>prio <th> location <th> presence <th> remarks
+<tr><td> internal
+    <td> 100
+    <td> (compiled into the executable)
+    <td> always
+    <td> the ultimate fallback; allows pcb-rnd even if no other configuration file is found
+
+
+<tr><td> system
+    <td> 200
+    <td> /usr/share/pcb-rnd/pcb-conf.lht
+    <td> recommended
+    <td> should hold system and installation specific settings, e.g. path to the system-wise installed footprint library
+
+<tr><td> default board
+    <td> 300
+    <td> /usr/share/pcb-rnd/default4.lht<a href="#footnote1"><sup>1</sup></a>
+    <td> deprecated<a href="#footnote2"><sup>2</sup></a>
+    <td> pcb editable defaults
+
+<tr><td> user
+    <td> 400
+    <td> ~/.pcb-rnd/pcb-conf.lht
+    <td> recommended
+    <td> store user preferences, user's common footprint lib path, etc; this is the first file the user can modify (even from the GUI)
+
+<tr><td> environment
+    <td> 500
+    <td> environment variables (TODO)
+    <td> occasional
+    <td> inject the same (temporary) settings in multiple pcb-rnd sessions without having to change config files
+
+<tr><td> project
+    <td> 600
+    <td> project.lht in the project directory
+    <td> optional
+    <td> local project settings - useful for large projects with multiple board (.lht) files
+
+<tr><td> design
+    <td> 700
+    <td> saved in the board (.lht) file
+    <td> optional, common
+    <td> per design deviation from the user+system config
+
+<tr><td> cli
+    <td> 800
+    <td> command line argument
+    <td> occasional
+    <td> inject/change a setting for a single session; useful in batch/automated processing
+</table>
+
+<p>
+Pcb-rnd reads them all, then merges all settings into a master binary
+representation. If a setting is specified in multiple sources, the one
+with the higher priority wins, except for lists where it is also possible
+to prepend/append items. Default priorities are designed to result
+precedence in an intuitive way (e.g. design settings overwrite user settings).
+However, <a href="prio.html">priority can be changed</a> per setting, resulting
+in weak settings ("use this value if it was not already set") or strong settings
+("I always want to use mincut, so I enable it from my user's config with high
+priority and a version controlled project setting can not turn it off")
+
+<p>
+Footnotes:
+<ul>
+	<li id="footnote1"> <sup>1</sup>: the name of the default board is default4.lht for
+	the default 4 layer board. The standard installation also ships default2.lht
+	as a similar 2 layer board. The name of the default boardfile is configured
+	in config node rc/default_pcb_file.
+	<li id="footnote2"> <sup>2</sup>: default pcb should not contain a config subtree; it is
+	easier to maintain the config tree if default configuration is coming from
+	config files only.
+</ul>
+</body>
+</html>

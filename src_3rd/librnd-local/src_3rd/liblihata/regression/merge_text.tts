@@ -1,0 +1,17 @@
+load_doc D1 text.lht
+root N1 D1
+
+echo Original:
+print_tree N1
+
+list_child N1
+equ_node N2 N1
+list_next N2
+
+
+tree_merge N1 N2
+echo After merging key1,key2:
+root N1 D1
+print_tree N1
+
+free_doc D1

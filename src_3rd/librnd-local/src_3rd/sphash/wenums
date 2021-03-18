@@ -1,0 +1,14 @@
+protocol
+ tcp
+ udp
+ control
+policy
+ allow
+ deny
+resolv
+ enable
+ disable
+stderr
+ ignore
+ control
+ merge

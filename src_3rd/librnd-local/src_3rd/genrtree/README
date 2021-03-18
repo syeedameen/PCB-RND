@@ -1,0 +1,6 @@
+Type-generic rectangular rtrees with reentrant API.
+
+Objects are defined with bounding box rectangles in a 2d plane. The
+rectanbles are stored in a tree. The algorithm is especially quick in
+inserting and looking up rectangles. A typical query is "which objects
+does this rectangle overlap with?".

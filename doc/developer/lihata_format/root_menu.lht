@@ -1,0 +1,232 @@
+ha:lht_tree_doc {
+
+ha:roots {
+	ha:menu {
+		type=ha
+		name={rnd-menu-v1}
+		desc={Menu file}
+		li:children {
+			ha:mouse {
+				type=li
+				desc={mouse bindings}
+				li:children {
+					ha:left {
+						type=li
+						desc={actions to execute on left button click}
+						sy:children = {/lht_tree_doc/comm/mouse_actions/children}
+					}
+					ha:middle {
+						type=li
+						desc={actions to execute on middle button click}
+						sy:children = {/lht_tree_doc/comm/mouse_actions/children}
+					}
+					ha:right {
+						type=li
+						desc={actions to execute on right button click}
+						sy:children = {/lht_tree_doc/comm/mouse_actions/children}
+					}
+					ha:scroll-up {
+						type=li
+						desc={actions to execute on scroll wheel scolling up event}
+						sy:children = {/lht_tree_doc/comm/mouse_actions_scroll/children}
+					}
+					ha:scroll-down {
+						type=li
+						desc={actions to execute on scroll wheel scolling down event}
+						sy:children = {/lht_tree_doc/comm/mouse_actions_scroll/children}
+					}
+				}
+			}
+			ha:main_menu {
+				type=li
+				desc={root of the main pull-down menu system; ordered list of main menus}
+				li:children {
+					ha:MENUNAME {
+						type=ha
+						desc={main menu name, e.g. "File"}
+						li:children {
+							sy:m@dup = {/lht_tree_doc/comm/submenu/children/m}
+							sy:submenu = {/lht_tree_doc/comm/submenu}
+						}
+					}
+				}
+			}
+			ha:popups {
+				type=li
+				desc={collection of popup menus}
+				li:children {
+					ha:POPUPNAME {
+						type=ha
+						desc={popup menu name, e.g. "layer" for layer context menu}
+						li:children {
+							sy:m@dup = {/lht_tree_doc/comm/submenu/children/m}
+							sy:submenu = {/lht_tree_doc/comm/submenu}
+						}
+					}
+				}
+			}
+			ha:toolbar_static {
+				type=li
+				desc={ordered list (from left to right) of toolbar icons}
+				li:children {
+					ha:TOOLNAME {
+						type=ha
+						desc={tool menu name, e.g. "polyhole" for the polygon hole draw tool}
+						li:children {
+							ha:tip { type=te; desc={tooltip for the icon button} }
+						}
+					}
+				}
+			}
+			ha:anchored {
+				type=li
+				desc={list of submenus; child of submenu would be copied and appended after ever occurance of the ANCHORNAME }
+				li:children {
+					ha:@ANCHORNAME {
+						type=ha
+						desc={list menu items/subtrees to be copied after each @ANCHORNAME in the menu system}
+						li:children {
+							sy:submenu = {/lht_tree_doc/comm/submenu}
+						}
+					}
+				}
+			}
+			ha:scripts {
+				type=ha
+				desc={ a collection of named action scripts that can be symnlinked from elsewhere in the menu file }
+				li:children {
+					ha:SCRIPTNAME {
+						type=li
+						desc={action script}
+					}
+				}
+			}
+		}
+	}
+
+	ha:menu_patch {
+		type=ha
+		name={rnd-menu-patch-v1}
+		desc={Menu patch instructions}
+		li:children {
+			ha:prio {
+				type=te
+				desc={optional; integer priority value used in ordering the menu files/patches before merging }
+			}
+			ha:patch {
+				type=li
+				desc={ordered list of patch instructions}
+				li:children {
+					ha:append_menu {
+						type=ha
+						desc={append (or overwrite) a submenu tree at a given path}
+						li:children {
+							sy:path = {/lht_tree_doc/comm/path}
+							sy:submenu = {/lht_tree_doc/comm/submenu}
+						}
+					}
+					ha:remove_menu {
+						type=ha
+						desc={remove a submenu or menu item at a given path}
+						li:children {
+							sy:path = {/lht_tree_doc/comm/path}
+						}
+					}
+					ha:overwrite_menu_props {
+						type=ha
+						desc={overwrite properties of an existing menu}
+						li:children {
+							sy:path = {/lht_tree_doc/comm/path}
+							ha:props = {type=ha; desc={same as menu properties documented at LEAFSUBMENUNAME}}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+ha:comm {
+	ha:mouse_actions {
+		hide=1
+		li:children {
+			ha:press         { type=li; desc={actions to execute on mouse button press when no modifier is pressed} }
+			ha:press-shift   { type=li; desc={actions to execute on mouse button press when shift is pressed} }
+			ha:press-ctrl    { type=li; desc={actions to execute on mouse button press when control is pressed} }
+			ha:release       { type=li; desc={actions to execute on mouse button release when no modifier is pressed} }
+			ha:release-shift { type=li; desc={actions to execute on mouse button release when shift is pressed} }
+			ha:release-ctrl  { type=li; desc={actions to execute on mouse button release when control is pressed} }
+		}
+	}
+	ha:mouse_actions_scroll {
+		hide=1
+		li:children {
+			ha:press         { type=li; desc={actions to execute on mouse button press when no modifier is pressed} }
+			ha:press-shift   { type=li; desc={actions to execute on mouse button press when shift is pressed} }
+			ha:press-ctrl    { type=li; desc={actions to execute on mouse button press when control is pressed} }
+		}
+	}
+
+	ha:submenu {
+		type=li
+		desc={ordered list of menu items for a submenu}
+		li:children {
+			ha:m            = {valtype=string; desc={mnemonic: single character that should be underlined and used as a hot key in the menu name}}
+			ha:-            = {valtype=none; desc={horizontal separator}}
+			ha:@ANCHOR      = {valtype=none; desc={an anchor is an invisible placeholder where a dynamically generated set of menu items should be inserted runtime}}
+			ha:SUBSUBMENUNAME  = {
+				type=ha
+				desc={sub-submenu item: opens a new level of submenu when clicked}
+				li:children {
+					sy:m@dup = {/lht_tree_doc/comm/submenu/children/m}
+					sy:submenu = {/lht_tree_doc/comm/submenu}
+				}
+			}
+			ha:LEAFSUBMENUNAME  = {
+				type=ha
+				desc={leaf submenu item: executes an action when clicked}
+				li:children {
+					sy:m@dup = {/lht_tree_doc/comm/submenu/children/m}
+					ha:a1 {
+						type=li
+						name=a
+						desc={list of alternative hotkey sequences to activate the menu}
+					}
+					ha:a2 {
+						valtype=string
+						name=a
+						desc={a single hotkey sequences to activate the menu}
+					}
+					ha:action1 {
+						type=li
+						name=action
+						desc={list of actions to execute when the menu is activated}
+					}
+					ha:action2 {
+						valtype=string
+						name=action
+						desc={a single action to execute when the menu is activated}
+					}
+					ha:tip {
+						valtype=string
+						desc={tooltip text}
+					}
+					ha:checked {
+						valtype=string
+						desc={the menu item has a checkbox; value is the action to execute to determine whether the menu item's checkbox is checked or not}
+					}
+					ha:update_on {
+						valtype=string
+						desc={path of a conf node that triggers re-evaluation of the checkbox state}
+					}
+				}
+			}
+		}
+	}
+	ha:path {
+		type=te
+		desc={path to a menu item, starting from the menu tree root; e.g. /main_menu/File/Revert }
+	}
+}
+}
+

@@ -1,0 +1,19 @@
+# implicit type for list is text; chaning to any other type should not affect the implicit type of later nodes
+li:root {
+li:x {
+    sy:foo = bar;
+    bar1 = baz;
+    li:hah = {};
+    bar2 = baz;
+    ha:heh = {};
+    bar3 = baz;
+}
+ha:x {
+    sy:foo = bar;
+    bar1 = baz;
+    li:hah = {};
+    bar2 = baz;
+    ha:heh = {};
+    bar3 = baz;
+}
+}

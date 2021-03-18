@@ -1,0 +1,3 @@
+li:{rt} [root] FIRST te:{text} LAST sy:{symlink}
+ te:{text} {textnode}
+ sy:{symlink} {/}

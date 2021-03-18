@@ -1,0 +1,2 @@
+# on parse level this is valid; some tree walk would result in 'bar: not found'
+sy:foo=bar

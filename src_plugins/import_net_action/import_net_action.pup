@@ -1,0 +1,9 @@
+$class import
+$short import net: action script
+$long Import the netlist and footprints from an action script.
+$state works
+$fmt-native no
+$fmt-feature-r pcb-rnd action script (netlist + footprint info)
+$package import-net
+default buildin
+autoload 1

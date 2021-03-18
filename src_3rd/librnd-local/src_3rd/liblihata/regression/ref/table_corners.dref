@@ -1,0 +1,23 @@
+li:{} [root] FIRST ta:{empty} LAST ta:{non-empty}
+ ta:{empty} cols: 0, rows: 0
+ ta:{non-empty} cols: 2, rows: 4
+  Row 0:{rowname0}
+   te:{} {00}
+   te:{} {01}
+  Row 1:{rowname1}
+   te:{} {10}
+   te:{} {11}
+  Row 2:{rowname2}
+   te:{} {20}
+   li:{21} FIRST te:{} LAST te:{}
+    te:{} {a}
+    te:{} {b}
+    te:{} {c}
+    te:{} {d}
+  Row 3:{rowname3}
+   te:{} {30}
+   ha:{31} entries: 4
+    te:{c} {3}
+    te:{d} {4}
+    te:{a} {1}
+    te:{b} {2}

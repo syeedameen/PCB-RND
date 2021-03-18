@@ -1,0 +1,6 @@
+$class feature
+$short font selection GUI
+$long Draw the font selector GUI
+$package lib-gui
+$state works
+default disable

@@ -1,0 +1,13 @@
+ha:{root} [root] entries: 2
+ li:{lst} FIRST te:{key} LAST te:{key}
+  te:{key} {0}
+  te:{key} {1}
+  te:{key} {2}
+  te:{key} {3}
+ ta:{tbl} cols: 2, rows: 2
+  Row 0:{}
+   te:{} {00}
+   te:{} {01}
+  Row 1:{}
+   te:{} {10}
+   te:{} {11}

@@ -1,0 +1,10 @@
+list 
+ table empty
+ table non-empty
+  list 
+   text '' = '11'
+   text '' = '12'
+  list 
+   text '' = '21'
+   text '' = '22'
+*EOF*

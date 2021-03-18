@@ -1,0 +1,13 @@
+put /local/pcb/mod {ddraft}
+put /local/pcb/mod/OBJS [@
+	$(PLUGDIR)/ddraft/ddraft.o
+	$(PLUGDIR)/ddraft/centgeo.o
+	$(PLUGDIR)/ddraft/fields_sphash.o
+@]
+put /local/pcb/mod/SPHASH  {$(PLUGDIR)/ddraft/fields.sphash}
+
+switch /local/pcb/ddraft/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

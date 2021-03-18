@@ -1,0 +1,6 @@
+$class lib
+$short polygon helpers
+$long functions to help plugins processing polygons and PolyHatch() action
+$state works
+$package (core)
+default buildin

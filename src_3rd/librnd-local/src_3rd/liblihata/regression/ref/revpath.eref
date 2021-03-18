@@ -1,0 +1,14 @@
+hash root
+ list lst
+  text 'key' = '0'
+  text 'key' = '1'
+  text 'key' = '2'
+  text 'key' = '3'
+ table tbl
+  list 
+   text '' = '00'
+   text '' = '01'
+  list 
+   text '' = '10'
+   text '' = '11'
+*EOF*

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../default.css">
+</head>
+<body>
+<h1 nopdf="yes"> pcb-rnd - user manual </h1>
+
+<h2> 8.1. gsch2pcb-rnd </h2>
+<p>
+Gsch2pcb-rnd is a standalone utility that can extract netlists and
+element data from a schematics produced by gschem. Thus it is a glue
+between gschem and pcb-rnd, doing <i>forward annotation</i>. It is ideal
+for automating the design process as it can be easily called from
+Makefiles, shell scripts or other programs/scripts, whereas the
+"import schematics" feautre (import_sch plugin) is more geared for the
+GUI user.
+<p>
+Multiple <i>methods</i> of operation are offered - the user can select
+one of these by name, using the -m command line argument (e.g.
+<i>gsch2pcb-rnd -m importsep foo.sch</i>):
+<table border="1">
+	<tr>
+		<td> method name
+		<td> description
+	<tr>
+		<td> import
+		<td> Runs the same gnetlist backend as the import_sch plugin. A single
+		     action command file generated with .cmd suffix. When executed
+		     (using action <i>ExcuteFile(foo.cmd)</i>), it syncs (replaces/creates)
+		     every element and sets up all nets. Pro: single-command import.
+		     Con: can't load netlist only or elements only.
+	<tr>
+		<td> importsep
+		<td> Similar to import, but produces two files: a .cmd file with element
+		     updates only (can be appled the same way as import's) and a
+		     separate .net netlist file that can be imported the same way as the
+		     .net of the pcb method. Pro: the user can update elements-only or
+		     nets-only. Con: requires two user actions to get a full impoty.
+	<tr>
+		<td> <strike>pcb</strike>
+		<td> The classic approach that tried to edit the .pcb file.
+		     <b>No longer supported</b>.
+</table>
+</body>
+</html>

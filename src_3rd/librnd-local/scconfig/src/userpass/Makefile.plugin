@@ -1,0 +1,11 @@
+USERPASS_CFLAGS = -DPLUGIN_USERPASS
+USERPASS_OBJS = \
+  $(BIN)/userpass/find_username.o \
+  $(BIN)/userpass/userpass.o
+
+$(BIN)/userpass/find_username.o: $(SRC)/userpass/find_username.c
+	$(CC) $(CFLAGS) -c $(SRC)/userpass/find_username.c -o $(BIN)/userpass/find_username.o
+
+$(BIN)/userpass/userpass.o: $(SRC)/userpass/userpass.c
+	$(CC) $(CFLAGS) -c $(SRC)/userpass/userpass.c -o $(BIN)/userpass/userpass.o
+

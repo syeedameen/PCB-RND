@@ -1,0 +1,12 @@
+li:{
+	ta:empty {
+	}
+
+	ta:non-empty {
+		row0 = { col0 = 00; col1 = 01 }
+		row1 = { col0 = 10; col1 = 11 }
+		row2 = { col0 = 20; li:col1 = { cell0 = a; cell1 = b; cell2 = c; cell3 = d } }
+		row3 = { col0 = 30; ha:col1 = { a = 1; b = 2; c = 3; d = 4 } }
+		row0 = { col0 = 0a; col0 = 0b }
+	}
+}

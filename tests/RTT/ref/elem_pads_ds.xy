@@ -1,0 +1,9 @@
+# $Id$
+# PcbXY Version 1.0
+# Date: <date>
+# Author: TEST
+# Title: element with pads on both sides - PCB X-Y
+# RefDes, Description, Value, X, Y, rotation, top/bottom
+# X,Y in mil.  rotation in degrees.
+# --------------------------------------------
+E1,"(unknown)","(unknown)",243.75,318.75,0,top

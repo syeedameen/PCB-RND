@@ -1,0 +1,35 @@
+# look up not-the-first element of a list thenconstruct the reverse path
+# should get the same path
+
+load_doc D1 revpath.lht
+root N2 D1
+print_node N2
+root N3 D1
+path N3 /lst/0
+print_node N3
+path N3 /lst/1
+print_node N3
+path N3 /lst/2
+print_node N3
+path N3 /lst/3
+print_node N3
+
+#doesn't exist, error message (OK)
+path N3 /lst/4
+print_node N3
+
+echo ---
+
+load_doc D2 sy.lht
+root N0 D2
+print_node N0
+root N1 D2
+path N1 /0
+print_node N1
+
+#exists, but error message
+path N1 /1
+print_node N1
+
+free_doc D1
+free_doc D2

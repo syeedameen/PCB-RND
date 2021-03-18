@@ -1,0 +1,135 @@
+user manual
+	1. intro: what is pcb-rnd; place in the generic workflow
+	2. model of the world
+		intro
+			real boards (terminology)
+			pcb-rnd terminology
+			limitations
+		board, global properties
+		layer groups and layers
+		atomic objects
+			lines
+			arcs
+			vias
+			polygons
+		composite objects
+			elements
+	3. where data is
+		board
+		paste buffers
+		footprint libraries
+			pcblib
+				static footprints
+				generated footprints
+		file formats
+			board
+				lihata
+				pcb
+				kicadl
+				kicad
+			footprint
+			import
+			export
+	4. invocation
+		TODO
+	5. user interface (hid plugins)
+		under the hood: actions
+		gtk
+			main window
+			menu + keys
+			misc dialogs
+				log window
+				cli
+			library dialog
+			propedit dialog
+			preferences dialog
+		batch
+		(lesstif: low prio)
+		(remote: not finished yet)
+		(sdl: not even started yet)
+	6. feature plugins							 included,buildin   name	     DocDraftComplete?
+ 		net auto-completion             no              [acompnet]			y
+ 		crop board to fit objects       yes, buildin    [autocrop]			y
+ 		auto place components           yes, buildin    [autoplace]
+ 		the original autorouter         yes, buildin    [autoroute]
+ 		flip board objects              yes, buildin    [boardflip]
+ 		diagnostic acts. for devs       no              [diag]
+ 		HID-independent GUI dialogs     yes, buildin    [dialogs]
+ 		distribute and align text       yes, buildin    [distaligntext]			y
+ 		distribute and align objs       yes, buildin    [distalign]
+ 		djopt board optimization        yes, buildin    [djopt]				y
+ 		draw cross-section (layers)     yes, buildin    [draw_csect]
+ 		fab layer in some exports       yes, buildin    [draw_fab]
+ 		font selection GUI              yes, buildin    [draw_fontsel]
+ 		font editor                     yes, buildin    [fontmode]
+ 		push lines out of the way       yes, buildin    [jostle]
+ 		diagnostics: log HID calls      no              [loghid]
+ 		calculate toolpath for milling  no              [millpath]
+ 		minimal cut shorts              yes, buildin    [mincut]
+ 		old/obsolete actions            no              [oldactions]
+ 		combine selected polygons       yes, buildin    [polycombine]
+ 		stitch polygon at cursor        no              [polystitch]
+ 		object property editor          yes, buildin    [propedit]
+ 		puller                          yes, buildin    [puller]
+ 		query language                  yes, buildin    [query]				y
+ 		renumber action                 yes, buildin    [renumber]
+ 		report actions                  yes, buildin    [report]
+ 		the original rubberband         yes, buildin    [rubberband_orig]
+ 		command shorthands              yes, buildin    [shand_cmd]
+ 		netlist based dispenser         yes, buildin    [smartdisperse]
+ 		libstroke gestures              no              [stroke]
+ 		draw teardrops on pins          yes, buildin    [teardrops]
+ 		vendor drill mapping            yes, buildin    [vendordrill]			y
+	7. io and import plugins
+		Comparison table (build from data like tests/RTT/RTT_kicad*)
+		intro: io_lihata extra attention to pcb-rnd's native format
+		IO & Import plugins sorted by capability: Boards, footprints, and netlists parens=(in development)
+			Boards: io plugins that deal with boards  
+				lihata
+				pcb
+				kicadl
+				kicad
+				protel autotrax
+				(eagle)
+			Footprints: io plugins that deal with footprints
+				lihata
+				fp  -- handled by pcb
+				kicadl
+				kicad
+				protel autotrax -- 'components'
+				(eagle)
+				(mentor-cell)
+			Netlists: there are import and io plugins dealing with netlists
+				lihata
+				specctra dsn
+				geda  -- import_netlist plugin
+				tinycad
+				ltspice .net + .asc
+				kicadl
+				kicad
+				tinycad .net 
+				protel autotrax
+				Mentor graphics schematic
+				Electronic Design Interchange Format (EDIF import plugin)
+				tEDAx
+				mucs routing
+				(eagle)
+	8. utilities
+	9. appendix
+		glossary
+		full index/catalog of actions (generated)
+		full index/catalog of all plugins
+		how to build
+
+		
+_styleguide notes:_
+urls all lowercased (eg. GTK becomes gtk)
+pronouns: write to avoid pronouns, use user/developer, use she
+organization:  hierarchical with lots of links for people who have tunneled deep?
+navigation: don't add navigation in page, rely on browser navs
+html strict:  use standard html 1.0 
+css:  use css for looks without content modification 
+assets: generate assets (use dot, etc), assume make and same system is able to build pcb-rnd
+tables: use zebra styling for ease of reading 
+deps/requirements for pcb-rnd itself (we need an appendix table to live create the actions list)
+naming sections: despite lowercasing urls, keep naming concise so links have names that lead to sections with same names

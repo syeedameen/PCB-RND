@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd - main </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+<!--AUTO head begin-->
+	<link rel="icon" href="resources/logo16.png">
+<!--AUTO head end-->
+</head>
+<body>
+
+<!--AUTO navbar begin-->
+<table border=0 cellspacing=2 cellpadding=10  bgcolor="#eeeeee" width="100%">
+<tr>
+<th align=center bgcolor="#ccc0cc"> <a href="index.html"> Main </a>
+<th align=center bgcolor="#ccc0cc"> <a href="news.html"> News </a>
+<th align=center bgcolor="#ccc0cc"> <a href="doc.html">Doc</a>&nbsp;&amp;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&amp;&nbsp;<a href="http://repo.hu/projects/pcb-rnd-aux/pool">pool</a>
+<th align=center bgcolor="#ccc0cc"> <a href="support.html"> Support </a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi">People</a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=events">Events</a>&nbsp;&amp;&nbsp;<a href="http://www.repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=timeline">timeline</a>
+<td align=right width="60%"> <font size="+2"><i>pcb-rnd</i></font> <img src="resources/logo32.png" alt="[pcb-rnd logo]">
+</table>
+<!--AUTO navbar end-->
+
+<br>
+<!--content-->
+<table border=0 cellpadding=10> <tr>
+<td valign=top bgcolor="#f2f2f2">
+	<h2> Summary </h2>
+	<table border=0 cellpadding=20>
+	<tr><th align=right valign=top bgcolor="#ccccff"> 
+		<table border=0 width="100%" cellpadding=0 cellspacing=0><tr><td align=left><img src="resources/logo128.png" alt="[pcb-rnd logo]"><th align=right>pcb-rnd</table>
+		<td bgcolor="#ddddff">
+		    <b>is a <a href="license.html"> free/open source</a>, flexible, modular Printed Circuit Board editor</b>
+		<p>for design of <a href="http://repo.hu/projects/pcb-rnd-aux/built/"> professional and hobby boards.</a>
+		<p>is <a href="datasheet.html"> feature-rich </a> and <a href="user/09_appendix/bridges.svg">compatible</a>
+		<p>has a long <a href="user/01_intro/history.html">history</a>, fast paced development, and big plans.
+		<p>is part of the <a href="http://repo.hu/projects/coraleda">coralEDA</a> ecosystem.
+		
+
+
+	<tr><th align=right valign=top bgcolor="#ccccff"> Version Control              <td bgcolor="#ddddff"> <a href="http://cgi.repo.hu/cgi-bin/minisvn.cgi?cmd=browse&amp;repo=pcb-rnd&amp;path=trunk"> svn://svn.repo.hu/pcb-rnd/trunk </a> <a href="mirrors.html">(mirrors)</a>
+	<tr><th align=right valign=top bgcolor="#ccccff"> Download                     <td bgcolor="#ddddff"> <a href="releases/"> source releases </a> | <a href="releases-bin/"> binary releases (windows) </a>
+	<tr><th align=right valign=top bgcolor="#ccccff"> Comments, feedback, patches  <td bgcolor="#ddddff"> <a href="irc.html"> live chat with the developer </a><br>or <a href="contact.html">contact the lead developer</a><br>Mailing list: pcb-rnd <img src="resources/at.png"> list.repo.hu (send a mail with subject: subscribe; may fail with gmail) <a href="http://repo.hu/cgi-bin/web_mail_arch.cgi?mlist=pcb-rnd&cmd=flat&id=-15"> (archives) </a> <a href="privacy.html">(privacy policy)</a>
+	<tr><th align=right valign=top bgcolor="#ccccff"> Contribution and support     <td bgcolor="#ddddff">
+		    How to <a href="contrib.html"> join or contribute </a>
+		<br>We are looking for <a href="help.html"> help</a> and <a href="https://sponsor.pcbrnd.repo.hu">sponsoration/donation</a>.
+		<br>A major supporter is <a href="https://nlnet.nl/project/pcb-rnd/">NLnet</a>
+		<br>Do you have a <a href="myfeature.html">feature request</a>?
+
+	<tr><th align=right valign=top bgcolor="#ccccff"> Key features <td bgcolor="#ddddff">
+		     editor for multilayer Printed Circuit Boards
+		<br> scriptable in 10+ different scripting languages
+		<br> <a href="http://repo.hu/cgi-bin/pool.cgi?cmd=show&node=pcblib">parametric footprint</a> generation, <a href="http://repo.hu/cgi-bin/pool.cgi?cmd=show&node=fp_wget"> web footprints </a>
+		<br> <a href="developer/mods3/">modular code</a> with a flexible plugin system
+		<br> fits well in a UNIXy workflow
+		<br> supports CLI and server applications
+		<br> active development, frequent releases
+		<br> friendly and efficient developer and user community
+		<br> powerful, user scriptable Design Rule Checker
+		<br> <a href="http://www.repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=timeline"> predictable development cycles </a>
+		<br> compatible with <b>KiCad</b> and <b>gEDA/PCB</b>, understands Eagle and Protel/Autotrax file formats
+
+	<tr><th align=right valign=top bgcolor="#ccccff"> Supported platforms <td bgcolor="#ddddff">
+		<table border=0 width="100%">
+		<tr><td>
+			     Linux desktop (various distributions, from source)
+			<br> official packages in Debian, Ubuntu, Fedora, Mageia, Kali, Parrot, PureOS, Raspbian (<a href="https://repology.org/project/pcb-rnd/versions">full list</a>)
+			<br> <a href="INSTALL.mac.txt"> Mac OS X </a>
+			<br> <a href="INSTALL.win32.html"> Windows (7, 8, 10) </a>
+			<br> <a href="INSTALL.UNIX.txt"> IRIX 5.3, AIX 7 </a>
+			<br> OpenBSD (Likely: any BSD not older than 25 years)
+			<br> (Likely: any 90's or newer UNIX system with motif)
+			<br> Screen resolution as small as 800x600
+			<br> GUI options: motif/lesstif, gtk-gdk, gtk-gl
+		<td width="10px">
+		<td valign="bottom" align="right">
+			<img src="resources/screenshot.jpg" alt="screenshot of pcb-rnd running on Debian GNU/Linux">
+		</table>
+</table>
+
+<!-- spacer -->
+	<td width=0>
+
+<!-- rnd -->
+	<td width="20%" bgcolor="#f2f2f2">
+	<h2> What is -rnd? </h2>
+	<br>
+
+	<table border=0 cellspacing=10 cellpadding=0  bgcolor="#ccffcc">
+	<tr>
+	<td><font size="+2"><b>R</b>espo<b>N</b>sive <b>D</b>evelopers</font>
+	<td> Developers try to respond on user needs, adding features that are actually needed by current users.
+	</table>
+
+	<p>
+
+	<table border=0 cellspacing=10 cellpadding=0  bgcolor="#ccffcc">
+	<tr><td>
+	<font size="+2"><b>R</b>esponse <b>N</b>ot <b>D</b>elayed</font>
+	<td> Bugreports, user requests and patches submitted are answered ASAP. There are no patches bitrotting for months. There are no forgotten bugreports.
+	</table>
+
+	<p>
+
+	<table border=0 cellspacing=10 cellpadding=0  bgcolor="#ccffcc" width=400>
+	<tr>
+	<td><font size="+2"><b>R</b>esearch <br><b>&amp;</b> <br><b>D</b>evelopment</font>
+	<br>
+	<br>
+	<b>R</b>&aacute;z&oacute;s, <br><b>N</b>eh&eacute;z <br><b>D</b>&ouml;nt&eacute;sek <br><small>(Brave, hard decisions)</small>
+	<td> There is a constant experimentation with new features and directions. We are willing to try strange/unusual ideas without risking the stability of the daily workflow.
+	</table>
+
+	<p>
+
+	<table border=0 cellspacing=10 cellpadding=0  bgcolor="#ccffcc">
+	<tr>
+	<td><font size="+2"><b>R</b>ants <br><b>N</b>ow <br><b>D</b>issipating</font>
+	<td> Instead of talking and ranting a lot about what could work better, we just sit down and make it work better.
+	</table>
+
+	<p>
+
+	<table border=0 cellspacing=10 cellpadding=0  bgcolor="#ccffcc">
+	<tr>
+	<td><font size="+2"><b>R</b>ather <br><b>N</b>icely <br><b>D</b>ecentralized</font>
+	<td> <a href="developer/mods3/"> Slim, generic core</a>; most of the code organized in replacable plugins. Most plugins depend only on the core.
+	</table>
+</table>
+
+</body>
+</html>

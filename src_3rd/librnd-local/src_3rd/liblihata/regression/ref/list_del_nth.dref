@@ -1,0 +1,6 @@
+li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+ li:{empty} 
+ li:{non-empty} FIRST te:{a} LAST te:{c}
+  te:{a} {val1}
+  te:{b} {val2}
+  te:{c} {val3}

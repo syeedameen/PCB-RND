@@ -1,0 +1,16 @@
+Trying to replace an existing node in the list:
+--- Before replacing
+  li:{non-empty} FIRST te:{key1} LAST te:{key2}
+   te:{key1} {val1}
+   te:{key2} {val2}
+list_replace_child: done
+--- After replacing
+  li:{non-empty} FIRST te:{} LAST te:{key2}
+   te:{} {for_replacing}
+   te:{key2} {val2}
+Trying to replace a node that is not even on the list
+--- Before replacing
+  li:{empty} 
+Error during list_replace_child: boundary check error: out of bounds
+--- After replacing
+  li:{empty} 

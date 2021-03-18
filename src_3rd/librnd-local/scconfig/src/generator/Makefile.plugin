@@ -1,0 +1,11 @@
+GENERATOR_OBJS = \
+  $(BIN)/generator/generator.o \
+  $(BIN)/tmpasm/openfiles.o
+
+GENERATOR_CFLAGS = -I$(SRC)/generator
+
+$(BIN)/generator/generator.o: $(SRC)/generator/generator.c $(SRC)/default/dep.h $(SRC)/default/log.h $(SRC)/default/regex.h
+	$(CC) $(CFLAGS) -c $(SRC)/generator/generator.c -o $(BIN)/generator/generator.o
+
+$(BIN)/tmpasm/openfiles.o: $(SRC)/tmpasm/openfiles.c
+	$(CC) $(CFLAGS) -c $(SRC)/tmpasm/openfiles.c -o $(BIN)/tmpasm/openfiles.o

@@ -1,0 +1,5 @@
+ha:{} [root] entries: 2
+ ha:{empty} entries: 0
+ ha:{non-empty} entries: 2
+  te:{key1} {val1}
+  te:{key2} {val2}

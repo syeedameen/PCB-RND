@@ -1,0 +1,4 @@
+echo Creating a new, detached text node:
+new_text N2 "detached"
+print_node N2
+dom_node_free N2

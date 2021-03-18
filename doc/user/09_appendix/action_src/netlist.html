@@ -1,0 +1,75 @@
+Each of these actions apply to a specified set of nets. <arg>net</arg> and
+<arg>pin</arg> are patterns which match one or more nets or pins; these
+patterns may be full names or regular expressions.  If an exact match
+is found, it is the only match; if no exact match is found,
+<b>then</b> the pattern is tried as a regular expression.
+<p>
+If neither <arg>net</arg> nor <arg>pin</arg> are specified, all nets apply.
+If <arg>net</arg> is specified but not <arg>pin</arg>, all nets matching
+<arg>net</arg> apply.  If both are specified, nets which match <arg>net</arg>
+and contain a pin matching <arg>pin</arg> apply.
+<p>
+<arg>freeze</arg>, <arg>thaw</arg> and <arg>forcethaw</arg>
+temporarily prevents changes to the netlist from being reflected in
+the GUI. For example, if you need to make multiple changes, you
+<arg>freeze</arg> the netlist, make the changes, then <arg>thaw</arg> it.
+Note that freeze/thaw requests may nest, with the netlist being fully thawed
+only when all pending freezes are thawed.  You can bypass the nesting
+by using <arg>forcethaw</arg>, which resets the freeze count and immediately
+updates the GUI.
+<p>
+Argument summary:
+<p>
+<p>
+<table border=1 cellspacing=0>
+	<tr><th> find
+	<td> Nets which apply are marked @emph{found} and are drawn in the
+	     <i>connected-color</i> color.
+
+	<tr><th> select
+	<td> Nets which apply are selected (added to existing selections).
+
+	<tr><th> unselect
+	<td> Nets which apply are unselected (removed from existing selections).
+
+	<tr><th> rats
+	<td> Nets which apply are marked as available for the rats nest.
+
+	<tr><th> norats
+	<td> Nets which apply are marked as not available for the rats nest.
+
+	<tr><th> allrats
+	<td> Mark all nets available for the rats nest.
+
+	<tr><th> allnorats
+	<td> Mark all nets not available for the rats nest.
+
+	<tr><th> clear
+	<td> Clears the netlist.
+
+	<tr><th> ripup
+	<td> Remove all non-subcircuit-part copper object that is connected to a net.
+
+	<tr><th> add
+	<td> Add the given pin to the given netlist, creating either if needed.
+
+	<tr><th> AddRats
+	<td> Calculate and add all rats required for finishing the named network.
+
+	<tr><th> swap
+	<td> Swap the connections one end of two selected rats and pins.
+
+	<tr><th> sort
+	<td> Called after a list of add's, this sorts the netlist.
+
+	<tr><th> freeze <br> thaw <br> forcethaw
+	<td> Temporarily prevents changes to the netlist from being reflected in the GUI.
+
+	<tr><th> rename
+	<td> Change the name of a network (with back annotation)
+
+	<tr><th> merge
+	<td> Move all terminal connections from the source network (first arg)
+	     to the destination network (with back annotation)
+
+</table>

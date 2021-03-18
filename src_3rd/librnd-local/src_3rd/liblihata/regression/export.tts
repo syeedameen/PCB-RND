@@ -1,0 +1,26 @@
+# use table_ins_row to test lihata 'delete row' functionality
+
+
+echo -----merge_hash.lht-----
+load_doc D1 merge_hash.lht
+root N1 D1
+export N1
+free_doc D1
+
+echo -----text.lht-----
+load_doc D1 text.lht
+root N1 D1
+export N1
+free_doc D1
+
+echo -----table.lht-----
+load_doc D1 table.lht
+root N1 D1
+export N1
+free_doc D1
+
+echo -----table_corners.lht-----
+load_doc D1 table_corners.lht
+root N1 D1
+export N1
+free_doc D1

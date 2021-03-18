@@ -1,0 +1,65 @@
+1. Configure
+
+Run ./configure.
+
+Run make.
+
+Run make install.
+
+For compile-time options run ./configure --help.
+
+Dependencies: almost none. For GUI, install the (-dev or -devel) libs
+Read the summary table and the warnings at the end of ./configure output
+and decide if you need the features missing. If there was no error, only
+warnings, pcb-rnd cab be compiled, even if some dependencies were missing.
+
+Summary of dependencies:
+For users:
+ - mandatory: C compiler
+ - mandatory: make
+ - optional: glib and gtk2 if you are using the GTK GUI
+ - optional: gtkglext if you need opengl rendering
+ - optional: motif or lesstif if you are using the lesstif frontend
+ - optional: gdlib if you want to export/import to/from png, jpg or gif
+
+For developers:
+ - flex
+ - bison
+
+NOTE: if you did not install any GUI lib dependency, pcb-rnd will be
+compiled with command line interface only.
+
+./configure will try to static link most plugins and disable ones that
+have missing dependencies. This process can be controlled using configure
+command line switches, see ./configure --help.
+
+
+2. Compiling
+
+Run make.
+
+Optionally also run make test.
+
+
+3. Running from source
+
+cd src && ./pcb-rnd
+
+(Note: it is important to cd to src to run pcb-rnd from source; src/pcb-rnd
+won't work unless pcb-rnd is installed).
+
+If this doesn't work, please refer to doc/UNIX.txt or doc/mac.txt
+
+
+4. Installation
+
+To install PCB after it has been built run:
+
+  make install
+
+from the top level directory. An alternative installation method
+is the link-install, which places symlinks instead of copying files so
+no subsequent make install is needed after a recompilation if no new
+files appeared (useful for developers):
+
+  make linstall

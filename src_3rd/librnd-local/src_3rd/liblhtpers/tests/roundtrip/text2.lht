@@ -1,0 +1,15 @@
+#c { m	t }
+	key1  =	{va    l1};
+	# ju jj
+	key2 {va    l2};
+
+	foo;bar;
+
+	k1=v1
+	k2 
+	k3  
+
+	key1=val1
+	key2  =	{val2}  ;
+	valonly
+

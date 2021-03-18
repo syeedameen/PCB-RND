@@ -1,0 +1,5 @@
+Dynamic DRC proposal 1: a Declarative DRC language.
+
+The final/revised version of this document got moved to
+the user documentation at ../../user/06_feature/query/lang.html because
+the query language is now officially the engine for the DRC.

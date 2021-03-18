@@ -1,0 +1,7 @@
+dom_load D1
+print_doc D1
+echo -
+dom_load D2 table.lht
+print_doc D2
+
+free_doc D2

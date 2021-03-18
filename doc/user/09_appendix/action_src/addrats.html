@@ -1,0 +1,20 @@
+First argument:
+<p>
+<table border=1 cellspacing=0>
+	<tr><th> AllRats
+	<td> Create rat lines for all loaded nets that aren't already connected on
+	     with copper.
+
+	<tr><th> SelectedRats
+	<td> Similarly, but only add rat lines for nets connected to selected pins
+	     and pads.
+
+	<tr><th> Close
+	<td> Selects the shortest unselected rat on the board.
+</table>
+<p>
+The second argument is temporary and optional, for a workaround of a bug in
+the old (to be removed) autorouter. If the value of the second argument is
+"manhattan", non-axis-aligned lines are ignored when looking for rat anchor
+points.
+

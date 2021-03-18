@@ -1,0 +1,12 @@
+# remove items
+li:ja {
+	k1=t1
+ li:2nd  {		
+	key1=val1
+	li:empty {
+	}
+	key2  =	{val2}  ;
+	valonly 
+ } 
+	k4=t1
+}

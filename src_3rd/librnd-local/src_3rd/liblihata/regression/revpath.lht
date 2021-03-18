@@ -1,0 +1,12 @@
+ha:root {
+	li:lst {
+		key=0
+		key=1
+		key=2
+		key=3
+	}
+	ta:tbl {
+		{00; 01}
+		{10; 11}
+	}
+}

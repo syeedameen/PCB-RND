@@ -1,0 +1,13 @@
+hash nodes_for_testing
+ text '0' = 'zero'
+ text '1' = 'one'
+ text '2' = 'two'
+ text '3' = 'three'
+ text '4' = 'four'
+ text '5' = 'five'
+ text '6' = 'six'
+ text '7' = 'seven'
+ text '8' = 'eight'
+ text '9' = 'nine'
+ text '10' = 'ten'
+*EOF*

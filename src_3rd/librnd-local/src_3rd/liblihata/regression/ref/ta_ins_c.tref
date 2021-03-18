@@ -1,0 +1,53 @@
+-----test 1-----
+insert one column to empty table
+**before**
+  ta:{empty} cols: 0, rows: 0
+**after**
+  ta:{empty} cols: 1, rows: 0
+-----test 2-----
+add one row
+**before**
+  ta:{empty} cols: 1, rows: 0
+**after**
+  ta:{empty} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {(null)}
+-----test 3-----
+insert column (parameter 0)
+**before**
+  ta:{empty} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {AAA}
+**after**
+  ta:{empty} cols: 2, rows: 1
+   Row 0:{}
+    te:{} {BBB}
+    te:{} {AAA}
+-----test 4-----
+insert column (parameter 2, this is the last row)
+**before**
+  ta:{empty} cols: 2, rows: 1
+   Row 0:{}
+    te:{} {BBB}
+    te:{} {AAA}
+**after**
+  ta:{empty} cols: 3, rows: 1
+   Row 0:{}
+    te:{} {BBB}
+    te:{} {AAA}
+    te:{} {CCC}
+-----test 5-----
+insert column (parameter 1)
+**before**
+  ta:{empty} cols: 3, rows: 1
+   Row 0:{}
+    te:{} {BBB}
+    te:{} {AAA}
+    te:{} {CCC}
+**after**
+  ta:{empty} cols: 4, rows: 1
+   Row 0:{}
+    te:{} {BBB}
+    te:{} {DDD}
+    te:{} {AAA}
+    te:{} {CCC}

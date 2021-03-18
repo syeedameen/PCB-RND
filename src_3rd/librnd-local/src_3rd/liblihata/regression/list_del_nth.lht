@@ -1,0 +1,9 @@
+li:{
+	li:empty {
+	}
+	li:non-empty {
+		a=val1
+		b=val2
+		c=val3
+	}
+}

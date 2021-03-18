@@ -1,0 +1,16 @@
+This mini-project demonstrates a minimal cut implementation tailored
+to solve pcb-rnd "how to highlight shorts" problem.
+
+It should compile out of the box on GNU/Linux using make. Running
+a test case:
+
+./main < test_cases/H3.in
+
+If graphviz is installed, input graphs are drawn. Changing the
+#defines in solve.c causes more debug messages printed and/or
+debug graphs drawn.
+
+The solver is portable as it is part of pcb-rnd. The stand-alone testbench is
+not that portable. The production code is solve.[ch], the rest is for
+the testbench.
+

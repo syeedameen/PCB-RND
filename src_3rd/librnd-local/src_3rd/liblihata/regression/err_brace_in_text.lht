@@ -1,0 +1,5 @@
+# this document is invalid: the first te:{} is an explicitly anonymous text node
+# and the first } would be the contet - however, it's impossible to decide
+# how many }s are part of the content. Instead, unprotected } in text node is
+# error.
+li:{te:{}}}}}

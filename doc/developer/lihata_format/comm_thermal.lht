@@ -1,0 +1,17 @@
+ha:lht_tree_doc { ha:comm {
+
+	ha:thermal_heavy {
+		name=thermal
+		type=li
+		hide=1
+		desc { list of thermal flags for heavy terminals, on the single layer the object is on }
+		li:children {
+			ha:on      { valtype=none; desc={draw any thermal only if this string is present; else normal clearance is applied}}
+			ha:diag    { valtype=none; desc={if present, the thermal is diagonal (45 degree rotated)}}
+			ha:round   { valtype=none; desc={if present, thermal shape is rounded}}
+			ha:sharp   { valtype=none; desc={if present, thermal shape is sharp}}
+			ha:solid   { valtype=none; desc={if present, there is no thermal but a solid connection ("join")}}
+		}
+	}
+
+}}

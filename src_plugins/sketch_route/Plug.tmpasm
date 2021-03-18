@@ -1,0 +1,19 @@
+put /local/pcb/mod {sketch_route}
+append /local/pcb/mod/OBJS [@
+ $(PLUGDIR)/sketch_route/sketch_route.o
+ $(PLUGDIR)/sketch_route/wire.o
+ $(PLUGDIR)/sketch_route/ewire.o
+ $(PLUGDIR)/sketch_route/ewire_point.o
+ $(PLUGDIR)/sketch_route/spoke.o
+ $(PLUGDIR)/sketch_route/pointdata.o
+ $(SRC_3RD_DIR)/libcdtr/cdt.o
+ $(SRC_3RD_DIR)/libcdtr/edge.o
+ $(SRC_3RD_DIR)/libcdtr/point.o
+ $(SRC_3RD_DIR)/libcdtr/triangle.o
+@]
+
+switch /local/pcb/sketch_route/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

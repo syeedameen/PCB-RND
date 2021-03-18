@@ -1,0 +1,20 @@
+# add items
+li:ja {
+	k1=t1
+NEW=1
+	k2=t1
+ li:2nd  {		
+	key1=val1
+NEW=2
+	li:empty {
+NEW=3
+	}
+	key2  =	{val2}  ;
+NEW=4
+	valonly 
+	NEW=5
+ } 
+	k3=t1
+NEW=6
+	k4=t1
+}

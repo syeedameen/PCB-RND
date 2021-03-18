@@ -1,0 +1,19 @@
+list root
+ text 'te:brace' = 'foo'
+ text 'TE:text node' = 'this has TE: in name'
+ text 'text node' = 'hello world'
+ symlink 'sym link' = 'hello world'
+ list list node
+  text '' = 'hello'
+  text '' = 'world'
+ hash hash node
+  text '1' = 'hello'
+  text '2' = 'world'
+ table table spc
+  list 
+   text '' = 'a'
+   text '' = 'b'
+  list 
+   text '' = '1'
+   text '' = '2'
+*EOF*

@@ -1,0 +1,70 @@
+list.lht:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{key1} LAST te:{key2}
+    te:{key1} {val1}
+    te:{key2} {val2}
+root:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+Children of root:
+  li:{empty} 
+  li:{non-empty} FIRST te:{key1} LAST te:{key2}
+-
+ta.lht:
+  ha:{} [root] entries: 5
+   ta:{empty} cols: 0, rows: 0
+   ta:{table3} cols: 1, rows: 4
+    Row 0:{}
+     te:{} {row0}
+    Row 1:{}
+     te:{} {row1}
+    Row 2:{}
+     te:{} {row2}
+    Row 3:{}
+     te:{} {row3}
+   ta:{table4} cols: 4, rows: 4
+    Row 0:{}
+     te:{} {row0col0}
+     te:{} {row0col1}
+     te:{} {row0col2}
+     te:{} {row0col3}
+    Row 1:{}
+     te:{} {row1col0}
+     te:{} {row1col1}
+     te:{} {row1col2}
+     te:{} {row1col3}
+    Row 2:{}
+     te:{} {row2col0}
+     te:{} {row2col1}
+     te:{} {row2col2}
+     te:{} {row2col3}
+    Row 3:{}
+     te:{} {row3col0}
+     te:{} {row3col1}
+     te:{} {row3col2}
+     te:{} {row3col3}
+   ta:{table1} cols: 1, rows: 1
+    Row 0:{}
+     te:{} {row0}
+   ta:{table2} cols: 2, rows: 2
+    Row 0:{}
+     te:{} {row0col0}
+     te:{} {row0col1}
+    Row 1:{}
+     te:{} {row1col0}
+     te:{} {row1col1}
+root:
+  ha:{} [root] entries: 5
+Children of root:
+  ta:{empty} cols: 0, rows: 0
+  ta:{table3} cols: 1, rows: 4
+  ta:{table4} cols: 4, rows: 4
+  ta:{table1} cols: 1, rows: 1
+  ta:{table2} cols: 2, rows: 2
+-
+tiny.lht:
+  te:{} [root] {}
+root:
+  te:{} [root] {}
+Children of root:
+  * node has no children *

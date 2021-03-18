@@ -1,0 +1,4 @@
+list root
+ text 'key' = 'value'
+ # ' unterminated comment with list left open'
+ *ERROR* 'unexpected EOF in the middle of an open node' (at 4:1)

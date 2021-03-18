@@ -1,0 +1,27 @@
+list 
+ table empty
+ table non-empty
+  list row0
+   text 'col0' = '00'
+   text 'col1' = '01 '
+  list row1
+   text 'col0' = '10'
+   text 'col1' = '11 '
+  list row2
+   text 'col0' = '20'
+   list col1
+    text 'cell0' = 'a'
+    text 'cell1' = 'b'
+    text 'cell2' = 'c'
+    text 'cell3' = 'd '
+  list row3
+   text 'col0' = '30'
+   hash col1
+    text 'a' = '1'
+    text 'b' = '2'
+    text 'c' = '3'
+    text 'd' = '4 '
+  list row0
+   text 'col0' = '0a'
+   text 'col0' = '0b '
+*EOF*

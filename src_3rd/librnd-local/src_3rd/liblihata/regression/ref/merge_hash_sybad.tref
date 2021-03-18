@@ -1,0 +1,49 @@
+Original 1:
+  ha:{root} [root] entries: 5
+   ha:{src1} entries: 2
+    te:{key11} {val11}
+    te:{key12} {val12}
+   ha:{src2} entries: 2
+    sy:{lnk} {/}
+    te:{key21} {val21}
+   ha:{dst} entries: 4
+    sy:{lnk} {/}
+    te:{key1} {val1}
+    te:{key2} {val2}
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {r1}
+     te:{} {r2}
+     te:{} {r3}
+   ha:{src3} entries: 2
+    te:{key31} {val31}
+    sy:{lnk} {foo}
+   ha:{src4} entries: 2
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {R40}
+     te:{} {R41}
+    te:{key41} {val41}
+merge error: merge failed: symlink mismatch
+After merg:
+  ha:{root} [root] entries: 5
+   ha:{src1} entries: 2
+    te:{key11} {val11}
+    te:{key12} {val12}
+   ha:{src2} entries: 2
+    sy:{lnk} {/}
+    te:{key21} {val21}
+   ha:{dst} entries: 4
+    sy:{lnk} {/}
+    te:{key1} {val1}
+    te:{key2} {val2}
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {r1}
+     te:{} {r2}
+     te:{} {r3}
+   ha:{src3} entries: 2
+    te:{key31} {val31}
+    sy:{lnk} {foo}
+   ha:{src4} entries: 2
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {R40}
+     te:{} {R41}
+    te:{key41} {val41}

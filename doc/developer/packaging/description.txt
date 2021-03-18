@@ -1,0 +1,119 @@
+pcb-rnd is a highly modular PCB (Printed Circuit Board) layout tool
+with a rich set of plugins for communicating with various external
+design tools and other EDA/CAD packages.
+
+Feature highlights:
+  - subcircuits, pad stacks
+  - flexible footprint model; unrestricted pad shapes
+  - arbitrary copper, silk, paste and soldermask objects
+  - sophisticated, flexible layer model
+  - flexible/universal polygon model
+  - any object, even polygons, can have a clearance within a polygon
+  - advanced mil and mm grid, with support for mixed unit design
+  - strong CLI support
+  - static footprints and parametric (generated) footprints
+  - query language for advanced search & select
+  - powerful, user scriptable, modular Design Rule Checker (DRC)
+  - layout optimizers such as teardrops and a trace puller
+  - footprint library from local file systems, HTTP and board files
+  - netlist management: imported and as-built; back annotation
+
+File formats and compatibility:
+  - text based, tree structured native file format (lihata)
+  - import board:
+    * autotrax PCB board, version 4
+    * autotrax PCB board, version 5
+    * dsn board
+    * eagle xml board version 6, 7, 8
+    * eagle binary board version 3, 4, 5
+    * hyperlynx board, version 2 and above
+    * kicad board, version 3, 4 and 5 (s-expr)
+    * lihata pcb-rnd board (any version)
+    * gEDA/PCB .pcb board (any version up to 2017)
+  - export board:
+    * anonimized board statistics in lihata
+    * autotrax PCB board, version 4
+    * dsn board
+    * hyperlynx board, version 2.0
+    * kicad board, version 3 (s-expr)
+    * kicad pcbnew-board, version 1 (legacy plain text format)
+    * lihata pcb-rnd board (any version)
+    * gEDA/PCB .pcb board (various version up to 2017 )
+  - import footprint:
+    * BXL footprints
+    * eagle xml footprint lib
+    * eagle binary footprint lib
+    * lihata pcb-rnd footprint (any version)
+    * Mentor Graphics cell footprints
+    * gEDA/PCB .fp footprints
+    * tEDAx footprint (any version)
+  - export footprint:
+    * kicad module (s-expr, according to version 3)
+    * kicad pcbnew-module (legacy plain text format)
+    * lihata pcb-rnd footprint (any version)
+    * gEDA/PCB .fp footprints
+    * tEDAx footprint (any version)
+  - import netlist:
+    * Accel ASCII netlists + footprint info
+    * calay (netlists + footprint info)
+    * flat netlist from EDIF
+    * freepcb netlist + footprint info
+    * gEDA/gschem (netlist + footprint info, running gnetlist)
+    * import ltspice .net and .asc (netlist and footprint info)
+    * flat .edf (netlist+footprint, produced by Mentor Graphics Design Capture)
+    * pcb-rnd action script (netlist + footprint info)
+    * schematics import by running a commandline
+    * netlist import by running a commandline
+    * gEDA netlist (plain text, no footprint info)
+    * Orcad PCB II (netlist + footprint info)
+    * PADS ascii (.asc, netlists + footprint info)
+    * Protel netlists 2.0 + footprint info
+    * tinycad .net (netlists + footprint info)
+    * eeschema netlist and footprint info
+    * tEDAx netlist (any version)
+  - export netlist:
+    * tEDAx netlist (any version)
+  - import image:
+    * pixmap (e.g. png)
+    * pnm (pixmap)
+  - export image:
+    * render in .png
+    * render in .gif
+    * render in .jpeg
+    * render black&white postscript (single or multiple files)
+    * render black&white or color embedded postscript (single file)
+    * svg (Scalable Vector Graphics)
+  - import misc:
+    * specctra .dsn (wires and vias)
+    * HPGL plot (lines, arcs, polygons)
+    * MUCS unixplot .pl (lines and vias)
+    * ttf font
+    * eagle DRU (design rules)
+    * lihata pcb-rnd font (any version)
+    * gEDA/PCB font
+    * tEDAx drc
+    * tEDAx pcb-rnd drc script
+  - export misc:
+    * bom (Bill of Materials, text)
+    * specctra .dsn (padstacks and subcircuits, works with freerouting.net)
+    * .dxf (2D drawing for mech CADs)
+    * excellon drill/cnc (for PCB fabbing)
+    * fidocad .fcd (partial export)
+    * export gcode (for milling)
+    * gerber for PCB fabbing
+    * IPC-D-356 Netlist (for automated testing)
+    * printer (using ps)
+    * list of terminal connections (old, custom format)
+    * OpenEMS (simulation, matlab files)
+    * openscad script (colored 3D model)
+    * stl (3d triangulated surface model)
+    * geda/PCB xy
+    * gxyrs
+    * Macrofab's pick&place
+    * pick&place file for the TM220/TM240 device
+    * KiCad .pos file
+    * IPC-D-356 Netlist (from automated testing)
+    * lihata pcb-rnd font (any version)
+    * tEDAx etest
+    * tEDAx drc
+    * tEDAx pcb-rnd drc script

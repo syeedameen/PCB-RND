@@ -1,0 +1,28 @@
+ha:root {
+	ha:dst {
+		key1=val1
+		key2=val2
+		sy:lnk=/
+		li:recurse {r1; r2; r3}
+	}
+
+	ha:src1 {
+		key11=val11
+		key12=val12
+	}
+
+	ha:src2 {
+		key21=val21
+		sy:lnk=/
+	}
+
+	ha:src3 {
+		key31=val31
+		sy:lnk=foo
+	}
+
+	ha:src4 {
+		key41=val41
+		li:recurse {R40; R41}
+	}
+}

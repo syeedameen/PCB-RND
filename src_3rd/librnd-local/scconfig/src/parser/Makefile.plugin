@@ -1,0 +1,10 @@
+PARSER_CFLAGS = -DPLUGIN_PARSER
+PARSER_OBJS = \
+  $(BIN)/parser/find_expat.o \
+  $(BIN)/parser/parser.o
+
+$(BIN)/parser/find_expat.o: $(SRC)/parser/find_expat.c
+	$(CC) $(CFLAGS) -c $(SRC)/parser/find_expat.c -o $(BIN)/parser/find_expat.o
+
+$(BIN)/parser/parser.o: $(SRC)/parser/parser.c
+	$(CC) $(CFLAGS) -c $(SRC)/parser/parser.c -o $(BIN)/parser/parser.o

@@ -1,0 +1,70 @@
+load_doc D2 list_del_nth.lht
+
+echo root:
+root N1 D2
+print_tree N1
+
+echo second list:
+list_child N1
+list_next N1
+print_tree N1
+
+echo delete 0th item from first list:
+root N2 D2
+list_child N2
+list_del_nth N2 0
+print_tree N2
+
+echo delete 1st item from first list:
+root N2 D2
+list_child N2
+list_del_nth N2 1
+print_tree N2
+
+echo delete -1st item from first list:
+root N2 D2
+list_child N2
+list_del_nth N2 -1
+print_tree N2
+
+echo delete 0th item from second list, repeated 4x:
+root N2 D2
+list_child N2
+list_next N2
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+
+echo delete last item from second list, repeated 4x:
+free_doc D2
+load_doc D2 list_del_nth.lht
+root N2 D2
+list_child N2
+list_next N2
+print_tree N2
+list_del_nth N2 2
+print_tree N2
+list_del_nth N2 1
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+list_del_nth N2 0
+print_tree N2
+
+echo delete middle item from second list:
+free_doc D2
+load_doc D2 list_del_nth.lht
+root N2 D2
+list_child N2
+list_next N2
+print_tree N2
+list_del_nth N2 1
+print_tree N2
+
+free_doc D2

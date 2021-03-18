@@ -1,0 +1,8 @@
+# $Id$
+# PcbBOM Version 1.0
+# Date: <date>
+# Author: TEST
+# Title: element with pads on both sides - PCB BOM
+# Quantity, Description, Value, RefDes
+# --------------------------------------------
+1,"(unknown)","(unknown)",E1 

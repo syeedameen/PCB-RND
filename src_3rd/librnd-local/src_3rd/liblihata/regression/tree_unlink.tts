@@ -1,0 +1,37 @@
+load_doc D1 list.lht
+
+root N1 D1
+list_child N1
+list_next N1
+
+equ_node N2 N1
+list_child N2
+
+echo The tree before unlinking:
+print_tree N1
+echo The node before unlinking:
+print_node N2
+
+tree_unlink N2
+
+echo ---
+echo The tree after unlinking:
+print_tree N1
+echo The node after unlinking:
+print_node N2
+
+echo ========
+
+root N1 D1
+echo The tree before unlinking:
+print_tree N1
+echo The node before unlinking:
+print_node N1
+
+tree_unlink N1
+echo The tree after unlinking:
+print_tree N1
+echo The node after unlinking:
+print_node N1
+
+free_doc D1

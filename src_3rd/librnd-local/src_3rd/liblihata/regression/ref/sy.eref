@@ -1,0 +1,4 @@
+list rt
+ text 'text' = 'textnode'
+ symlink 'symlink' = '/'
+*EOF*

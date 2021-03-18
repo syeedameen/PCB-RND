@@ -1,0 +1,17 @@
+# multiple roots; implicit eof is generated after the first and the second is ignored
+li:x {
+    sy:foo = bar;
+    bar1 = baz;
+    li:hah = {};
+    bar2 = baz;
+    ha:heh = {};
+    bar3 = baz;
+}
+ha:x {
+    sy:foo = bar;
+    bar1 = baz;
+    li:hah = {};
+    bar2 = baz;
+    ha:heh = {};
+    bar3 = baz;
+}

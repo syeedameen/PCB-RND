@@ -1,0 +1,8 @@
+---orig
+  li:{rt} [root] FIRST te:{text} LAST sy:{symlink}
+   te:{text} {textnode}
+   sy:{symlink} {/}
+---new
+  li:{rt} [root] [nodoc] FIRST te:{text} LAST sy:{symlink}
+   te:{text} [nodoc] {textnode}
+   sy:{symlink} [nodoc] {/}

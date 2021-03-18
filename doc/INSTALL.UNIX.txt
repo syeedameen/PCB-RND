@@ -1,0 +1,38 @@
+State on UNIX systems
+~~~~~~~~~~~~~~~~~~~~~
+
+Source releases starting from 1.1.2 should compile and run out-of-the-box
+on old UNIX systems, such as IRIX. Does NOT require any GNU installed.
+
+Requirements:
+  - x11 and motif (for the GUI)
+  - an awk implementation that supports gsub(), e.g. nawk
+
+1. ./configure
+
+2. make
+
+Considerations listed in ../INSTALL apply.
+
+The above procedure has been tested on IRIX 5.3 on IP22.
+
+Expected compilation times [minute:second]:
+
+pcb-rnd  ./configure       compile, -O0     compile -O3   system
+-----------------------------------------------------------------------------------
+1.1.2     1:55              7:40             14:27        IRIX 5.3, IP22 @ 100 MHz
+2.3.1     0:20              1:47             7:52         AIX 7, Power7
+
+
+3. per UNIX system notes
+
+3.1. AIX
+
+It is possible to compile pcb-rnd using gtk2.0 but due to a non-standard
+AIX libc header, this needs extra CFLAGS for configure:
+
+ ./configure CFLAGS=-D_LINUX_SOURCE_COMPAT
+
+Without that, gtk is not detected becaus eof name clash between gtk and
+AIX libc on func_data.
+

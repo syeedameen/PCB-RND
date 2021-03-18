@@ -1,0 +1,14 @@
+# replace the value of each item and see if formatting is preserved
+li:ja {
+	k1=T1
+	k2=T1
+ li:2nd  {		
+	key1=Val1
+	li:empty {
+	}
+	key2  =	{Val2}  ;
+	Valonly 
+ } 
+	k3=T1
+	k4=T1
+}

@@ -1,0 +1,40 @@
+# test with a lihata doc in which the root is a li
+load_doc D1 table_corners.lht
+# N1 is a non-empty, N2 is an empty table
+root N1 D1
+path N1 /1
+root N2 D1
+path N2 /0
+
+echo --- Original table:
+print_tree N1
+
+equ_node N3 N1
+table_cell N3 0 0
+
+new_text N4 for_replacing
+
+table_replace_child N1 N3 N4
+
+echo --- After replacing (0, 0) cell:
+print_tree N1
+
+equ_node N3 N1
+table_cell N3 2 1
+
+new_text N4 for_replacing
+table_replace_child N1 N3 N4
+
+echo --- After replacing (2, 1) cell:
+print_tree N1
+
+equ_node N3 N1
+table_cell N3 3 1
+
+new_text N4 for_replacing
+table_replace_child N1 N3 N4
+
+echo ---After replacing (3, 1) cell:
+print_tree N1
+
+free_doc D1

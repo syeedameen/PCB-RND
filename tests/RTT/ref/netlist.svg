@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="1625.6000" height="1625.6000" viewBox="-2.0000 -2.0000 17.7000 17.7000">
+<g id="layer_7_group7">
+<!--normal-->
+ <polygon points="1.5240,3.4290 3.5560,3.4290 3.5560,5.4610 1.5240,5.4610 " stroke-width="0.010" stroke="#707070" fill="#707070"/>
+ <circle cx="10.1600" cy="4.4450" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+</g>
+<g id="layer_5_group5">
+<!--normal-->
+ <polygon points="1.5240,3.4290 3.5560,3.4290 3.5560,5.4610 1.5240,5.4610 " stroke-width="0.010" stroke="#707070" fill="#707070"/>
+ <circle cx="10.1600" cy="4.4450" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+</g>
+<g id="layer_10_bottom">
+<!--normal-->
+ <polygon points="1.5240,3.4290 3.5560,3.4290 3.5560,5.4610 1.5240,5.4610 " stroke-width="0.010" stroke="#707070" fill="#707070"/>
+ <circle cx="10.1600" cy="4.4450" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#707070" stroke="none"/>
+ <circle cx="2.5400" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+</g>
+<g id="layer_3_top">
+<!--normal-->
+ <polygon points="1.5240,3.4290 3.5560,3.4290 3.5560,5.4610 1.5240,5.4610 " stroke-width="0.010" stroke="#404040" fill="#404040"/>
+ <circle cx="10.1600" cy="4.4450" r="1.0160" stroke-width="0.0000" fill="#404040" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#404040" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="1.0160" stroke-width="0.0000" fill="#404040" stroke="none"/>
+ <circle cx="2.5400" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+</g>
+<g id="layer_1_topsilk">
+<!--normal-->
+ <line x1="1.2700" y1="3.1750" x2="1.2700" y2="8.2550" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <line x1="11.4300" y1="8.2550" x2="1.2700" y2="8.2550" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <line x1="11.4300" y1="8.2550" x2="11.4300" y2="3.1750" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <line x1="1.2700" y1="3.1750" x2="5.0800" y2="3.1750" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <line x1="7.6200" y1="3.1750" x2="11.4300" y2="3.1750" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <path d="M 7.62000000 3.17500000 A 1.2700 1.2700 0 0 1 5.0800 3.1750" stroke-width="0.2540" stroke="#000000" stroke-linecap="round" fill="none"/>
+ <line x1="2.5400" y1="1.9050" x2="2.5400" y2="2.7940" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="2.5400" y1="2.7940" x2="2.6670" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="2.6670" y1="2.9210" x2="2.9210" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="2.9210" y1="2.9210" x2="3.0480" y2="2.7940" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="3.0480" y1="1.9050" x2="3.0480" y2="2.7940" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="3.3528" y1="2.1082" x2="3.5560" y2="1.9050" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="3.5560" y1="1.9050" x2="3.5560" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="3.3528" y1="2.9210" x2="3.7338" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+</g>
+<g id="layer_-1_plated-drill">
+<!--normal-->
+ <circle cx="2.5400" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="4.4450" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="2.5400" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+ <circle cx="10.1600" cy="6.9850" r="0.5000" stroke-width="0.0000" fill="#ffffff" stroke="none"/>
+</g>
+<g id="layer_9_outline">
+<!--normal-->
+ <rect x="0.0000" y="0.0000" width="12.7000" height="12.7000" stroke-width="0.2540" stroke="#00868b" stroke-linecap="round" fill="none"/>
+</g>
+</svg>

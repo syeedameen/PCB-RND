@@ -1,0 +1,4 @@
+Node 'empty' is under node ''
+Node '' is NOT under node 'empty'
+Node '' is NOT under node ''
+Node 'empty' is NOT under node 'empty'

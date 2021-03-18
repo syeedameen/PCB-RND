@@ -1,0 +1,99 @@
+# use table_ins_row to test lihata 'insert new row' functionality
+# test cases:
+#   insert new row to table contains one row   with parameter 0 and 1 (and row count) and 0
+#                     table contains two row   with parameter 0 and 1 and row count
+
+echo -----test 1-----
+	echo insert one row to table (parameter 0)
+
+	load_doc D1 ta.lht
+
+	root N1 D1
+	path N1 table1
+	print_tree N1
+
+	table_ins_row N1 0
+	print_tree N1
+
+	new_text N5 insertedcell00
+	
+	equ_node N2 N1
+	
+	table_cell N2 0 0
+	
+	replace N2 N5
+	
+	print_tree N1
+	
+
+echo -----test 2-----
+	echo insert one row to table (parameter 1)
+
+	echo **before**
+
+	print_tree N1
+
+	table_ins_row N1 1
+
+	new_text N5 insertedcell10
+	equ_node N2 N1
+	table_cell N2 1 0
+	replace N2 N5
+	
+
+	echo **after**
+
+
+	print_tree N1
+
+echo -----test 3-----
+	echo insert one row to table (parameter "row count")
+
+	echo **before**
+	
+	print_tree N1
+
+	table_ins_row N1 3     #  "row count" = 3
+
+	new_text N5 insertedcell30
+	equ_node N2 N1
+	table_cell N2 3 0
+	replace N2 N5
+	
+	echo **after**
+
+	print_tree N1
+
+
+echo -----test 4-----
+	echo insert one row to table (parameter 0)
+
+
+	echo **before**
+	
+	print_tree N1
+
+	table_ins_row N1 0
+
+	new_text N5 shiftedrows
+	equ_node N2 N1
+	table_cell N2 0 0
+	replace N2 N5
+	
+	echo **after**
+	
+	print_tree N1
+
+echo -----test 5-----
+	echo insert one row to table (parameter 2)  (to test it can shift more than one row)
+
+	print_tree N1
+
+	table_ins_row N1 2
+
+	print_tree N1
+
+echo tts terminated
+
+
+free_doc D1

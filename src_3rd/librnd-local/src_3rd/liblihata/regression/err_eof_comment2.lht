@@ -1,0 +1,4 @@
+li:root {
+	key=value;
+}
+# unterminated comment (valid) - will be ingored because of root is closed

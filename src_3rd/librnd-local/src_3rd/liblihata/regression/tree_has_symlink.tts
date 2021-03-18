@@ -1,0 +1,14 @@
+load_doc D1 symlink.lht
+root N1 D1
+tree_has_symlink N1
+free_doc D1
+
+load_doc D1 table.lht
+root N1 D1
+tree_has_symlink N1
+free_doc D1
+
+load_doc D1 symlink_root_node.lht
+root N1 D1
+tree_has_symlink N1
+free_doc D1

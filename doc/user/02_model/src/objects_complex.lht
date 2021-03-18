@@ -1,0 +1,182 @@
+ha:pcb-rnd-board-v1 {
+
+ ha:attributes {
+  {PCB::loader}=geda/pcb - nanometer
+  {PCB::grid::unit}=mil
+  {PCB::conf::editor/buffer_number}=0
+  {PCB::conf::editor/draw_grid}=true
+ }
+
+ li:styles {
+   ha:Signal {
+    diameter = 1.999996mm
+    thickness = 10.0mil
+    hole = 31.5mil
+    clearance = 20.0mil
+   }
+   ha:Power {
+    diameter = 2.199894mm
+    thickness = 20.0mil
+    hole = 0.999998mm
+    clearance = 20.0mil
+   }
+   ha:Fat {
+    diameter = 137.8mil
+    thickness = 80.0mil
+    hole = 47.24mil
+    clearance = 25.0mil
+   }
+   ha:Sig-tight {
+    diameter = 64.0mil
+    thickness = 10.0mil
+    hole = 31.5mil
+    clearance = 12.0mil
+   }
+ }
+
+ ha:meta {
+   ha:size {
+    thermal_scale = 0.500000
+    x = 850.0mil
+    y = 500.0mil
+    isle_area_nm2 = 199999999.999200
+   }
+   ha:cursor {
+    zoom = 0.000000
+    x = 225.0mil
+    y = 0.0
+   }
+   ha:drc {
+    min_drill = 15.0mil
+    min_ring = 10.0mil
+    bloat = 12.0mil
+    shrink = 9.0mil
+    min_width = 10.0mil
+    min_silk = 7.0mil
+   }
+   ha:grid {
+    spacing = 25.0mil
+    offs_x = 0.0
+    offs_y = 0.0
+   }
+ }
+
+ ha:data {
+  li:objects {
+  ha:element.81 {
+   x=600.0mil; y=250.0mil;
+   li:objects {
+    ha:text.78 {
+     string=Standard SMT resistor, capacitor etc; x=568.5mil; y=143.5mil; scale=100; direction=0; role=desc;
+    }
+    ha:text.79 {
+     string=R1; x=568.5mil; y=143.5mil; scale=100; direction=0; role=name;
+    }
+    ha:text.80 {
+     string=1206; x=568.5mil; y=143.5mil; scale=100; direction=0; role=value;
+    }
+    ha:line.82 {
+     x1=-599.948um; y1=-37.4mil; x2=23.62mil; y2=-37.4mil; thickness=8.0mil; clearance=0.0;
+    }
+    ha:line.83 {
+     x1=-599.948um; y1=0.94996mm; x2=23.62mil; y2=0.94996mm; thickness=8.0mil; clearance=0.0;
+    }
+    ha:pad.84 {
+     name=1; number=1; x1=-59.05mil; y1=-299.974um; x2=-59.05mil; y2=11.81mil; mask=1.452372mm; thickness=1.299972mm; clearance=20.0mil;
+     ha:flags {
+      square=1
+     }
+    }
+    ha:pad.85 {
+     name=2; number=2; x1=1.49987mm; y1=-299.974um; x2=1.49987mm; y2=11.81mil; mask=1.452372mm; thickness=1.299972mm; clearance=20.0mil;
+     ha:flags {
+      square=1
+     }
+    }
+   }
+  }
+  }
+   li:layers {
+
+    ha:component {
+     visible=1
+     group=0
+
+      li:objects {
+       ha:text.75 {
+        string=Hello; x=25.0mil; y=150.0mil; scale=245; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+      }
+    }
+
+    ha:solder {
+     visible=1
+     group=1
+    }
+
+    ha:comp-GND {
+     visible=1
+     group=0
+    }
+
+    ha:comp-power {
+     visible=1
+     group=0
+    }
+
+    ha:sold-GND {
+     visible=1
+     group=1
+    }
+
+    ha:sold-power {
+     visible=1
+     group=1
+    }
+
+    ha:signal3 {
+     visible=1
+     group=2
+    }
+
+    ha:outline {
+     visible=1
+     group=3
+    }
+
+    ha:silk {
+     visible=1
+     group=1
+    }
+
+    ha:silk {
+     visible=1
+     group=0
+
+      li:objects {
+       ha:text.76 {
+        string=Text; x=100.0mil; y=425.0mil; scale=100; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+       ha:text.77 {
+        string=Element, Pad; x=425.0mil; y=425.0mil; scale=100; direction=0;
+        ha:flags {
+         clearline=1
+        }
+       }
+      }
+    }
+   }
+ }
+
+ha:netlists {
+
+ li:input {
+ }
+}
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../default.css">
+</head>
+<body>
+<h1 nopdf="yes"> pcb-rnd - user manual </h1>
+
+<h2> 5.2 Actions and Command Line Interface </h2>
+<p>
+Each user accessible operation and functionality is implemented in an action.
+Menu items and hotkeys all invoke actions. An action is like a function call:
+it has parameters and a return value.
+
+<p>
+pcb-rnd actions can be listed
+
+<p>
+<code>
+./pcb-rnd --show-actions
+</code>
+
+<p>
+A full list of actions can be found in the
+<a href="../../09_appendix/action_reference.html"> appendix </a> with
+detailed desciption of parameters and operations they perform.
+<p>
+Actions are entered on the GUI (typically using the ':' key for getting
+a command line) and on the stdin using the batch GUI. User scripts call
+actions with all-lowercase function names.
+
+</body>
+</html>

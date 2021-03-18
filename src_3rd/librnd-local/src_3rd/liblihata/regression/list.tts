@@ -1,0 +1,36 @@
+load_doc D2 list.lht
+
+echo root:
+root N1 D2
+print_tree N1
+
+echo first list:
+list_child N1
+print_tree N1
+
+echo second list:
+list_next N1
+equ_node N2 N1
+print_tree N2
+
+
+echo nth 0:
+list_nth N2 0
+print_tree N2
+
+echo nth 1:
+equ_node N2 N1
+list_nth N2 1
+print_tree N2
+
+echo nth 2:
+equ_node N2 N1
+list_nth N2 2
+print_tree N2
+
+echo nth -1:
+equ_node N2 N1
+list_nth N2 -1
+print_tree N2
+
+free_doc D2

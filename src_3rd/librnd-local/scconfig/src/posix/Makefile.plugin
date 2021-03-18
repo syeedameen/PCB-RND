@@ -1,0 +1,27 @@
+POSIX_CFLAGS = -DPLUGIN_POSIX
+POSIX_OBJS = \
+  $(BIN)/posix/find_posix.o \
+  $(BIN)/posix/find_fs.o \
+  $(BIN)/posix/find_dev.o \
+  $(BIN)/posix/find_res.o \
+  $(BIN)/posix/find_log.o \
+  $(BIN)/posix/find_proc.o
+
+$(BIN)/posix/find_posix.o: $(SRC)/posix/find_posix.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_posix.c -o $(BIN)/posix/find_posix.o
+
+$(BIN)/posix/find_fs.o: $(SRC)/posix/find_fs.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_fs.c -o $(BIN)/posix/find_fs.o
+
+$(BIN)/posix/find_dev.o: $(SRC)/posix/find_dev.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_dev.c -o $(BIN)/posix/find_dev.o
+
+$(BIN)/posix/find_res.o: $(SRC)/posix/find_res.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_res.c -o $(BIN)/posix/find_res.o
+
+$(BIN)/posix/find_proc.o: $(SRC)/posix/find_proc.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_proc.c -o $(BIN)/posix/find_proc.o
+
+$(BIN)/posix/find_log.o: $(SRC)/posix/find_log.c
+	$(CC) $(CFLAGS) -c $(SRC)/posix/find_log.c -o $(BIN)/posix/find_log.o
+

@@ -1,0 +1,22 @@
+--- list ---
+  te:{key} {3}
+lht_tree_list_find_node: 3
+lht_tree_path_build: /lst/3
+  te:{key} {2}
+lht_tree_list_find_node: 2
+lht_tree_path_build: /lst/2
+  te:{key} {1}
+lht_tree_list_find_node: 1
+lht_tree_path_build: /lst/1
+  te:{key} {0}
+lht_tree_list_find_node: 0
+lht_tree_path_build: /lst/0
+--- table ---
+  te:{} {00}
+lht_tree_path_build: /tbl/0/0
+  te:{} {01}
+lht_tree_path_build: /tbl/0/1
+  te:{} {10}
+lht_tree_path_build: /tbl/1/0
+  te:{} {11}
+lht_tree_path_build: /tbl/1/1

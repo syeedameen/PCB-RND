@@ -1,0 +1,18 @@
+MATH_CFLAGS = -DPLUGIN_MATH
+MATH_OBJS = \
+  $(BIN)/math/find_math.o \
+  $(BIN)/math/find_fpenan.o \
+  $(BIN)/math/find_func.o \
+  $(BIN)/math/find_mfunc_cc.o
+
+$(BIN)/math/find_math.o: $(SRC)/math/find_math.c
+	$(CC) $(CFLAGS) -c $(SRC)/math/find_math.c -o $(BIN)/math/find_math.o
+
+$(BIN)/math/find_fpenan.o: $(SRC)/math/find_fpenan.c
+	$(CC) $(CFLAGS) -c $(SRC)/math/find_fpenan.c -o $(BIN)/math/find_fpenan.o
+
+$(BIN)/math/find_func.o: $(SRC)/math/find_func.c
+	$(CC) $(CFLAGS) -c $(SRC)/math/find_func.c -o $(BIN)/math/find_func.o
+
+$(BIN)/math/find_mfunc_cc.o: $(SRC)/math/find_mfunc_cc.c
+	$(CC) $(CFLAGS) -c $(SRC)/math/find_mfunc_cc.c -o $(BIN)/math/find_mfunc_cc.o

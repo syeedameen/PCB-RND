@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+</head>
+<body>
+<h2 autotoc="yes"> Distalign plugin </h2>
+<div>
+Two actions for aligning and distributing any objects in pcb-rnd
+<h3 id="use" autotoc="yes"> Action Syntax </h3>
+<p>
+<div>
+Align(X/Y, [Lefts/Rights/Tops/Bottoms/Centers/Marks, [First/Last/pcb_crosshair/Average[, Gridless]]])
+<p>
+<div>
+Distribute(Y, [Lefts/Rights/Tops/Bottoms/Centers/Marks/Gaps, [First/Last/pcb_crosshair, First/Last/pcb_crosshair[, Gridless]]])
+<h3 id="description" autotoc="yes"> Description </h3>
+<p>
+<div>
+Align() aligns selected objects along the X or Y axis relative to the user specified reference point, .
+<p>
+<div>
+Distribute() distributes selected objects relative to the specified reference point, evenly between the first, last, or to the pcb crosshair
+<p>
+Both actions can be used with gridless options to place parts in off grid location
+
+<h3 id="use" autotoc="yes"> Examples </h3>
+<p>
+<h4 id="use" autotoc="yes"> Build a linear array of tactile switch parts</h4>
+<p>
+<table noborder>
+<tr><th>Command <th>description<th>image
+
+<tr><td>import
+<td><div>Import an array of 8 TACT_6x6_4p footprints needed for a 1x8 grid.<div>Place the first part at the exact X,Y coord to start the array <div>Place the last part at the X position where the array will end
+<td><img src="import_parts.png">
+
+<tr><td>align(y)
+<td><div>The user aligns the TACT_6x6_4p footprints along a Y axis<div>The center of the first part is the default reference point
+<td> <img src="align_parts_y.png">
+
+<tr><td>distribute(x,centers,first,last)
+<td><div>Note user places last part in position<div>Parts are distributed between the first and last along the X axis
+<td><img src="distribute_parts_x.png">
+</table>
+
+<h4 id="use" autotoc="yes">Align & distribute a mix of parts</h4>
+<table noborder>
+<tr><th>Command <th>description<th>image
+
+<tr><td>import
+<td><div>A small set of nonhomogenous parts are imported
+<td>n/a
+
+<tr><td>align(x,centers,last)
+<td><div>The parts are aligned to each other along an x axis with resepect to their centers<div>The chosen x axis is determined from the 'last' part location 
+<td><img src="align_mixed_parts_x.png">
+
+<tr><td>distribute(y,gaps)
+<td><div>The parts are evenly distibuted by the gaps between them
+<td><img src="distribute_y_gaps.png">
+
+<tr><td>copy, align(), distribute()
+<td><div>The parts in the first step are copied to create an array<div>The align and distribute commands are used for each row of the array in turn
+<td><img src="result.png">
+</table>
+
+<p>
+See also: the <a href="distalign.txt">original email</a> that describes the plugin,
+the <a href="http://repo.hu/cgi-bin/pool.cgi?cmd=show&node=distalign">dist/align action argument gallery</a> (illustration).
+
+</body>
+</html>

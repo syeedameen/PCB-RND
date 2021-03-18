@@ -1,0 +1,43 @@
+hash 
+ table empty
+ table table1
+  list 
+   text '' = 'row0'
+ table table2
+  list 
+   text '' = 'row0col0'
+   text '' = 'row0col1'
+  list 
+   text '' = 'row1col0'
+   text '' = 'row1col1'
+ table table3
+  list 
+   text '' = 'row0'
+  list 
+   text '' = 'row1'
+  list 
+   text '' = 'row2'
+  list 
+   text '' = 'row3'
+ table table4
+  list 
+   text '' = 'row0col0'
+   text '' = 'row0col1'
+   text '' = 'row0col2'
+   text '' = 'row0col3'
+  list 
+   text '' = 'row1col0'
+   text '' = 'row1col1'
+   text '' = 'row1col2'
+   text '' = 'row1col3'
+  list 
+   text '' = 'row2col0'
+   text '' = 'row2col1'
+   text '' = 'row2col2'
+   text '' = 'row2col3'
+  list 
+   text '' = 'row3col0'
+   text '' = 'row3col1'
+   text '' = 'row3col2'
+   text '' = 'row3col3'
+*EOF*

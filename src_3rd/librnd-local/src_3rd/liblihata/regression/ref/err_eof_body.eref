@@ -1,0 +1,3 @@
+list root
+ text 'key' = 'value'
+ *ERROR* 'unexpected EOF in the middle of an open node' (at 3:1)

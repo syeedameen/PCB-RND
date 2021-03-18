@@ -1,0 +1,13 @@
+load_doc D1 table_corners.lht
+
+root N1 D1
+tree_dup N2 N1
+
+echo ---orig
+print_tree N1
+echo ---new
+print_tree N2
+
+tree_del N2
+
+free_doc D1

@@ -1,0 +1,57 @@
+# use table_ins_row to test lihata 'insert new row' functionality
+# test cases:
+#   insert new row to empty table              with parameter 0  and 1
+
+echo -----test 1----
+	echo insert one row to empty table
+
+	load_doc D1 ta.lht
+
+	root N1 D1
+	path N1 empty
+	print_node N1
+
+	table_ins_row N1 0
+	table_ins_col N1 0
+	
+	new_text N5 text1 
+	
+	print_node N5
+
+	equ_node N2 N1
+
+	print_node N1
+	print_node N2
+
+
+	table_cell N2 0 0
+
+
+	print_node N2
+
+	replace N2 N5
+	echo after replace
+	equ_node N2 N1
+	table_cell N2 0 0
+	print_node N2
+
+	print_node N1
+
+echo -----test 2-----
+	echo the length of table is 0 so we could not insert element to 1st position
+
+	load_doc D2 ta.lht
+
+	root N1 D2
+	path N1 empty
+	print_node N1
+
+	table_ins_row N1 1   # this will not be succesful 
+	print_node N1
+
+
+echo tts terminated
+
+
+free_doc D1
+free_doc D2

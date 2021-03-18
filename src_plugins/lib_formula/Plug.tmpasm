@@ -1,0 +1,12 @@
+put /local/pcb/mod {lib_formula}
+put /local/pcb/mod/OBJS [@
+	$(PLUGDIR)/lib_formula/lib_formula.o
+	$(PLUGDIR)/lib_formula/impedance.o
+	$(PLUGDIR)/lib_formula/bisect.o
+@]
+
+switch /local/pcb/lib_formula/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

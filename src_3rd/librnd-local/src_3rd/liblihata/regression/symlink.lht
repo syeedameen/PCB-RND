@@ -1,0 +1,17 @@
+li:root = {
+	sy:key1=val1
+	sy:key2 =val2;
+	sy:key3={val3}
+	sy:key4=val4;
+	sy:key5 {val5}
+	sy:{key6} val6
+	sy:anon1
+	sy:{anon2}
+	sy:anon3;
+	sy:empty={}
+	sy:empty2=
+	sy:{} {}
+	sy:=
+	sy:symlink_ok = {/}
+	sy:symlink_broken = {/3478783}
+}

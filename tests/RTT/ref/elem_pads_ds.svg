@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="1625.6000" height="1625.6000" viewBox="-2.0000 -2.0000 17.7000 17.7000">
+<g id="layer_7_group7">
+</g>
+<g id="layer_5_group5">
+</g>
+<g id="layer_10_bottom">
+<!--normal-->
+ <line x1="6.9850" y1="4.4450" x2="6.9850" y2="6.3500" stroke-width="0.2540" stroke="#707070" stroke-linecap="round"/>
+</g>
+<g id="layer_3_top">
+<!--normal-->
+ <line x1="4.4450" y1="3.8100" x2="6.3500" y2="3.8100" stroke-width="0.2540" stroke="#404040" stroke-linecap="round"/>
+</g>
+<g id="layer_1_topsilk">
+<!--normal-->
+ <line x1="4.4450" y1="3.8100" x2="4.4450" y2="6.3500" stroke-width="0.2540" stroke="#000000" stroke-linecap="round"/>
+ <line x1="4.4450" y1="2.3622" x2="4.8260" y2="2.3622" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="4.4450" y1="2.9210" x2="4.9530" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="4.4450" y1="1.9050" x2="4.4450" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="4.4450" y1="1.9050" x2="4.9530" y2="1.9050" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="5.2578" y1="2.1082" x2="5.4610" y2="1.9050" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="5.4610" y1="1.9050" x2="5.4610" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+ <line x1="5.2578" y1="2.9210" x2="5.6388" y2="2.9210" stroke-width="0.1778" stroke="#000000" stroke-linecap="round"/>
+</g>
+<g id="layer_9_outline">
+<!--normal-->
+ <rect x="0.0000" y="0.0000" width="12.7000" height="12.7000" stroke-width="0.2540" stroke="#00868b" stroke-linecap="round" fill="none"/>
+</g>
+</svg>

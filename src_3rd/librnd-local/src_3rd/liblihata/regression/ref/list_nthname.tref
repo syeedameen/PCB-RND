@@ -1,0 +1,32 @@
+root:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{a} LAST te:{a}
+    te:{a} {val1}
+    te:{b} {val2}
+    te:{a} {val3}
+    te:{a} {val4}
+    te:{c} {val5}
+    te:{a} {val6}
+second list:
+  li:{non-empty} FIRST te:{a} LAST te:{a}
+   te:{a} {val1}
+   te:{b} {val2}
+   te:{a} {val3}
+   te:{a} {val4}
+   te:{c} {val5}
+   te:{a} {val6}
+0th a:
+  te:{a} {val1}
+1st a:
+  te:{a} {val3}
+2nd a:
+  te:{a} {val4}
+3rd a:
+  te:{a} {val6}
+4th a:
+  * node is NULL *
+100th a:
+  * node is NULL *
+-1st a:
+  * node is NULL *

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd - io_lihata versions </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+</head>
+<body>
+
+
+<H1> pcb-rnd - io_lihata versions </H1>
+<p>
+History of io_lihata, per format version.
+
+<H2> lihata board </H2>
+	<H3> v1 </H3>
+	<p id="v1">
+	Feature-compatible with the gEDA/PCB file format, plus allows multiple
+	fonts. Same assumptions on layers: last two must be the silk layers.
+
+	<H3> v2 </H3>
+	<p id="v2">
+	Introduce the layer stack subtree and remove layer assumptions. Save
+	the combining field of layers.
+
+	<H3> v3 </H3>
+	<p id="v3">
+	New global object subtree: subcircuit. Global object element has been removed.
+	<p>
+	Intconn is not a flag, but a pin/pad/terminal attribute.
+
+	<H3> v4 </H3>
+	<p id="v4">
+	New subtree under data: padstack_prototypes, for storing padstack prototypes.
+	ID is the place of the padstack within the list.
+	<p>
+	New object type under : ha:padstack_ref.id.
+
+	<H3> v5 </H3>
+	<p id="v5">
+	Removed drc and isle_area_nm from the board header in favor of the config
+	subtree. Removed the cursor section from board header - cursor position and
+	zoom should not be saved or loaded.
+	<p>
+	Warn for the intnoconn attribute when saving pre-v5 - pcb-rnd versions
+	supporting v4 or lower will most probably not understand it.
+	<p>
+	Layer group and network attributes. Layer colors.
+	<p>
+	Optional route style via prototype ID.
+	<p>
+	Optional padstack prototype name for easier user identification of prototypes.
+	<p>
+	Remove old model objects: elements, element-lines, element-arcs,
+	pins, pads, vias. They are still loaded if they are found in v5,
+	but a warning is generated and the objects are force-converted to
+	the new model on save.
+
+	<H3> v6 </H3>
+	<p id="v6">
+	Extended the text object fields with optional thickness and rot fields that
+	will be able to override the default mechanism for determining the thickness
+	or the n*90 degree rotation angle (with an arbitrary value).
+	<p>
+	Removed the direction field from text - use the rot field instead.
+	<p>
+	New route style entries for default text thickness and text scale.
+	<p>
+	New layer group types PCB_LYT_DOC and PCB_LYT_MECH are handled on load
+	and save.
+	<p>
+	Load and save purpose field in layer groups and bound layers.
+	<p>
+	The layer visibility bit is not saved any more - it was reset after load so
+	it only added noise to the file.
+	<p>
+	When saving PCB_THERMAL_NOSHAPE, mark
+	it explicitly by writing "noshape" instead of just leaving the
+	thermal shape empty.
+
+	<H3> v7 </H3>
+	<p id="v7">
+	Polygon enforce_clearance (when non-zero, enforces minimum clearance
+	on clearing objects within the polygon).
+	<p>
+	Informal change: text attribute tight_clearance is interpreted to change
+	the clearance style of a text object.
+	<p>
+	Informal change: text attribute mirror_x is interpreted to mirror the
+	X coordunates of the text object (text mirror over the Y axis).
+	<p>
+	The pixmap subtree with ulzw entries and gfx layer objects - provides
+	on-screen pixel graphics.
+	<p>
+	Rat anchor objects are saved with idpath so the exact connections of
+	a rat is preserved.
+	<p>
+	Text objects optionally have separate scale_x and scale_y fields for
+	different width/height scaling.
+
+<H2> lihata subcircuit </H2>
+	<H3> v4 </H3>
+	Initial version, used before board v6.
+
+	<H3> v6 </H3>
+	Used from board v6. Allows ps_proto_v6.
+
+	<H3> v7 </H3>
+	Used from board v7. Allows polygon enforce_clearance, tight_clearance
+	attribute for text objects, mirror_x attribute for text objects,
+	gfx/pixmap and text scale_x/scale_y.
+
+<H2> ps_proto </H2>
+	<H3> v4 </H3>
+	Initial version, used before board v6.
+
+	<H3> v6 </H3>
+	Used from board v6. Features new layer type: PCB_LYT_MECH and
+	new pad shape: hshadow. 
+</body>
+</html>

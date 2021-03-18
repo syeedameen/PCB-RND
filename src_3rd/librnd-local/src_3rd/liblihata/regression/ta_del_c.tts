@@ -1,0 +1,81 @@
+load_doc D1 ta.lht
+
+echo ===== Original, untouched doc at the beginning
+root N1 D1
+print_tree N1
+
+echo ===== Original table1
+path N1 table1
+print_tree N1
+
+# invalid col idx:
+echo ===== table_del_col N1 -1 (invalid)
+table_del_col N1 -1
+print_tree N1
+
+# non-existing col idx:
+echo ===== table_del_col N1 1 (invalid)
+table_del_col N1 1
+print_tree N1
+
+# it's OK:
+echo ===== table_del_col N1 0 (valid)
+table_del_col N1 0
+print_tree N1
+
+# table is empty, not OK:
+echo ===== table_del_col N1 0 (invalid)
+table_del_col N1 0
+print_tree N1
+
+echo ===== Original empty
+root N2 D1
+path N2 empty
+print_tree N2
+
+# table is empty, not OK:
+echo ===== table_del_col N2 0 (invalid)
+table_del_col N2 0
+print_tree N2
+
+# valid dels till empty doc:
+echo ===== table2 before dels:
+root N3 D1
+path N3 table2
+print_tree N3
+table_del_col N3 0
+table_del_col N3 0
+echo ===== After valid dels in table2:
+print_tree N3
+
+echo ===== table3 before del:
+root N4 D1
+path N4 table3
+print_tree N4
+table_del_col N4 0
+echo ===== After valid del in table3:
+print_tree N4
+
+#delete last table, with some invalid tries
+echo ===== table4 before dels:
+root N5 D1
+path N5 table4
+print_tree N5
+echo ===== table_del_col N5 -1 (invalid)
+table_del_col N5 -1
+echo ===== table_del_col N5 4 (invalid)
+table_del_col N5 4
+echo ===== table4 after invalid dels:
+print_tree N5
+table_del_col N5 0
+table_del_col N5 0
+table_del_col N5 0
+table_del_col N5 0
+echo ===== table4 after valid dels:
+print_tree N5
+
+echo ===== The document after deleting all cols:
+root N6 D1
+print_tree N6
+
+free_doc D1

@@ -1,0 +1,16 @@
+load_doc D1 nodes_for_testing.lht
+root N1 D1
+echo The document:
+print_doc D1
+
+echo -
+echo Node with key "0":
+dom_hash_get N1 N2 0
+print_node N2
+
+echo -
+echo Node with invalid key:
+dom_hash_get N1 N3 11
+print_node N3
+
+free_doc D1

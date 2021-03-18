@@ -1,0 +1,19 @@
+load_doc D1 list.lht
+new_text N2 tti1=to_be_inserted1
+new_text N3 tti2=to_be_inserted2
+
+echo Doc before insert:
+print_doc D1
+
+root N1 D1
+path N1 non-empty:/key1:
+dom_list_insert_after N1 N2
+
+root N1 D1
+path N1 non-empty:/key2:
+dom_list_insert_after N1 N3
+
+echo Doc after insert:
+print_doc D1
+
+free_doc D1

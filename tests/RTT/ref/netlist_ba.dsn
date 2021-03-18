@@ -1,0 +1,113 @@
+(pcb board with minimal netlist and some back-annotation changes
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "pcb-rnd")
+    (host_version "<version>")
+  )
+  (resolution mm 1000000)
+  (structure
+    (layer "3__top_copper"
+      (type signal)
+    )
+    (layer "5__Intern"
+      (type signal)
+    )
+    (layer "7__Intern"
+      (type signal)
+    )
+    (layer "10__bottom_copper"
+      (type signal)
+    )
+    (boundary
+      (rect pcb 0.0 0.0 12.700000 12.700000)
+    )
+    (via via_685800_381000)
+    (rule
+      (width 0.2032)
+      (clear 0.2032)
+      (clear 0.2032 (type wire_area))
+      (clear 0.2032 (type via_smd via_pin))
+      (clear 0.2032 (type smd_smd))
+      (clear 0.2032 (type default_smd))
+    )
+  )
+  (placement
+    (component 5
+      (place "U1" 2.540000 8.255000 front 0 (PN 0))
+    )
+  )
+  (library
+    (image 5
+      (pin Pstk_shape_7 "1" 0.000000 0.000000)
+      (pin Pstk_shape_8 "4" 7.620000 0.000000)
+      (pin Pstk_shape_9 "2" 0.000000 -2.540000)
+      (pin Pstk_shape_10 "3" 7.620000 -2.540000)
+    )
+    (padstack Pstk_shape_7
+      (shape
+        (polygon "3__top_copper" 0
+        -1.016000 1.016000 1.016000 1.016000 1.016000 -1.016000
+        -1.016000 -1.016000
+        )
+        (polygon "5__Intern" 0
+        -1.016000 1.016000 1.016000 1.016000 1.016000 -1.016000
+        -1.016000 -1.016000
+        )
+        (polygon "7__Intern" 0
+        -1.016000 1.016000 1.016000 1.016000 1.016000 -1.016000
+        -1.016000 -1.016000
+        )
+        (polygon "10__bottom_copper" 0
+        -1.016000 1.016000 1.016000 1.016000 1.016000 -1.016000
+        -1.016000 -1.016000
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_8
+      (shape
+        (circle "3__top_copper" 2.032000)
+        (circle "5__Intern" 2.032000)
+        (circle "7__Intern" 2.032000)
+        (circle "10__bottom_copper" 2.032000)
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_9
+      (shape
+        (circle "3__top_copper" 2.032000)
+        (circle "5__Intern" 2.032000)
+        (circle "7__Intern" 2.032000)
+        (circle "10__bottom_copper" 2.032000)
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_10
+      (shape
+        (circle "3__top_copper" 2.032000)
+        (circle "5__Intern" 2.032000)
+        (circle "7__Intern" 2.032000)
+        (circle "10__bottom_copper" 2.032000)
+      )
+      (attach off)
+    )
+  )
+  (network
+    (net "bar"
+      (pins "U1"-"2" "U1"-"4" "U1"-"1")
+    )
+    (net "foo"
+      (pins "U1"-"3")
+    )
+    (class geda_default "bar" "foo"
+      (circuit
+        (use_via via_685800_381000)
+      )
+      (rule (width 0.203200))
+    )
+  )
+    (wiring
+
+    )
+)

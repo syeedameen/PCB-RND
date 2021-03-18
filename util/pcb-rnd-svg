@@ -1,0 +1,235 @@
+#!/bin/sh
+
+# sort objects within groups of a pcb-rnd generated svg so diff will return
+# zero difference if only order of objects differ
+# file is loaded on stdin, written to stdout
+svg_sort()
+{
+
+	awk '
+		BEGIN {
+			sort = "sort"
+		}
+
+		/^<.g>/ {
+			close(sort);
+			ingrp=0;
+			print $0;
+			next;
+		}
+
+		(ingrp) { print $0 | sort; next }
+
+		/^<g/ { ingrp=1; }
+
+		{ print $0; }
+	'
+}
+
+# calculate the diff between two pcb-rnd generated svg files
+# svg file names are $1 and $2, diff is written on stdout
+svg_diff()
+{
+	local t1=`mktemp` t2=`mktemp` res
+	svg_sort < "$1" > $t1
+	svg_sort < "$2" > $t2
+
+	diff -u $t1 $t2
+	res=$?
+
+	rm $t1 $t2
+	return $res
+}
+
+# calculate the diff between two pcb-rnd loadable board files
+# board file names are $1 and $2, diff is written on stdout
+brd_diff()
+{
+	local s1=`mktemp` s2=`mktemp` res
+
+	pcb-rnd -x svg --outfile "$s1" "$1"
+	pcb-rnd -x svg --outfile "$s2" "$2"
+	if test $? -ne 0
+	then
+		echo "Failed to render board." >&2
+		rm $s1 $s2
+		exit 1
+	fi
+
+	svg_diff $s1 $s2
+	res=$?
+
+	rm $s1 $s2
+	return $res
+}
+
+# Compare pcb-rnd generated svg file $1 to $2, generate a visual difference
+# file using $1 as canvas. Output written to stdout
+svg_vis_comp()
+{
+	local td=`mktemp`
+	svg_diff "$@" > $td
+	awk -v "diff=$td" '
+		/^<g/ {
+			line=$0;
+			sub("opacity", "old_opacity", line);
+			sub(">", " opacity=\"0.25\">", line);
+			$0=line
+		}
+		/^<.svg/ {
+			print "<g id=\"diff\" opacity=\"0.8\">";
+			getline line < diff;
+			getline line < diff;
+			while(getline line < diff) {
+				color="";
+				if (line ~ "^[+]") color = "red";
+				else if (line ~ "^[-]") color = "blue";
+				if (color != "") {
+					sub("^.", "",  line);
+					sub("stroke=", "stroke=\"" color "\" old_stroke=", line);
+					sub("fill=", "fill=\"" color "\" old_fill=", line);
+					print line;
+				}
+			}
+			print "</g>"
+		}
+
+		{ print $0 }
+
+	' < $1
+}
+
+# Compare pcb-rnd loadable board file $1 to $2, generate a visual difference
+# file using $1's svg render as canvas. Output written to stdout
+brd_vis_comp()
+{
+	local s1=`mktemp` s2=`mktemp`
+
+	pcb-rnd -x svg --outfile "$s1" "$1" && pcb-rnd -x svg --outfile "$s2" "$2"
+	if test $? -ne 0
+	then
+		rm $s1 $s2
+		echo "Failed to render board." >&2
+		exit 1
+	fi
+
+	svg_vis_comp $s1 $s2
+
+	rm $s1 $s2
+}
+
+pcb_rnd_test()
+{
+	local fn d res=0
+	for fn in "$@"
+	do
+		pcb-rnd -x svg --outfile "$fn.svg" "$fn"
+		if test -f "$fn.ref.gz" -a ! -f "$fn.ref"
+		then
+			gzip -d -k "$fn.ref.gz"
+			del="$fn.ref"
+		else
+			del=""
+		fi
+		if test -f "$fn.ref"
+		then
+			d=`svg_diff "$fn.ref" "$fn.svg"`
+			if test ! -z "$d"
+			then
+				echo "*** $fn"
+				echo "$d"
+				svg_vis_comp "$fn.ref" "$fn.svg" > "$fn.diff.svg"
+				res=1
+			else
+				rm "$fn.svg"
+			fi
+		else
+			echo "No ref svg available for $fn" >&2
+		fi
+		if test ! -z "$del"
+		then
+			rm "$del"
+		fi
+	done
+
+	return $res
+}
+
+pcb_rnd_test_all()
+{
+	local d res r
+
+	for d in "$@"
+	do
+		find "$d" -name '*.ref' -o -name '*.ref.gz'
+	done | sort | uniq | while read fn
+	do
+		r=${fn%%.gz}
+		pcb_rnd_test ${r%%.ref}
+		if test ! $? -ne 0
+		then
+			res=1
+		fi
+	done
+	return $res
+}
+
+gen_ref()
+{
+	local fn
+	for fn in "$@"
+	do
+		pcb-rnd -x svg --outfile $fn.ref $fn
+		gzip -9 $fn.ref
+	done
+}
+
+help()
+{
+echo 'pcb-rnd-svg - compare pcb-rnd svg renders
+Syntax: pcb-rnd-svg command [args]
+Commands available:
+
+svg-sort            reads a pcb-rnd generated svg on stdin, prints sorted svg
+svg-diff s1 s2      sort pcb-rnd generated svgs s1 and s2 and print diff s1 s2
+diff b1 b2          run pcb-rnd on b1 and b2 and print svg diff b1 b2
+svg-vis-comp s1 s2  generate a visual comparison of s1 and s2, diffs highlighted
+vis-comp b1 b2      visual comparison svg of boards b1 and b2, diffs highlighted
+test brd            run pcb-rnd on brd and compare the resulting svg to brd.ref
+test-all dir        run test on all boards with a ref available under dir
+gen-ref filenames   run on each board file and generate the reference svg
+
+'
+}
+
+
+
+### MAIN ###
+
+if test $# -lt 1
+then
+	help
+	exit 1
+fi
+
+cmd="$1"
+shift 1
+case "$cmd" in
+	svg-sort|--svg-sort) svg_sort "$@" ;;
+	svg-diff|--svg-diff) svg_diff "$@" ;;
+	diff|--diff) brd_diff "$@" ;;
+	svg-vis-comp|--svg-vis-comp) svg_vis_comp "$@" ;;
+	vis-comp|--vis-comp) brd_vis_comp "$@" ;;
+	test|--test) pcb_rnd_test "$@" ;;
+	gen-ref|--gen-ref) gen_ref "$@" ;;
+	test-all|--test-all)
+		if test -z "$*"
+		then
+			pcb_rnd_test_all "."
+		else
+			pcb_rnd_test_all "$@"
+		fi
+		;;
+	help) help "$@";;
+	*) echo "Unknown command $cmd; try --help" >&2; exit 1 ;;
+esac

@@ -1,0 +1,98 @@
+obj_* function naming conventions
+
+
+High level (new/destroy):
+
+	This is the recommended way of creating new objects.
+
+	pcb_*_new():
+		Calls pcb_*_alloc(), fills in fields from parameters and calls the post
+		processing (pcb_add_*_on_layer()) function as needed. Makes sanity checks
+		on the parameters and may fail upon that. 
+
+	pcb_*_new_*():
+		Same as pcb_*_new(), but may do clever things so the object created may
+		not be 1:1 what was requested or may not even be a new object (e.g.
+		overlapping line merging)
+
+	pcb_*_destroy()
+		free all fields of an object and properly remove it from the parent
+		(including rtree removal)
+
+Low level (alloc/free):
+
+	Use this in some special cases (like loading a file) when the extra checks
+	of a _new may interfere. 
+
+	pcb_*_alloc():
+		allocate a new objects within a parent (as of now: layer). Allocates
+		the struct of a new objects with all fields clean and links the object
+		in the parent list. Returns a pointer to the object. NOTE: some post
+		processing may be needed after filling in the fields
+		(see also: pcb_add_*_on_layer()). Calls pcb_*_reg() automatically.
+
+	pcb_*_alloc_id():
+		same as pcb_*_alloc(), but instead of automatically pick the next id,
+		uses the user supplied ID
+
+	pcb_*_free():
+		free the struct memory (but not the fields!) of an object and remove
+		it from the parent list. Calls pcb_*_unreg() automatically.
+
+	pcb_*_reg():
+		register an object in data; this includes adding the object in the right
+		object list and in the id hash, but does not include any rtree operation
+		(so coords/sizes may change later). Also sets the object's parent.
+
+	pcb_*_unreg():
+		unregister an object from its data; this includes removing the object from
+		the right object list and from the id hash, but does not include any
+		rtree operation.  Also clears the object's parent.
+
+	pcb_add_*_on_layer():
+		Postprocessing: call this after a new object is allocated and fields are
+		filled in. It mainly updates the rtree.
+
+	pcb_*_copy():
+		copy fields of a complex obj to a pre-allocated target obj
+
+	pcb_*_pre() and pcb_*_post():
+		when an object needs to be moved/changed within its own context (e.g. layer
+		object moved within layer, global object moved within data), it first needs
+		to be removed from the rtree and uncleared from any sorrunding polygon.
+		After the changes are done, the object should be put back in the rtree and
+		the affected polygons should be cleared. These two steps are done by
+		pcb_*_pre() and pcb_*_post(). Call pre() before the operation, call post()
+		after the operation.
+
+Accessors:
+	pcb_*_get_*():
+		Return data that are not directly accessible as object struct fields but
+		require some sort of calculation
+
+	pcb_*_set_*():
+		Set object fields that require postprocessing because of side effects.
+		Use these instead of direct writes to the fields to get side effects
+		properly executed.
+
+	pcb_*_change_*():
+		Similar to pcb_*_set_*(), but instead of setting a field to a value
+		specified as a parameter, change the field to comply with some global
+		state, e.g. "change side" would move the object to the currently viewed
+		side.
+
+Transformations:
+	pcb_*_move():
+		move the object within its parent (x;y); it's often implemented as a
+		macro
+
+	pcb_*_mirror():
+		mirror the object within its parent (x;y)
+
+
+Misc:
+	pcb_*_bbox():
+		calculate and update the bounding box of an object
+
+	pcb_*_rotate90()
+		Rotate the object by n*90 degrees

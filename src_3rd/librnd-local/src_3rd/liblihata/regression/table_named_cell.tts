@@ -1,0 +1,20 @@
+load_doc D1 table_named_cell.lht
+root N1 D1
+path N1 /1
+echo The doc:
+print_tree N1
+
+
+table_named_cell N1 row0 0 col0 0 N2
+echo Node row0-0-col0-0:
+print_node N2
+
+table_named_cell N1 row0 1 col0 1 N3
+echo Node row0-1-col0-1:
+print_node N3
+
+table_named_cell N1 row0 2 col0 2 N4
+echo Node row0-2-col0-2:
+print_node N4
+
+free_doc D1

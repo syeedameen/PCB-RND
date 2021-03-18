@@ -1,0 +1,18 @@
+1. dependencies:
+    - ansi/c89 compiler
+    - make
+
+2. configuration: none
+
+3. compilation: none
+   This lib is implemented as header files and needs to be #included in
+   the host application. Either in the only one compilation unit that is using
+   it or if there are multiple users, using a dummy .c file producing a
+   separate object file. Types are set up before the #include, so precompiling
+   a static lib is not possible. 
+
+4. installation: none
+   The project is small enough that it should be just copied into the host
+   application source tree.
+
+

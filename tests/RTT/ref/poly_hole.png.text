@@ -1,0 +1,18 @@
+r6630
+
+500 x 500 mil outline
+
+upper left triangle
+Top left corner to top left cutout corner 30 pixels down 31 pixels over
+cutout 29 pixels (24.166) wide
+cutout 29 pixels (24.166) high
+
+upper right triangle
+bottom right corner to bottom right on cutout 31 x 31 pixels
+cutout 59 pixels (49.167) wide <- this is not a measurement error. we count the edge pixel
+cutout 30 pixels (25) high
+
+far right piramid
+cutout 59 x 60 (49.166 x 50) pixels
+cutout located 60 (50) pixels down from the apex
+

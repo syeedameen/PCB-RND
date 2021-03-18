@@ -1,0 +1,27 @@
+put /local/pcb/mod {lib_hid_common}
+put /local/pcb/mod/OBJS [@
+  $(LIBRND_PLUGDIR)/lib_hid_common/lib_hid_common.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/lead_user.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/grid_menu.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/cli_history.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/place.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/menu_helper.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/act_dad.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/dlg_comm_m.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/dlg_log.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/toolbar.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/xpm.o
+  $(LIBRND_PLUGDIR)/lib_hid_common/zoompan.o
+@]
+
+# dialog config is here because of hidlib: each hidlib user shall have its
+# own dialogs plugin
+put /local/pcb/mod/CONFFILE {dialogs.conf}
+put /local/pcb/mod/CONF {$(LIBRND_PLUGDIR)/lib_hid_common/dialogs_conf.h}
+put /local/pcb/mod/CONFVAR {dialogs_conf_internal}
+
+switch /local/pcb/lib_hid_common/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

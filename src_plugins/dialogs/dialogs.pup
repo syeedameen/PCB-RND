@@ -1,0 +1,11 @@
+$class feature
+$short HID-independent GUI dialogs
+$long Interactive core functionality: HID-independent GUI dialogs (enabled by GUI HIDs)
+$package lib-gui
+$state works
+dep draw_fontsel
+dep draw_csect
+dep lib_hid_common
+dep lib_hid_pcbui
+default disable
+autoload 1

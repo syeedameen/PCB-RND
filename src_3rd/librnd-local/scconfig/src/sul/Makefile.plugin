@@ -1,0 +1,58 @@
+SUL_CFLAGS = -DPLUGIN_SUL
+SUL_OBJS = \
+  $(BIN)/sul/find_sul.o \
+  $(BIN)/sul/find_glib.o \
+  $(BIN)/sul/find_gettext.o \
+  $(BIN)/sul/find_dbus.o \
+  $(BIN)/sul/find_libxml2.o \
+  $(BIN)/sul/find_librnd.o \
+  $(BIN)/sul/find_freetype2.o \
+  $(BIN)/sul/find_pcre.o \
+  $(BIN)/sul/find_fs.o \
+  $(BIN)/sul/find_aspell.o \
+  $(BIN)/sul/find_gen.o \
+  $(BIN)/sul/find_dmalloc.o \
+  $(BIN)/sul/find_regex.o \
+  $(BIN)/sul/find_iconv.o
+
+$(BIN)/sul/find_sul.o: $(SRC)/sul/find_sul.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_sul.c -o $(BIN)/sul/find_sul.o
+
+$(BIN)/sul/find_glib.o: $(SRC)/sul/find_glib.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_glib.c -o $(BIN)/sul/find_glib.o
+
+$(BIN)/sul/find_gettext.o: $(SRC)/sul/find_gettext.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_gettext.c -o $(BIN)/sul/find_gettext.o
+
+$(BIN)/sul/find_dbus.o: $(SRC)/sul/find_dbus.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_dbus.c -o $(BIN)/sul/find_dbus.o
+
+$(BIN)/sul/find_libxml2.o: $(SRC)/sul/find_libxml2.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_libxml2.c -o $(BIN)/sul/find_libxml2.o
+
+$(BIN)/sul/find_librnd.o: $(SRC)/sul/find_librnd.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_librnd.c -o $(BIN)/sul/find_librnd.o
+
+$(BIN)/sul/find_freetype2.o: $(SRC)/sul/find_freetype2.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_freetype2.c -o $(BIN)/sul/find_freetype2.o
+
+$(BIN)/sul/find_gen.o: $(SRC)/sul/find_gen.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_gen.c -o $(BIN)/sul/find_gen.o
+
+$(BIN)/sul/find_dmalloc.o: $(SRC)/sul/find_dmalloc.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_dmalloc.c -o $(BIN)/sul/find_dmalloc.o
+
+$(BIN)/sul/find_pcre.o: $(SRC)/sul/find_pcre.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_pcre.c -o $(BIN)/sul/find_pcre.o
+
+$(BIN)/sul/find_fs.o: $(SRC)/sul/find_fs.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_fs.c -o $(BIN)/sul/find_fs.o
+
+$(BIN)/sul/find_aspell.o: $(SRC)/sul/find_aspell.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_aspell.c -o $(BIN)/sul/find_aspell.o
+
+$(BIN)/sul/find_regex.o: $(SRC)/sul/find_regex.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_regex.c -o $(BIN)/sul/find_regex.o
+
+$(BIN)/sul/find_iconv.o: $(SRC)/sul/find_iconv.c
+	$(CC) $(CFLAGS) -c $(SRC)/sul/find_iconv.c -o $(BIN)/sul/find_iconv.o

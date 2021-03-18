@@ -1,0 +1,48 @@
+load_doc D2 list_nthname.lht
+
+echo root:
+root N1 D2
+print_tree N1
+
+
+echo second list:
+list_child N1
+list_next N1
+print_tree N1
+
+echo 0th a:
+equ_node N2 N1
+list_nthname N2 0 a
+print_tree N2
+
+echo 1st a:
+equ_node N2 N1
+list_nthname N2 1 a
+print_tree N2
+
+echo 2nd a:
+equ_node N2 N1
+list_nthname N2 2 a
+print_tree N2
+
+echo 3rd a:
+equ_node N2 N1
+list_nthname N2 3 a
+print_tree N2
+
+echo 4th a:
+equ_node N2 N1
+list_nthname N2 4 a
+print_tree N2
+
+echo 100th a:
+equ_node N2 N1
+list_nthname N2 100 a
+print_tree N2
+
+echo -1st a:
+equ_node N2 N1
+list_nthname N2 -1 a
+print_tree N2
+
+free_doc D2

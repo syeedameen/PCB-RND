@@ -1,0 +1,7 @@
+### Generated file, do not edit, run make dep ###
+
+fungw.o: fungw.c fungw.h
+fungw_conv.o: fungw_conv.c fungw.h
+fungw_ptr.o: fungw_ptr.c fungw.h
+fungw_debug.o: fungw_debug.c fungw.h
+fungw_call.o: fungw_call.c fungw.h

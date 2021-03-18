@@ -1,0 +1,13 @@
+new
+dup
+insert
+insert_dup
+free
+copy
+remove
+hdia
+shape:line
+unite
+isect
+sub
+xor

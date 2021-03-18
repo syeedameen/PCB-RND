@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Each subtree is an API and has a flat, _ordered_ list of fields.
+Each field may have the following properties:
+  type: integer, enum, mm, string, enum:country:code, enum:country:name
+  note: human readable explanation of what the field is for
+  default: default value to present when it is not already specified/derived
+  group: fields may form of topic groups by matching group name
+
+When type is "enum", the node will have <Value> children listing all possible
+values. If there is no "default" specified, use the first <Value>.
+
+Types enum:country:code and enum:country:name are enums whose values are
+loaded from the list acquired using the api/Address/GetCountry API.
+-->
+<PCBWayAPI>
+    <PcbQuotationRequest note="PCB quote interface" path="api/Pcb/PcbQuotation">
+        <DesignInPanel group="pcb" type="integer" default="1" note="Number of different designs in the panel)"></DesignInPanel>
+        <FR4Tg type="enum" note="Laminate glass transition temperature">
+            <Value>TG130</Value>
+            <Value>TG150</Value>
+            <Value>TG170</Value>
+        </FR4Tg>
+        <FinishedCopper group="pcb" type="enum" note="Finished copper thickness">
+            <Value>1 oz Cu</Value>
+            <Value>2 oz Cu</Value>
+            <Value>3 oz Cu</Value>
+            <Value>4 oz Cu</Value>
+        </FinishedCopper>
+        <Goldfingers group="pcb" type="enum" default="No" note="Whether to apply gold finish on fingers">
+            <Value>Yes</Value>
+            <Value>No</Value>
+        </Goldfingers>
+        <Layers group="pcb" type="enum" default="2" note="Number of copper layers">
+            <Value>1</Value>
+            <Value>2</Value>
+            <Value>4</Value>
+            <Value>6</Value>
+            <Value>8</Value>
+            <Value>10</Value>
+            <Value>12</Value>
+            <Value>14</Value>
+        </Layers>
+        <Length group="pcb" type="mm" note="board length"></Length>
+        <Material group="pcb" type="enum" default="FR-4" note="Substrate material">
+            <Value>FR-4</Value>
+            <Value>Aluminum board</Value>
+            <Value>Rigid-Flex</Value>
+        </Material>
+        <MinHoleSize group="pcb" type="enum" default="0.3" note="Diameter of the smallest hole, mm">
+            <Value>0.2</Value>
+            <Value>0.25</Value>
+            <Value>0.3</Value>
+            <Value>-1</Value>
+        </MinHoleSize>
+        <MinTrackSpacing group="pcb" type="enum" default="6/6mil" note="Track width/clearance">
+            <Value>4/4mil</Value>
+            <Value>5/5mil</Value>
+            <Value>6/6mil</Value>
+        </MinTrackSpacing>
+        <Qty group="pcb" type="integer" default="5" note="Number of copies to be fabricated"></Qty>
+        <Silkscreen group="pcb" type="enum" note="Color of the silkscreen graphics">
+            <Value>White</Value>
+            <Value>Black</Value>
+            <Value>None</Value>
+        </Silkscreen>
+        <SolderMask group="pcb" type="enum" note="Color of the solder mask">
+            <Value>Green</Value>
+            <Value>Red</Value>
+            <Value>Yellow</Value>
+            <Value>Blue</Value>
+            <Value>White</Value>
+            <Value>Black</Value>
+            <Value>Purple</Value>
+            <Value>Matt black</Value>
+            <Value>Matt green</Value>
+            <Value>None</Value>
+        </SolderMask>
+        <SurfaceFinish group="pcb" type="enum">
+            <Value>HASL with lead</Value>
+            <Value>HASL lead free</Value>
+            <Value>Immersion gold</Value>
+            <Value>Hard Gold</Value>
+            <Value>OSP</Value>
+            <Value>None</Value>
+        </SurfaceFinish>
+        <Thickness group="pcb" type="enum" default="1.6" note="Final board thickness in mm">
+            <Value>0.4</Value>
+            <Value>0.6</Value>
+            <Value>0.8</Value>
+            <Value>1.0</Value>
+            <Value>1.2</Value>
+            <Value>1.6</Value>
+            <Value>2.0</Value>
+            <Value>2.4</Value>
+        </Thickness>
+        <ViaProcess group="pcb" type="enum" note="Ignored when uploading gerbers: vias are made as specified in the gerbers.">
+            <Value>Tenting vias</Value>
+            <Value>Plugged vias</Value>
+            <Value>Vias not covered</Value>
+        </ViaProcess>
+        <Width group="pcb" type="mm" note="Board width"></Width>
+        <City group="shipping" type="string"></City>
+        <Country group="shipping" type="enum:country:name"></Country>
+        <CountryCode group="shipping" type="enum:country:code"></CountryCode>
+        <Postalcode group="shipping" type="string"></Postalcode>
+        <ShipType group="shipping" type="enum">
+            <Value>DHL</Value>
+            <Value>HK_post</Value>
+            <Value>SF_Express</Value>
+            <Value>Freight_Collect_Account</Value>
+            <Value>EMS</Value>
+            <Value>E_packet</Value>
+            <Value>HK_DHL</Value>
+            <Value>China_Post</Value>
+            <Value>FedEx_IP</Value>
+            <Value>FedEx_IE</Value>
+        </ShipType>
+    </PcbQuotationRequest>
+</PCBWayAPI>

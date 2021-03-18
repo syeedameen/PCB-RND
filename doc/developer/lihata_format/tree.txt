@@ -1,0 +1,737 @@
+File format root nodes
+
+Each table below describes the full tree of one of the pcb-rnd file formats, from the root.
+
+ha:pcb-rnd-board-v*
+
+type:name           value  ver description
+ha:pcb-rnd-board-v*            The full, self-contained description of a printed circuit board. This is the root of a board .lht file. The * after the v in the name is an integer which is the format version.
+ ha:meta                       Any meta-data that won't directly turn into physical material (e.g. copper).
+  board_name        string     User assigned name of the board
+  ha:grid                      User interface last grid settings
+   offs_x           coord      grid origin: X offset from 0;0
+   offs_y           coord      grid origin: Y offset from 0;0
+   spacing          coord      distance between two grid points both in X and Y directions
+  ha:size                      object size related settings
+   x                coord      drawing area size X (width)
+   y                coord      drawing area size Y (height)
+   isle_area_nm2    double     remove polygon islands smaller than this value, specified in nm^2
+   thermal_scale    double     scale all thermals on the board by this factor
+  ha:drc                   <5  design rule checker settings for the old DRC
+   bloat            coord      Minimum copper spacing
+   shrink           coord      Minimum overlap between validly touching copper objects
+   min_width        coord      Minimum copper width
+   min_silk         coord      Minimum silk width
+   min_drill        coord      Minimum drill diameter
+   min_ring         coord      Minimum annular ring width
+  ha:cursor                    obsolete cursor/view state
+   x                coord      last position, X (horizontal)
+   y                coord      last position, Y (horizontal)
+   zoom             double     last view zoom factor
+ ha:layer_stack                physical layer stack information: geometry and properties of physical layers
+  li:groups                    ordered list of physical layers from top to bottom
+   ha:INTEGER                  a layer group (a physical layer of the board); the ID of the layer group is the integer in the name of the node
+    name            string >=6 purpose of layer groups (useful with mechanical/documentation groups
+    ha:type                    a flag-list of layer type flag bits
+     top            flag       location: top side
+     bottom         flag       location: bottom side
+     intern         flag       location: internal
+     logical        flag       location: logical (not in the actual stackup)
+     copper         flag       material: copper
+     silk           flag       material: silk
+     mask           flag       material: mask
+     paste          flag       material: paste
+     outline        flag       "material": router path for board outline; normally for the outer contour, sometimes for biggish inner cutouts as well)
+     mech           flag       "material": various mechanical fabbing instructions, e.g. slots; the purpose field provides more detail about the use
+     doc            flag       "material": documentation, either for the user and for pcb-rnd or both (the purpose field shoudl tell); e.g. assembly documentation for the user, keepout for the user and DRC
+     substrate      flag       material: substrate or insulator
+    name            string >=6 purpose of layer groups (useful with mechanical/documentation groups
+    li:layers                  ordered list of logical layer IDs hosted by this layer group
+ ha:font                       font kit: all fonts used on the board (if no font specified, default font will be used)
+  ha:FONT-ID                   the full description of a font; the node name is the integer font id or "geda_pcb" for font 0 (for historical reasons); the name is used only to make each node unique, the ID is also a field below ->
+ ha:styles                     routing styles hash: collection of all available routing syles
+ ha:netlists                   all available netlists
+  li:netlist                   the input netlist (as seen in the last netlist import, a.k.a. forward annotation)
+   ha:NETNAME                  a network
+    li:conn                    list of terminals connected to the network
+     diameter       string     refdes-terminal
+    ha:attributes          >=5 a hash of attribute key=value pairs
+     attrib-key     string     attribute value
+  li:netlist_patch             a list of intentional deviations from the input netlist, a.k.a. material for back annotation
+   li:net_info                 describe the current state of a net, as seen on the input
+    net             string     net name; first item on the list, only once
+    term            string     terminal name; zero or more items starting from the second item
+   ha:add_conn                 the 'as built' network requires a new connection to be created during the back annotation
+    net             string     net name the terminal should be added to
+    term            string     terminal name
+   ha:del_conn                 the 'as built' network requires an existing connection to be removed during the back annotation
+    net             string     net name the terminal should be removed from
+    term            string     terminal name
+   ha:change_attrib            the 'as built' network requires an attribute to be set or changed
+    net             string     net name whose attribute needs to be changed
+    key             string     key (name) of the attribute
+    val             string     new value of the attribute
+ li:conf                       complete pcb-rnd configuration tree ->
+ ha:data                       Layers and global objects of the board ->
+ ha:pixmaps                >=7 Collection of all unique pixmaps used by the board or footprint ->
+ ha:attributes                 a hash of attribute key=value pairs
+  attrib-key        string     attribute value
+
+li:pcb-rnd-buffer-v*
+
+type:name             value ver description
+li:pcb-rnd-buffer-v*        >=6 buffer file containing a whole paste buffer with bound layers
+ x                    coord     buffer origin point, X coordinate
+ y                    coord     buffer origin point, Y coordinate
+ ha:data                        Layers and global objects of the board ->
+
+li:pcb-rnd-conf-v1
+
+type:name           value ver description
+li:pcb-rnd-conf-v1            complete pcb-rnd configuration tree
+ ha:overwrite                 overwrite values while merging; children: a full or partial config tree
+ ha:prepend                   prepend values while merging; children: a full or partial config tree
+ ha:append                    append values while merging; children: a full or partial config tree
+
+ha:pcb-rnd-drc-query-v*
+
+type:name               value  ver description
+ha:pcb-rnd-drc-query-v*            pcb-rnd drc_query script
+ li:defs                           Definitions of user tunable constants
+  ha:name                          each entry is identified by an unique name
+   default              string     default value
+   type                 string     data type of the constant (a valid conf system type name, e.g. real, coord)
+   desc                 string     human readable description of the purpose of the constant
+ li:rules                          DRC rules
+  ha:name                          each entry is identified by an unique name
+   type                 string     violation type (for grouping violations in the drc report)
+   title                string     title (short summary) of the violation
+   desc                 string     human readable description of the violation, with hints on how to resolve it
+   query                string     query script to execute for finding violations
+
+li:pcb-rnd-font-v1
+
+type:name             value   ver description
+li:pcb-rnd-font-v1                font description
+ ha:FONT-ID                       the full description of a font; the node name is the integer font id or "geda_pcb" for font 0 (for historical reasons); the name is used only to make each node unique, the ID is also a field below
+  cell_height         coord       height of the tallest glyph
+  cell_width          coord       width of the widest glyph
+  id                  integer     unique font ID within the fontkit; fonts are referenced by ID
+  name                string      user specified, user readable font name
+  ha:symbols                      a collections of glyphs availbale in the font
+   ha:CHARACTER                   Description of a glyph (symbol). Node name is a signel ASCII character or is of format &xx where xx is a hex digit of the ASCII code of the character. Characters that must use the hex version are: codes below 33 or over
+                                  126, &, #, {, }, /, :, ;, =, \, :
+    height            coord       height of the glyph
+    width             coord       width of the glyph
+    delta             coord       extra space always inserted after the current symbol, before the next character
+    li:objects                    objects that make up the symbol; IDs are per symbol local IDs counted from 0
+     ha:line.ID                   round cap line, simplified
+      x1              coord       line first endpoint, horizontal offset
+      y1              coord       line first endpoint, vertical offset
+      x2              coord       line second endpoint, horizontal offset
+      y2              coord       line second endpoint, vertical offset
+      thickness       coord       width of the line
+     ha:simplearc.ID              round cap arc, simplified
+      x               coord       center, X coord
+      y               coord       center, Y coord
+      r               coord       radius (of the centerline of the arc)
+      thickness       coord       width of the pen the arc is drawn with
+      astart          angle       start angle
+      adelta          angle       delta angle
+     li:simplepoly.ID             round cap arc, simplified; contains a flat list of coords; each coord pair is an x;y corner of the outline of the polygon (odd indices are x coords, even indices are y coords)
+
+ha:pcb-rnd-log-v*
+
+type:name          value   ver description
+ha:pcb-rnd-log-v*              pcb-rnd message log dump
+ li:entries                    list of message log entries
+  ha:ID                        each entry is identified by an unique unsigned long int ID
+   stamp           string      UNIX time stamp of entry creation
+   level           integer     log level enum value (see error.h)
+   seen            integer     1 if the message got displayed
+   str             string      log message
+
+ha:menu
+
+type:name           value  ver description
+ha:rnd-menu-v1                 Menu file
+ li:mouse                      mouse bindings
+  li:left                      actions to execute on left button click
+   li:press                    actions to execute on mouse button press when no modifier is pressed
+   li:press-shift              actions to execute on mouse button press when shift is pressed
+   li:press-ctrl               actions to execute on mouse button press when control is pressed
+   li:release                  actions to execute on mouse button release when no modifier is pressed
+   li:release-shift            actions to execute on mouse button release when shift is pressed
+   li:release-ctrl             actions to execute on mouse button release when control is pressed
+  li:middle                    actions to execute on middle button click
+   li:press                    actions to execute on mouse button press when no modifier is pressed
+   li:press-shift              actions to execute on mouse button press when shift is pressed
+   li:press-ctrl               actions to execute on mouse button press when control is pressed
+   li:release                  actions to execute on mouse button release when no modifier is pressed
+   li:release-shift            actions to execute on mouse button release when shift is pressed
+   li:release-ctrl             actions to execute on mouse button release when control is pressed
+  li:right                     actions to execute on right button click
+   li:press                    actions to execute on mouse button press when no modifier is pressed
+   li:press-shift              actions to execute on mouse button press when shift is pressed
+   li:press-ctrl               actions to execute on mouse button press when control is pressed
+   li:release                  actions to execute on mouse button release when no modifier is pressed
+   li:release-shift            actions to execute on mouse button release when shift is pressed
+   li:release-ctrl             actions to execute on mouse button release when control is pressed
+  li:scroll-up                 actions to execute on scroll wheel scolling up event
+   li:press                    actions to execute on mouse button press when no modifier is pressed
+   li:press-shift              actions to execute on mouse button press when shift is pressed
+   li:press-ctrl               actions to execute on mouse button press when control is pressed
+  li:scroll-down               actions to execute on scroll wheel scolling down event
+   li:press                    actions to execute on mouse button press when no modifier is pressed
+   li:press-shift              actions to execute on mouse button press when shift is pressed
+   li:press-ctrl               actions to execute on mouse button press when control is pressed
+ li:main_menu                  root of the main pull-down menu system; ordered list of main menus
+  ha:MENUNAME                  main menu name, e.g. "File"
+   m                string     mnemonic: single character that should be underlined and used as a hot key in the menu name
+   li:submenu                  ordered list of menu items for a submenu ->
+ li:popups                     collection of popup menus
+  ha:POPUPNAME                 popup menu name, e.g. "layer" for layer context menu
+   m                string     mnemonic: single character that should be underlined and used as a hot key in the menu name
+   li:submenu                  ordered list of menu items for a submenu ->
+ li:toolbar_static             ordered list (from left to right) of toolbar icons
+  ha:TOOLNAME                  tool menu name, e.g. "polyhole" for the polygon hole draw tool
+   te:tip                      tooltip for the icon button
+ li:anchored                   list of submenus; child of submenu would be copied and appended after ever occurance of the ANCHORNAME
+  ha:@ANCHORNAME               list menu items/subtrees to be copied after each @ANCHORNAME in the menu system
+   li:submenu                  ordered list of menu items for a submenu ->
+ ha:scripts                    a collection of named action scripts that can be symnlinked from elsewhere in the menu file
+  li:SCRIPTNAME                action script
+
+ha:menu_patch
+
+type:name                 value ver description
+ha:rnd-menu-patch-v1                Menu patch instructions
+ te:prio                            optional; integer priority value used in ordering the menu files/patches before merging
+ li:patch                           ordered list of patch instructions
+  ha:append_menu                    append (or overwrite) a submenu tree at a given path
+   te:path                          path to a menu item, starting from the menu tree root; e.g. /main_menu/File/Revert ->
+   li:submenu                       ordered list of menu items for a submenu ->
+  ha:remove_menu                    remove a submenu or menu item at a given path
+   te:path                          path to a menu item, starting from the menu tree root; e.g. /main_menu/File/Revert ->
+  ha:overwrite_menu_props           overwrite properties of an existing menu
+   te:path                          path to a menu item, starting from the menu tree root; e.g. /main_menu/File/Revert ->
+   ha:props                         same as menu properties documented at LEAFSUBMENUNAME
+
+li:pcb-rnd-padstack-v*
+
+type:name               value ver description
+li:pcb-rnd-padstack-v*        >=6 A singe padstack prototype
+ ha:ps_proto_v6.0                 padstack prototype specification, as introduced in lihata board v4 ->
+
+ha:coraleda-project-v1
+
+type:name              value  ver description
+ha:coraleda-project-v1            Project file root. Except for "common", each software package should create a single subtree under the root; the subtree shall be named after the software package
+ ha:common                        project settings that should be common to all software packages
+  name                 string     long name of the project
+  desc                 string     description of the project
+  url                  string     homepage of the project
+  vcs                  string     main vcs url for the project
+  contact              string     author/maintainer contact info
+  li:files                        ordered list of source files being used by the project
+   ha:NAME                        a project member file
+    path               string     path to the file, relative to the project file
+    desc               string     description of the file
+    type               string     optional: type of the file; one of: "pcb", "schematic", "doc"
+  li:libs                         ordered list of libraries the project depends on
+   ha:NAME                        a library
+    path               string     path to the library, relative to the project file; all files and subdirectories under the root, recursively, are considered part of the library (must not be used together with url)
+    url                string     url to the library (must not be used together with path)
+    desc               string     description of the library
+    type               string     optional: type of the library; one of: "footprint" (for pcb design), "symbol" (for schematic), "sim" (models and subcircuits for e.g. spice simulation)
+ li:pcb-rnd-conf-v1               complete pcb-rnd configuration tree ->
+
+li:pcb-rnd-subcircuit-v*
+
+type:name                value  ver description
+li:pcb-rnd-subcircuit-v*            footprint file containing a single subcircuit
+ ha:subc.ID                     >=3 an instance (full copy) of a subcircuit
+  uid                    minuid     UID assigned by the user to track subc history
+  ha:attributes                     a hash of attribute key=value pairs
+   attrib-key            string     attribute value
+  ha:flags                          flag bits of a subcircuit
+   found                 flag       If set, this object has been found by FindConnection()
+   selected              flag       Set when the object is selected.
+   drc                   flag       Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+   exportsel             flag       Set for objects that should be exported in a partial export.
+   lock                  flag       Set for locked objects.
+   nonetlist             flag       subcircuit is not on the netlist and should not interfere with the netlist
+   termname              flag       when set the names of pins are shown.
+   floater               flag       subc part can be moved after subc placing
+  ha:data                           Layers and global objects of the board ->
+ ha:pixmaps                     >=7 Collection of all unique pixmaps used by the board or footprint ->
+
+li:view-list-v*
+
+type:name       value  ver description
+li:view-list-v*            a list of view items (locations and objects to highlight on the board, e.g. for DRC violations)
+ ha:view.ID                a view item; ID is a 32 bit signed integer, unique within the view list
+  type          string     free form short text for type of the entry; the GUI may group items by type
+  title         string     free form short text for the title of the entry; the GUI typically uses this in brief listings
+  description   string     free form long text for the detailed description of the entry
+  li:bbox       coord      optional: 4 coordinates in x1;y1;x2;y2 order that describes the bounding box of the view in board space coordinates; when available, the preview or go-to will use this for view box
+  li:xy         coord      optional: 2 coordinates in x;y order that describes a specific board location
+  li:objs.ID               a group of related objects; there should be at most two groups with ID 0 and 1. These objects are often highlighted in red and blue.
+   li:id                   objects are specified as a list of object IDs (32 bit integers)
+
+Common subtrees
+
+Each table below describes a subtree that usually does not specify a whole tree (thus they are usually not a valid file on their own). These subtrees are described in a separate table because they are used from multiple other trees.
+
+ha:data
+
+type:name               value    ver description
+ha:data                              Layers and global objects of the board
+ li:objects                          List of global (non-layer/multi-layer) objects
+  ha:padstack_ref.ID             >=4 a padstack reference (instance) placed on the board (e.g. used as a via)
+   proto                integer      padstack prototype ID to use, from the parent data's proto list
+   x                    coord        place padstack with origin at this horizontal coordinate
+   y                    coord        place padstack with origin at this vertical coordinate
+   clearance            coord        global clearance; if non-zero, overrides local (per shape) clearance
+   rot                  angle        rotation angle in degrees
+   xmirror              integer      0 or 1; if 1, mirror all shapes over the x (horizontal) axis (so that y coords are flipped)
+   smirror              integer      0 or 1; if 1, mirror the layer stackup: bottom becomes top, top becomes bottom (a.k.a. "place on the other side")
+   ha:attributes                     a hash of attribute key=value pairs
+    attrib-key          string       attribute value
+   ha:flags                          flag bits of a padstack
+    found               flag         If set, this object has been found by FindConnection()
+    hole                flag         For pins and vias, this flag means that the pin or via is a hole without a copper annulus.
+    clearline           flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+    selected            flag         Set when the object is selected.
+    auto                flag         For lines and vias, indicates that these were created by the autorouter.
+    warn                flag         For pins, vias, and pads, set to indicate a warning.
+    drc                 flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+    exportsel           flag         Set for objects that should be exported in a partial export.
+    lock                flag         Set for locked objects.
+    termname            flag         when set the names of pins are shown.
+    floater             flag         subc part can be moved after subc placing
+   li:thermal                        list of thermal shapes, per layer
+    li:LAYERID                       integer layer ID the thermal affects; each word is a boolean flag that is either present on the list or is missing; only one shape may be present
+     on                 none         thermal is present on this layer; if not present, all other thermal flags are ignored on this layer
+     diag               none         thermal graphics is not axis aligned but diagonal (rotated by 45 degrees)
+     round              none         shape: rounded edge fingers
+     sharp              none         shape: sharp edge fingers
+     solid              none         shape: no thermal relief, solid connection without clearance
+     noshape            none     >=6 shape: special: omit copper shape of the padstack on this layer
+  ha:via.ID                      <=4 an old via object (loaded as padstack in the new model)
+   x                    coord        place padstack with origin at this horizontal coordinate
+   y                    coord        place padstack with origin at this vertical coordinate
+   thickness            coord        copper shape dimension (diameter)
+   clearance            coord        copper clearance around the copper shape
+   mask                 coord        mask cutout shape dimension (diameter)
+   hole                 coord        drill/hole diameter
+   name                 string       optional name attribute
+   number               string       for a pin (or to-be-pin) this is the terminal ID
+   ha:attributes                     a hash of attribute key=value pairs
+    attrib-key          string       attribute value
+   ha:flags_pinvia                   flag bits of a pin or via
+    found               flag         If set, this object has been found by FindConnection()
+    hole                flag         For pins and vias, this flag means that the pin or via is a hole without a copper annulus.
+    clearline           flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+    selected            flag         Set when the object is selected.
+    auto                flag         For lines and vias, indicates that these were created by the autorouter.
+    warn                flag         For pins, vias, and pads, set to indicate a warning.
+    usetherm            flag         Obsolete, indicates that pins/vias should be drawn with thermal fingers.
+    drc                 flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+    lock                flag         Set for locked objects.
+    nonetlist           flag         subcircuit is not on the netlist and should not interfere with the netlist
+    termname            flag         when set the names of pins are shown.
+    floater             flag         subc part can be moved after subc placing
+    pin                 flag         object is a pin (in an element)
+    via                 flag         object is a via
+ li:layers                           ordered list of layers; v1 required the order to be top-bottom physically; v1 also required silk layers to be at the end (same resrtictions as in the old .pcb format; only real (non-bound) layers have attributes)
+  ha:NAME                            a logical layer
+   lid                  integer  >=2 layer ID
+   visible              integer  <6  only in real (non-boud) layers: 1 if the layer is visible, 0 if not (UI setting)
+   group                integer      only in real (non-boud) layers: "parent" layer group ID
+   color                string   >=5 layer color on UI, in #rrggbb format
+   stack_offs           integer      only in bound layers: match offset e.g. for internal copper layers
+   ha:type                           only for bound layers: try to bind to this type of layer on the host board
+    top                 flag         location: top side
+    bottom              flag         location: bottom side
+    intern              flag         location: internal
+    logical             flag         location: logical (not in the actual stackup)
+    copper              flag         material: copper
+    silk                flag         material: silk
+    mask                flag         material: mask
+    paste               flag         material: paste
+    outline             flag         "material": router path for board outline; normally for the outer contour, sometimes for biggish inner cutouts as well)
+    mech                flag         "material": various mechanical fabbing instructions, e.g. slots; the purpose field provides more detail about the use
+    doc                 flag         "material": documentation, either for the user and for pcb-rnd or both (the purpose field shoudl tell); e.g. assembly documentation for the user, keepout for the user and DRC
+    substrate           flag         material: substrate or insulator
+   purpose              integer  >=6 only in bound layers: match layer group purpose
+   combining                     >=2 layer combination (compositing) flags
+    sub                 flag         draw in negative
+    auto                flag         padstacks draw their paste, mask and silk objects on the first layer (of matching type) that features the auto flag
+   ha:attributes                     a hash of attribute key=value pairs
+    attrib-key          string       attribute value
+   li:objects                        list of drawing primitives put on this layer
+    ha:line.ID                       round cap line
+     x1                 coord        line first endpoint, horizontal offset
+     y1                 coord        line first endpoint, vertical offset
+     x2                 coord        line second endpoint, horizontal offset
+     y2                 coord        line second endpoint, vertical offset
+     thickness          coord        width of the line
+     clearance          coord        copper clearance around the object
+     ha:attributes                   a hash of attribute key=value pairs
+      attrib-key        string       attribute value
+     ha:flags                        flag bits of a line
+      found             flag         If set, this object has been found by FindConnection()
+      clearline         flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+      selected          flag         Set when the object is selected.
+      auto              flag         For lines and vias, indicates that these were created by the autorouter.
+      rubberend         flag         For lines, used internally for rubber band moves: indicates one end already rubber banding.
+      drc               flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+      exportsel         flag         Set for objects that should be exported in a partial export.
+      lock              flag         Set for locked objects.
+      termname          flag         when set the names of pins are shown.
+      floater           flag         subc part can be moved after subc placing
+     li:thermal                      list of thermal flags for heavy terminals, on the single layer the object is on
+      on                none         draw any thermal only if this string is present; else normal clearance is applied
+      diag              none         if present, the thermal is diagonal (45 degree rotated)
+      round             none         if present, thermal shape is rounded
+      sharp             none         if present, thermal shape is sharp
+      solid             none         if present, there is no thermal but a solid connection ("join")
+    ha:arc.ID                        round cap elliptic arc (only width==height is fully supported at the moment)
+     x                  coord        center, X coord
+     y                  coord        center, Y coord
+     width              coord        radius (of the centerline of the arc) in X direction
+     height             coord        radius (of the centerline of the arc) in Y direction
+     thickness          coord        width of the pen the arc is drawn with
+     clearance          coord        copper clearance around the object
+     astart             angle        start angle
+     adelta             angle        delta angle
+     ha:attributes                   a hash of attribute key=value pairs
+      attrib-key        string       attribute value
+     ha:flags                        flag bits of a arc
+      found             flag         If set, this object has been found by FindConnection()
+      clearline         flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+      selected          flag         Set when the object is selected.
+      auto              flag         For lines and vias, indicates that these were created by the autorouter.
+      rubberend         flag         For lines, used internally for rubber band moves: indicates one end already rubber banding.
+      drc               flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+      exportsel         flag         Set for objects that should be exported in a partial export.
+      lock              flag         Set for locked objects.
+      termname          flag         when set the names of pins are shown.
+      floater           flag         subc part can be moved after subc placing
+     li:thermal                      list of thermal flags for heavy terminals, on the single layer the object is on
+      on                none         draw any thermal only if this string is present; else normal clearance is applied
+      diag              none         if present, the thermal is diagonal (45 degree rotated)
+      round             none         if present, thermal shape is rounded
+      sharp             none         if present, thermal shape is sharp
+      solid             none         if present, there is no thermal but a solid connection ("join")
+    ha:gfx.ID                    >=7 rectangular custom pixmap graphics
+     sx                 coord        visible size, X direction
+     sy                 coord        visible size, Y direction
+     cx                 coord        center, X coord
+     cy                 coord        center, Y coord
+     rot                angle        rotation angle, CCW
+     xmirror            ingteger     0 or 1, whether the pixmap should be mirrored (x coord mirror, which means mirror against the y axis
+     ymirror            ingteger     0 or 1, whether the pixmap should be mirrored (y coord mirror, which means mirror against the x axis
+     pixmap_ref         ingteger     ID of the pixmap to use from the pixmaps subtree; this pixmap represents the neutral state (no rotation, no mirror) pixmap of the object
+     ha:attributes                   a hash of attribute key=value pairs
+      attrib-key        string       attribute value
+     ha:flags                        flag bits of a arc
+      found             flag         If set, this object has been found by FindConnection()
+      clearline         flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+      selected          flag         Set when the object is selected.
+      auto              flag         For lines and vias, indicates that these were created by the autorouter.
+      rubberend         flag         For lines, used internally for rubber band moves: indicates one end already rubber banding.
+      drc               flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+      exportsel         flag         Set for objects that should be exported in a partial export.
+      lock              flag         Set for locked objects.
+      termname          flag         when set the names of pins are shown.
+      floater           flag         subc part can be moved after subc placing
+     li:thermal                      list of thermal flags for heavy terminals, on the single layer the object is on
+      on                none         draw any thermal only if this string is present; else normal clearance is applied
+      diag              none         if present, the thermal is diagonal (45 degree rotated)
+      round             none         if present, thermal shape is rounded
+      sharp             none         if present, thermal shape is sharp
+      solid             none         if present, there is no thermal but a solid connection ("join")
+    ha:polygon.ID                    polygon, as drawn (unclipped)
+     clearance          coord    >=3 copper clearance around the object
+     enforce_clearance  coord    >=7 enforce minimum clearance on clearing objects within the polygon
+     ha:attributes                   a hash of attribute key=value pairs
+      attrib-key        string       attribute value
+     ha:flags                        flag bits of a polygon
+      found             flag         If set, this object has been found by FindConnection()
+      clearpoly         flag         For polygons, this flag means that pins and vias will normally clear these polygons (thus, thermals are required for electrical connection). When clear, polygons will solidly connect to pins and vias.
+      fullpoly          flag         For polygons, the full polygon is drawn (i.e. all parts instead of only the biggest one).
+      selected          flag         Set when the object is selected.
+      drc               flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+      exportsel         flag         Set for objects that should be exported in a partial export.
+      lock              flag         Set for locked objects.
+      termname          flag         when set the names of pins are shown.
+      clearpolypoly     flag         For polygons, apply clearance to nearby polygons
+      floater           flag         subc part can be moved after subc placing
+     li:thermal                      list of thermal flags for heavy terminals, on the single layer the object is on
+      on                none         draw any thermal only if this string is present; else normal clearance is applied
+      diag              none         if present, the thermal is diagonal (45 degree rotated)
+      round             none         if present, thermal shape is rounded
+      sharp             none         if present, thermal shape is sharp
+      solid             none         if present, there is no thermal but a solid connection ("join")
+     li:geometry                     first item is the outer contour, subsequent, optional items are holes
+      contour           coordtbl     2 column table of x;y coords for the outer contour
+      hole              coordtbl     2 column table of x;y coords for a hole
+    ha:text.ID                       single line text object
+     x                  coord        placement: X coord
+     y                  coord        placement: Y coord
+     role               string       when part of an old element, determines which of the three hardwired text object role is used (footprint, refdes or value)
+     string             string       text string (payload)
+     fid                integer      font ID
+     scale              integer      text size scale in %
+     scale_x            double       text size scale in X direction (width), as a multiplier; if 0, use scale/100
+     scale_y            double       text size scale in Y direction (height), as a multiplier; if 0, use scale/100
+     direction          integer  <=5 rotation in 90 degree steps (0 is horizontal); between -3 and +3, inclusive. Starting from v6, the rot field shall be used instead of direction
+     rot                angle    >=6 rotation angle in degrees, [0..360), CCW
+     thickness          coord    >=6 if zero, use the default width algorithm; if non-zero use this value as rotation angle in degrees
+     ha:attributes                   a hash of attribute key=value pairs
+      attrib-key        string       attribute value
+     ha:flags                        flag bits of a text
+      found             flag         If set, this object has been found by FindConnection()
+      clearline         flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+      selected          flag         Set when the object is selected.
+      onsolder          flag         For text, indicates that it is on the solder side.
+      drc               flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+      exportsel         flag         Set for objects that should be exported in a partial export.
+      lock              flag         Set for locked objects.
+      termname          flag         when set the names of pins are shown.
+      dyntext           flag         For text: dynamic string (substitute %patterns%)
+      floater           flag         subc part can be moved after subc placing
+ li:padstack_prototypes          >=4
+  unused                none         placeholder for marking unused slot to keep slot indices for early lihata v4
+  ha:ps_proto_v4.PID                 padstack prototype specification, as introduced in lihata board v4
+   hdia                 coord        hole diameter; 0 means no hole
+   htop                 integer      hole start: copper layer index from the top (positive) or bottom (negative) copper layer (0 means top copper layer)
+   hbottom              integer      hole start: copper layer index from the bottom (positive) or top (negative) copper layer (0 means bottom copper layer)
+   hplated              integer      0=hole and/or slot is unplated; 1=hole and/or slot is plated
+   name                 string   >=5 optional user assigned prototype name
+   li:shape                          shape per layer type definition
+    ha:ps_shape_v4                   shape on a specific layer type (specified by layer_mask and combining), as specifie in lihata board v4; shape is either ps_poly, ps_line or ps_circ (only one of these will present per layer type); shape coords are
+                                     relative to padstack origin; layer mask shall contain one material and at most one location bit
+     ha:layer_mask                   layer type and location
+      top               flag         location: top side
+      bottom            flag         location: bottom side
+      intern            flag         location: internal
+      logical           flag         location: logical (not in the actual stackup)
+      copper            flag         material: copper
+      silk              flag         material: silk
+      mask              flag         material: mask
+      paste             flag         material: paste
+      outline           flag         "material": router path for board outline; normally for the outer contour, sometimes for biggish inner cutouts as well)
+      mech              flag         "material": various mechanical fabbing instructions, e.g. slots; the purpose field provides more detail about the use
+      doc               flag         "material": documentation, either for the user and for pcb-rnd or both (the purpose field shoudl tell); e.g. assembly documentation for the user, keepout for the user and DRC
+      substrate         flag         material: substrate or insulator
+     combining                       layer compositing match
+      sub               flag         draw in negative
+      auto              flag         padstacks draw their paste, mask and silk objects on the first layer (of matching type) that features the auto flag
+     clearance          coord        local, per-layer-type clearance; applied if global padstack clearance is 0
+     li:ps_poly                      arbitrary convex polygon shape; contains a list of x;y coordinates
+     ha:ps_line                      straight line shape, round or square cap
+      x1                coord        line first endpoint, horizontal offset
+      y1                coord        line first endpoint, vertical offset
+      x2                coord        line second endpoint, horizontal offset
+      y2                coord        line second endpoint, vertical offset
+      thickness         coord        width of the line
+      square            integer      0=round cap; 1=square cap
+     ha:ps_circ                      filled circle shape
+      x                 coord        center, horizontal offset
+      y                 coord        center, vertical offset
+      dia               coord        circle diameter
+     te:ps_hshadow               >=6 hole/slot shadow
+ ha:subc.ID                      >=3 an instance (full copy) of a subcircuit
+  uid                   minuid       UID assigned by the user to track subc history
+  ha:attributes                      a hash of attribute key=value pairs
+   attrib-key           string       attribute value
+  ha:flags                           flag bits of a subcircuit
+   found                flag         If set, this object has been found by FindConnection()
+   selected             flag         Set when the object is selected.
+   drc                  flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+   exportsel            flag         Set for objects that should be exported in a partial export.
+   lock                 flag         Set for locked objects.
+   nonetlist            flag         subcircuit is not on the netlist and should not interfere with the netlist
+   termname             flag         when set the names of pins are shown.
+   floater              flag         subc part can be moved after subc placing
+  ha:data                            Layers and global objects of the board ->
+ ha:element.ID                   <3  an instance (full copy) of an obsolete element footprint
+  x                     coord        element origin (diamond), horizontal offset
+  y                     coord        element origin (diamond), vertical offset
+  ha:attributes                      a hash of attribute key=value pairs
+   attrib-key           string       attribute value
+  ha:flags_element                   flag bits of an element
+   found                flag         If set, this object has been found by FindConnection()
+   selected             flag         Set when the object is selected.
+   auto                 flag         For lines and vias, indicates that these were created by the autorouter.
+   drc                  flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+   lock                 flag         Set for locked objects.
+   nonetlist            flag         subcircuit is not on the netlist and should not interfere with the netlist
+   termname             flag         when set the names of pins are shown.
+   floater              flag         subc part can be moved after subc placing
+   onsolder             flag         element is placed on the solder side
+  li:objects                         list of special objects that make up the element; lines and arcs are always on a silk layer
+   ha:line.ID                        round cap line ->
+   ha:arc.ID                         round cap elliptic arc (only width==height is fully supported at the moment) ->
+   ha:text.ID                        single line text object ->
+   ha:pad.ID                         SMD pad emulated using a line object; becomes a rectangle (but watch out for the cap-extended length!) when the square flag is set
+    x1                  coord        line first endpoint, horizontal offset
+    y1                  coord        line first endpoint, vertical offset
+    x2                  coord        line second endpoint, horizontal offset
+    y2                  coord        line second endpoint, vertical offset
+    thickness           coord        width of the line
+    clearance           coord        clearance around the line
+    mask                coord        size of the mask cutout, as interpreted by gEDA/PCB
+    name                string       symbolic name of the pad
+    number              string       "pin number" for the netlist
+    ha:attributes                    a hash of attribute key=value pairs
+     attrib-key         string       attribute value
+    ha:flags_pad                     flag bits of a pad
+     found              flag         If set, this object has been found by FindConnection()
+     hole               flag         For pins and vias, this flag means that the pin or via is a hole without a copper annulus.
+     clearline          flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+     selected           flag         Set when the object is selected.
+     auto               flag         For lines and vias, indicates that these were created by the autorouter.
+     warn               flag         For pins, vias, and pads, set to indicate a warning.
+     usetherm           flag         Obsolete, indicates that pins/vias should be drawn with thermal fingers.
+     drc                flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+     lock               flag         Set for locked objects.
+     nonetlist          flag         subcircuit is not on the netlist and should not interfere with the netlist
+     termname           flag         when set the names of pins are shown.
+     floater            flag         subc part can be moved after subc placing
+     pin                flag         object is a pin (in an element)
+     via                flag         object is a via
+   ha:pin.ID                         thru-hole pin; emulated as an old-style via
+    x                   coord        place padstack with origin at this horizontal coordinate
+    y                   coord        place padstack with origin at this vertical coordinate
+    thickness           coord        copper shape dimension (diameter)
+    clearance           coord        copper clearance around the copper shape
+    mask                coord        mask cutout shape dimension (diameter)
+    hole                coord        drill/hole diameter
+    name                string       optional name attribute
+    number              string       for a pin (or to-be-pin) this is the terminal ID
+    ha:attributes                    a hash of attribute key=value pairs
+     attrib-key         string       attribute value
+    ha:flags_pinvia                  flag bits of a pin or via
+     found              flag         If set, this object has been found by FindConnection()
+     hole               flag         For pins and vias, this flag means that the pin or via is a hole without a copper annulus.
+     clearline          flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+     selected           flag         Set when the object is selected.
+     auto               flag         For lines and vias, indicates that these were created by the autorouter.
+     warn               flag         For pins, vias, and pads, set to indicate a warning.
+     usetherm           flag         Obsolete, indicates that pins/vias should be drawn with thermal fingers.
+     drc                flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+     lock               flag         Set for locked objects.
+     nonetlist          flag         subcircuit is not on the netlist and should not interfere with the netlist
+     termname           flag         when set the names of pins are shown.
+     floater            flag         subc part can be moved after subc placing
+     pin                flag         object is a pin (in an element)
+     via                flag         object is a via
+ ha:rat.ID                           global rat line
+  x1                    coord        line first endpoint, horizontal offset
+  y1                    coord        line first endpoint, vertical offset
+  x2                    coord        line second endpoint, horizontal offset
+  y2                    coord        line second endpoint, vertical offset
+  lgrp1                 integer      first endpoint's layer group ID
+  lgrp2                 integer      second endpoint's layer group ID
+  anchor1               string   >=7 first endpoint's objet anchor written as an absolute idpath
+  anchor2               string   >=7 second endpoint's objet anchor written as an absolute idpath
+  ha:attributes                      a hash of attribute key=value pairs
+   attrib-key           string       attribute value
+  ha:flags                           flag bits of a line
+   found                flag         If set, this object has been found by FindConnection()
+   clearline            flag         For lines and arcs, the line/arc will clear polygons instead of connecting to them.
+   selected             flag         Set when the object is selected.
+   auto                 flag         For lines and vias, indicates that these were created by the autorouter.
+   rubberend            flag         For lines, used internally for rubber band moves: indicates one end already rubber banding.
+   drc                  flag         Set for objects that fail DRC: flag like FOUND flag for DRC checking.
+   exportsel            flag         Set for objects that should be exported in a partial export.
+   lock                 flag         Set for locked objects.
+   termname             flag         when set the names of pins are shown.
+   floater              flag         subc part can be moved after subc placing
+
+ha:pixmaps
+
+type:name     value   ver description
+ha:pixmaps            >=7 Collection of all unique pixmaps used by the board or footprint
+ ha:ulzw.ID               pixmap with payload ulzw-compressed
+  sx          integer     size in X direction (width), in pixels
+  sy          integer     size in Y direction (height), in pixels
+  transparent string      color of the transparent pixel in #rrggbb form; omit node if there is no transparent pixel in the pixmap
+  pixmap      string      base64 encoded version of the ulzw compressed raw pixmap, whih is in 24 bit RGB format, stored row-major
+
+li:submenu
+
+type:name           value  ver description
+li:submenu                     ordered list of menu items for a submenu
+ m                  string     mnemonic: single character that should be underlined and used as a hot key in the menu name
+ -                  none       horizontal separator
+ @ANCHOR            none       an anchor is an invisible placeholder where a dynamically generated set of menu items should be inserted runtime
+ ha:SUBSUBMENUNAME             sub-submenu item: opens a new level of submenu when clicked
+  m                 string     mnemonic: single character that should be underlined and used as a hot key in the menu name
+  li:submenu                   ordered list of menu items for a submenu ->
+ ha:LEAFSUBMENUNAME            leaf submenu item: executes an action when clicked
+  m                 string     mnemonic: single character that should be underlined and used as a hot key in the menu name
+  li:a                         list of alternative hotkey sequences to activate the menu
+  a                 string     a single hotkey sequences to activate the menu
+  li:action                    list of actions to execute when the menu is activated
+  action            string     a single action to execute when the menu is activated
+  tip               string     tooltip text
+  checked           string     the menu item has a checkbox; value is the action to execute to determine whether the menu item's checkbox is checked or not
+  update_on         string     path of a conf node that triggers re-evaluation of the checkbox state
+
+te:path
+
+type:name value ver description
+te:path             path to a menu item, starting from the menu tree root; e.g. /main_menu/File/Revert
+
+Types
+
++--------------------------------------------------------------------------------------------------+
+|  type  |                                       description                                       |
+|--------+-----------------------------------------------------------------------------------------|
+|angle   |A decimal number without unit, representing an angle in degree. Can be positive or       |
+|        |negative.                                                                                |
+|--------+-----------------------------------------------------------------------------------------|
+|        |A decimal number with a unit suffix. If the unit suffix is missing, the coordinate is    |
+|        |loaded in the internal units (which is nanometer as of 2018, but could change in the     |
+|        |future, thus files shall not depend on it). Depending on the context, coordinates may    |
+|        |have a sign (positive or negative).                                                      |
+|coord   |                                                                                         |
+|        |Examples:                                                                                |
+|        |                                                                                         |
+|        |x=10mil;                                                                                 |
+|        |y=1.5mm;                                                                                 |
+|        |dia=12cm;                                                                                |
+|--------+-----------------------------------------------------------------------------------------|
+|        |A two-column table of coords. First column are X, second column are Y coordinates.       |
+|        |                                                                                         |
+|        |Examples:                                                                                |
+|        |                                                                                         |
+|coordtbl|ta:contour {                                                                             |
+|        | 1mm;   2.1mm;                                                                           |
+|        | 5mm;   5.2mm;                                                                           |
+|        | 3.7mm; 12mil;                                                                           |
+|        |}                                                                                        |
+|        |ta:foo = { 1mm; 2.1mm;  5mm;   5.2mm;  3.7mm; 12mil; }                                   |
+|--------+-----------------------------------------------------------------------------------------|
+|double  |Unitless numeric value in decimal format. Depending on context it is sometimes signed.   |
+|--------+-----------------------------------------------------------------------------------------|
+|flag    |If the flag is set, the value is "1", if the flag is not set, the whole key=value pair is|
+|        |omitted.                                                                                 |
+|--------+-----------------------------------------------------------------------------------------|
+|integer |Unitless integer value in decimal format. Depending on context it is sometimes signed.   |
+|--------+-----------------------------------------------------------------------------------------|
+|minuid  |An unique ID as generated by libminuid (24 ASCII characters).                            |
+|--------+-----------------------------------------------------------------------------------------|
+|none    |No value.                                                                                |
+|--------+-----------------------------------------------------------------------------------------|
+|string  |Free form text data                                                                      |
++--------------------------------------------------------------------------------------------------+
+
+Comments
+
+ver column: Format version range the subtree may appear in.

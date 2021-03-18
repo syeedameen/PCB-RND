@@ -1,0 +1,147 @@
+# explicit rules: .y -> .c (bison)
+#  do not assume old yacc to work to different file names, do the generation
+#  in a separate directory to allow parallel compilation with -j
+switch /local/pcb/mod/YACC
+	case {^$} end
+	default
+		foreach /local/n in /local/pcb/mod/YACC
+			put /local/bn /local/n
+			sub {/local/bn} {^.*/} {}
+			put /local/dn /local/n
+			sub {/local/dn} {/[^/]*$} {}
+
+			if /local/pcb/want_parsgen
+			then
+				append /local/pcb/RULES [@
+# yacc for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h: @/local/n@.y
+	cd @/local/dn@ && bison --defines=@/local/bn@.h --output=@/local/bn@.c --report-file=@/local/bn@.output -d @/local/bn@.y
+@]
+			else
+				append /local/pcb/RULES [@
+# dummy yacc for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h:
+	echo "skipping yacc..."
+@]
+			end
+		end
+	end
+end
+
+# explicit rules: .l -> .c (flex)
+#  do not assume old lex to work to different file names, do the generation
+#  in a separate directory to allow parallel compilation with -j
+switch /local/pcb/mod/LEX
+	case {^$} end
+	default
+		foreach /local/n in /local/pcb/mod/LEX
+			if /local/pcb/want_parsgen
+			then
+				put /local/bn /local/n
+				sub {/local/bn} {^.*/} {}
+				put /local/dn /local/n
+				sub {/local/dn} {/[^/]*$} {}
+
+				append /local/pcb/RULES [@
+# lex for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h: @/local/n@.l
+	cd @/local/dn@ && flex --outfile=@/local/bn@.c --header-file=@/local/bn@.h @/local/bn@.l
+@]
+			else
+				append /local/pcb/RULES [@
+# dummy lex for @/local/pcb/mod@
+@/local/n@.c:
+	echo "skipping flex..."
+@]
+			end
+		end
+	end
+end
+
+
+
+# explicit rules: .y -> .c (byaccic)
+switch /local/pcb/mod/BYACCIC
+	case {^$} end
+	default
+		foreach /local/n in /local/pcb/mod/BYACCIC
+			put /local/bn /local/n
+			sub {/local/bn} {^.*/} {}
+			put /local/dn /local/n
+			sub {/local/dn} {/[^/]*$} {}
+
+			if /local/pcb/want_parsgen_byaccic
+			then
+				append /local/pcb/RULES [@
+# byaccic for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h: @/local/n@.y
+	cd @/local/dn@ && byaccic -o @/local/bn@.c -H @/local/bn@.h -v @/local/bn@.desc @/local/bn@.y
+@]
+			else
+				append /local/pcb/RULES [@
+# dummy byaccic for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h:
+	echo "skipping byaccic..."
+@]
+			end
+		end
+	end
+end
+
+# explicit rules: .l -> .c (ureglex)
+switch /local/pcb/mod/UREGLEX
+	case {^$} end
+	default
+		foreach /local/n in /local/pcb/mod/UREGLEX
+			if /local/pcb/want_parsgen_byaccic
+			then
+				put /local/bn /local/n
+				sub {/local/bn} {^.*/} {}
+				put /local/dn /local/n
+				sub {/local/dn} {/[^/]*$} {}
+
+				append /local/pcb/RULES [@
+# lex for @/local/pcb/mod@
+@/local/n@.c @/local/n@.h: @/local/n@.ul
+	cd @/local/dn@ && ureglex -C -c @/local/bn@.c -h @/local/bn@.h -l @/local/bn@.ul
+@]
+			else
+				append /local/pcb/RULES [@
+# dummy ureglex for @/local/pcb/mod@
+@/local/n@.c:
+	echo "skipping ureglex..."
+@]
+			end
+		end
+	end
+end
+
+
+put /local/pcb/mod/enabled {1}
+
+include  /local/pcb/tmpasm/plugin_conf
+include  /local/pcb/tmpasm/plugin_sphash
+include  /local/pcb/tmpasm/plugin_intconf
+include  /local/pcb/tmpasm/plugin_intmenu
+
+append /local/pcb/CLEANFILES ?/local/pcb/mod/CLEANFILES
+append /local/pcb/DISTCLEANFILES ?/local/pcb/mod/DISTCLEANFILES
+
+put /local/pcb/mod/enabled {}
+put /local/pcb/mod/OBJS {}
+put /local/pcb/mod/OBJS_C99 {}
+put /local/pcb/mod/LDFLAGS {}
+put /local/pcb/mod/CFLAGS {}
+put /local/pcb/mod/YACC {}
+put /local/pcb/mod/LEX {}
+put /local/pcb/mod/BYACCIC {}
+put /local/pcb/mod/UREGLEX {}
+put /local/pcb/mod/SPHASH {}
+put /local/pcb/mod/SPHASH_ARGS {}
+put /local/pcb/mod/CLEANFILES {}
+put /local/pcb/mod/DISTCLEANFILES {}
+put /local/pcb/mod {}
+put /local/pcb/mod/CONFFILE {}
+put /local/pcb/mod/CONFVAR  {}
+put /local/pcb/mod/MENUFILE {}
+put /local/pcb/mod/MENUVAR  {}

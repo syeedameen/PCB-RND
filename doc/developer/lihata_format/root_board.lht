@@ -1,0 +1,186 @@
+ha:lht_tree_doc { ha:roots {
+
+	ha:pcb-rnd-board-v* {
+		type=ha
+		desc {
+			The full, self-contained description of a printed circuit board.
+			This is the root of a board .lht file. The * after the v in the name
+			is an integer which is the format version.
+		}
+		li:children {
+			ha:meta {
+				type=ha
+				desc { Any meta-data that won't directly turn into physical material (e.g. copper). }
+				li:children {
+					ha:board_name { valtype=string; desc={User assigned name of the board}}
+					ha:grid {
+						type=ha
+						desc { User interface last grid settings }
+						li:children {
+							ha:offs_x { valtype=coord; desc={grid origin: X offset from 0;0}}
+							ha:offs_y { valtype=coord; desc={grid origin: Y offset from 0;0}}
+							ha:spacing { valtype=coord; desc={distance between two grid points both in X and Y directions }}
+						}
+					}
+					ha:size {
+						type=ha
+						desc { object size related settings }
+						li:children {
+							ha:x { valtype=coord; desc={drawing area size X (width)}}
+							ha:y { valtype=coord; desc={drawing area size Y (height)}}
+							ha:isle_area_nm2 { valtype=double; desc={remove polygon islands smaller than this value, specified in nm<sup>2</sup>}}
+							ha:thermal_scale { valtype=double; desc={scale all thermals on the board by this factor}}
+						}
+					}
+					ha:drc {
+						type=ha
+						desc { design rule checker settings for the old DRC }
+						ver {<5}
+						li:children {
+							ha:bloat { valtype=coord; desc={Minimum copper spacing}}
+							ha:shrink { valtype=coord; desc={Minimum overlap between validly touching copper objects}}
+							ha:min_width { valtype=coord; desc={Minimum copper width}}
+							ha:min_silk { valtype=coord; desc={Minimum silk width}}
+							ha:min_drill { valtype=coord; desc={Minimum drill diameter}}
+							ha:min_ring { valtype=coord; desc={Minimum annular ring width}}
+						}
+					}
+					ha:cursor {
+						type=ha
+						desc { obsolete cursor/view state }
+						li:children {
+							ha:x { valtype=coord; obs=1; desc={last position, X (horizontal)}}
+							ha:y { valtype=coord; obs=1; desc={last position, Y (horizontal)}}
+							ha:zoom { valtype=double; obs=1; desc={last view zoom factor}}
+						}
+					}
+				}
+			}
+			ha:layer_stack {
+				type=ha
+				desc { physical layer stack information: geometry and properties of physical layers }
+				li:children {
+					ha:groups {
+						type=li
+						desc { ordered list of physical layers from top to bottom }
+						li:children {
+							ha:INTEGER {
+								li:name_patterns={p={[0-9]+}}
+								type=ha
+								desc { a layer group (a physical layer of the board); the ID of the layer group is the integer in the name of the node }
+								li:children {
+									ha:name { valtype=string; desc={user assigned name of the layer group, e.g. "top copper"}}
+									ha:type {
+										type=ha
+										desc { a flag-list of layer type flag bits }
+										sy:children = {/lht_tree_doc/comm/layer_mask/children}
+									}
+									ha:name { valtype=string; ver={>=6} desc={purpose of layer groups (useful with mechanical/documentation groups}}
+									ha:layers {
+										type=li
+										desc { ordered list of logical layer IDs hosted by this layer group }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			ha:font {
+				type=ha
+				desc { font kit: all fonts used on the board (if no font specified, default font will be used) }
+				li:children {
+					sy:FONT-ID {/lht_tree_doc/roots/pcb-rnd-font-v1/children/FONT-ID}
+				}
+			}
+			ha:styles {
+				type=ha
+				desc { routing styles hash: collection of all available routing syles }
+				ha:ROUTE-STYLE-NAME {
+					type=ha
+					desc { routing style: a collection of pen settings }
+					li:children {
+						ha:thickness   { valtype=coord; desc={default trace thickness (affects lines and arcs)}}
+						ha:text_thick  { valtype=coord; ver={>=6} desc={default text stroke thickness (0 means pick thickness automatically using the original algorithm)}}
+						ha:text_scale  { valtype=coord; ver={>=6} desc={default text scaling (0 means 100%, for backward compatibility)}}
+						ha:clearance   { valtype=coord; desc={default clearance (affects lines, arcs and polygons)}}
+						ha:diameter    { valtype=coord; ver={<=5} desc={old round via outer diameter; removed in favor of padstack prototype based vias, see via_proto}}
+						ha:hole        { valtype=coord; ver={<=5} desc={old round via hole diameter; removed in favor of padstack prototype based vias, see via_proto}}
+						ha:via_proto   { valtype=integer; ver={>5} desc={padstack prototype ID used for placing new vias}}
+						sy:attr@dup    {/lht_tree_doc/comm/attributes}
+					}
+				}
+			}
+			ha:netlists {
+				type=ha
+				desc { all available netlists }
+				li:children {
+					ha:netlist {
+						type=li
+						desc { the input netlist (as seen in the last netlist import, a.k.a. forward annotation) }
+						li:children {
+							ha:NETNAME {
+								type=ha
+								desc { a network }
+								li:children {
+									ha:conn {
+										type=li
+										desc { list of terminals connected to the network }
+										li:children {
+											ha:diameter    { valtype=string; desc={refdes-terminal}}
+										}
+									}
+									sy:attr@dup   = {/lht_tree_doc/comm/attributes_v5p}
+								}
+							}
+						}
+					}
+					ha:netlist_patch {
+						type=li
+						desc { a list of intentional deviations from the input netlist, a.k.a. material for back annotation }
+						li:children {
+							ha:net_info {
+								type=li
+								desc { describe the current state of a net, as seen on the input }
+								li:children {
+									ha:net   { valtype=string; desc={net name; first item on the list, only once}}
+									ha:term  { valtype=string; desc={terminal name; zero or more items starting from the second item}}
+								}
+							}
+							ha:add_conn {
+								type=ha
+								desc { the 'as built' network requires a new connection to be created during the back annotation }
+								li:children {
+									ha:net   { valtype=string; desc={net name the terminal should be added to}}
+									ha:term  { valtype=string; desc={terminal name}}
+								}
+							}
+							ha:del_conn {
+								type=ha
+								desc { the 'as built' network requires an existing connection to be removed during the back annotation }
+								li:children {
+									ha:net   { valtype=string; desc={net name the terminal should be removed from}}
+									ha:term  { valtype=string; desc={terminal name}}
+								}
+							}
+							ha:change_attrib {
+								type=ha
+								desc { the 'as built' network requires an attribute to be set or changed }
+								li:children {
+									ha:net   { valtype=string; desc={net name whose attribute needs to be changed }}
+									ha:key   { valtype=string; desc={key (name) of the attribute}}
+									ha:val   { valtype=string; desc={new value of the attribute}}
+								}
+							}
+						}
+					}
+				}
+			}
+			sy:conf = {/lht_tree_doc/roots/pcb-rnd-conf-v1}
+			sy:data = {/lht_tree_doc/comm/data}
+			sy:pixmaps = {/lht_tree_doc/comm/pixmaps}
+			sy:attributes@dup = {/lht_tree_doc/comm/attributes}
+		}
+	}
+
+}}

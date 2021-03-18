@@ -1,0 +1,103 @@
+Untouched, original tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {00}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+---
+Replacing a valid cell (cell 0, 0)
+table_replace_cell: 0/0 success
+res:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {for_replacing}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+old:
+  te:{} [unlinked] {00}
+---
+Trying to replace out of boundaries (cell 2, 2)
+table_replace_cell: error: boundary check error: out of bounds
+res:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {for_replacing}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+old:
+  * node is NULL *
+---
+Trying to replace an already replaced cell (cell 0, 0)
+table_replace_cell: 0/0 success
+res:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {can_replace}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+old:
+  te:{} [unlinked] {for_replacing}

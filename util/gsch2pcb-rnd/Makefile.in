@@ -1,0 +1,120 @@
+put /local/pcb/CFLAGS cc/cflags
+append /local/pcb/CFLAGS [@-I../.. -I../../@/local/pcb/librnd_root@ -I../../@/local/pcb/librnd_root@/../src_3rd -I../../src_3rd -I../../src -I../../src_3rd/liblihata @]
+append /local/pcb/CFLAGS {-DSCMDIR="\\"$(LIBDIR_INSTALLED)\\""}
+append /local/pcb/LDFLAGS cc/ldflags
+append /local/pcb/LDFLAGS ?/target/libs/ldl
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/debug.tmpasm@]
+
+print [@
+ROOT=../..
+PLUGDIR=../../src_plugins
+LIBRND=../../@/local/pcb/librnd_root@/librnd
+GENCONF=$(LIBRND)/scconfig/gen_conf.sh
+
+include $(LIBRND)/core/librnd.mak
+
+CFLAGS=@/local/pcb/c89flags@ @/local/pcb/CFLAGS@ $(CFLAGS_LIBRND_FUNGW)
+LDFLAGS=-lm @/local/pcb/LDFLAGS@ $(LDFLAGS_LIBRND_FUNGW)
+CC=@cc/cc@
+LIB_HIDLIB=\
+	$(ROOT)/src_3rd/librnd-local/src/librnd-hid.a \
+	$(ROOT)/src_3rd/librnd-local/src/librnd-3rd.a
+@]
+
+print [@
+LISTOBJ=../../src_3rd/librnd-local/src_3rd/genlist/genadlist.o ../../src_3rd/librnd-local/src_3rd/genlist/genlistalloc.o
+QPARSE=../../src_3rd/qparse/qparse.o
+@]
+
+put /local/pcb/tmpasm/buildin  {../src_plugins/Buildin.tmpasm}
+put /local/pcb/tmpasm/plugin   {../src_plugins/Plugin.tmpasm}
+put /local/pcb/tmpasm/disable  {../src_plugins/Disable.tmpasm}
+
+put /local/pcb/RULES {}
+put /local/pcb/OBJS {}
+put /local/pcb/LDFLAGS {}
+put /local/pcb/CFLAGS {}
+put /local/pcb/buildin_init_code {}
+put /local/pcb/buildin_init_extern {}
+
+uniq /local/pcb/OBJS
+
+print [@
+
+
+FP_OBJS    = @/local/pcb/OBJS@ ../../src/plug_footprint.o
+CONF_OBJS  = $(LIBRND)/core/compat_fs.o $(LIBRND)/core/paths.o $(LIBRND)/core/conf.o ../../src/conf_core.o $(LIBRND)/core/hid_cfg.o $(LIBRND)/core/hidlib_conf.o $(LIBRND)/core/misc_util.o $(LIBRND)/core/unit.o ../../src/conf_internal.o $(LIBRND)/core/list_conf.o $(LIBRND)/core/conf_hid.o $(LIBRND)/core/rnd_printf.o $(LIBRND)/core/compat_misc.o $(LIBRND)/core/safe_fs.o
+FP_LDFLAGS = @/local/pcb/LDFLAGS@
+FP_CFLAGS  = @/local/pcb/CFLAGS@
+OBJS = \
+ gsch2pcb.o \
+ help.o \
+ netlister.o \
+ run.o \
+ glue.o \
+ method_import.o
+
+all:
+	$(MAKE) revcheck
+	$(MAKE) gsch2pcb-rnd$(LIBRND_EXE)
+
+revcheck:
+	cd ../../scconfig && ./revtest Rev.stamp < Rev.tab
+
+gsch2pcb-rnd$(LIBRND_EXE): $(OBJS)  $(CONF_OBJS) $(HASHOBJ) $(LISTOBJ) $(QPARSE) $(FP_OBJS) $(LIB_HIDLIB)
+	$(CC) $(OBJS) $(CONF_OBJS)  $(FP_OBJS) $(HASHOBJ) $(LISTOBJ) $(QPARSE) $(LIB_HIDLIB) -o gsch2pcb-rnd$(LIBRND_EXE) $(LDFLAGS) $(FP_LDFLAGS)
+
+gsch2pcb.o: gsch2pcb.c ../../config.h
+	$(CC) -c $(CFLAGS) $(FP_CFLAGS) gsch2pcb.c -o gsch2pcb.o
+
+# TODO: this should be the base lib only
+# run the Makefile in src for the common objects:
+$(HASHOBJ) $(QPARSE) \
+../../src_3rd/librnd-local/src_3rd/genadlist/genlist.o \
+../../src_3rd/librnd-local/src_3rd/genlist/genlistalloc.o:
+	cd ../../src && $(MAKE) util_deps
+
+$(ROOT)/src_3rd/librnd-local/src/librnd-hid.a:
+	cd $(ROOT)/src_3rd/librnd-local && make librnd-hid.a
+
+$(ROOT)/src_3rd/librnd-local/src/librnd-3rd.a:
+	cd $(ROOT)/src_3rd/librnd-local && make librnd-3rd.a
+
+##### module rules begin #####
+@/local/pcb/RULES@
+##### module rules end #####
+@]
+
+# generate explicit rules for .c -> .o
+put /local/comp/OBJS /local/pcb/OBJS
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/compile.tmpasm@]
+
+print [@
+
+gsch2pcb.o: gsch2pcb_rnd_conf_fields.h
+
+gsch2pcb_rnd_conf_fields.h: gsch2pcb_rnd_conf.h
+	AWK=@/host/fstools/awk@ $(GENCONF) < gsch2pcb_rnd_conf.h > gsch2pcb_rnd_conf_fields.h
+
+install_all:
+	$(SCCBOX) mkdir -p "$(BINDIR)" "$(LIBDIR)"
+	$(SCCBOX) $(HOW) "gsch2pcb-rnd$(LIBRND_EXE)" "$(BINDIR)/gsch2pcb-rnd$(LIBRND_EXE)"
+	$(SCCBOX) $(HOW) "gnet-gsch2pcb-rnd.scm" "$(LIBDIR)/gnet-gsch2pcb-rnd.scm"
+
+install:
+	$(MAKE) install_all HOW="install"
+
+linstall:
+	$(MAKE) install_all HOW="linstall -f"
+
+uninstall:
+	$(MAKE) install_all HOW="uninstall"
+
+clean:
+	$(SCCBOX) rm -f -q gsch2pcb-rnd$(LIBRND_EXE) $(OBJS) gsch2pcb_rnd_conf_fields.h
+
+distclean: clean
+
+include $(ROOT)/Makefile.conf
+
+@]

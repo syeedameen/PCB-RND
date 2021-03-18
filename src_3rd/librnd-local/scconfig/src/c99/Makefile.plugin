@@ -1,0 +1,6 @@
+C99_CFLAGS = -DPLUGIN_C99
+C99_OBJS = \
+  $(BIN)/c99/find_c99.o
+
+$(BIN)/c99/find_c99.o: $(SRC)/c99/find_c99.c
+	$(CC) $(CFLAGS) -c $(SRC)/c99/find_c99.c -o $(BIN)/c99/find_c99.o

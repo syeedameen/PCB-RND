@@ -1,0 +1,43 @@
+# test with a lihata doc in which the root is a li
+load_doc D1 table_corners.lht
+
+# N1 is a non-empty, N2 is an empty table
+root N1 D1
+path N1 /1
+root N2 D1
+path N2 /0
+
+echo Untouched, original tree:
+print_tree N1
+echo ---
+
+new_text N3 for_replacing
+
+echo Replacing a valid cell (cell 0, 0)
+table_replace_cell N1 0 0 N3 N8
+echo res:
+print_tree N1
+echo old:
+print_tree N8
+echo ---
+
+new_text N4 cannot_replace
+
+echo Trying to replace out of boundaries (cell 2, 2)
+table_replace_cell N1 2 2 N4 N8
+echo res:
+print_tree N1
+echo old:
+print_tree N8
+echo ---
+
+new_text N5 can_replace
+
+echo Trying to replace an already replaced cell (cell 0, 0)
+table_replace_cell N1 0 0 N5 N8
+echo res:
+print_tree N1
+echo old:
+print_tree N8
+
+free_doc D1

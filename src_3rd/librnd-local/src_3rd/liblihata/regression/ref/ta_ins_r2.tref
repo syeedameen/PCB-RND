@@ -1,0 +1,102 @@
+-----test 1-----
+insert one row to table (parameter 0)
+  ta:{table1} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {row0}
+  ta:{table1} cols: 1, rows: 2
+   Row 0:{}
+    te:{} {(null)}
+   Row 1:{}
+    te:{} {row0}
+  ta:{table1} cols: 1, rows: 2
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {row0}
+-----test 2-----
+insert one row to table (parameter 1)
+**before**
+  ta:{table1} cols: 1, rows: 2
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {row0}
+**after**
+  ta:{table1} cols: 1, rows: 3
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {insertedcell10}
+   Row 2:{}
+    te:{} {row0}
+-----test 3-----
+insert one row to table (parameter "row count")
+**before**
+  ta:{table1} cols: 1, rows: 3
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {insertedcell10}
+   Row 2:{}
+    te:{} {row0}
+**after**
+  ta:{table1} cols: 1, rows: 4
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {insertedcell10}
+   Row 2:{}
+    te:{} {row0}
+   Row 3:{}
+    te:{} {insertedcell30}
+-----test 4-----
+insert one row to table (parameter 0)
+**before**
+  ta:{table1} cols: 1, rows: 4
+   Row 0:{}
+    te:{} {insertedcell00}
+   Row 1:{}
+    te:{} {insertedcell10}
+   Row 2:{}
+    te:{} {row0}
+   Row 3:{}
+    te:{} {insertedcell30}
+**after**
+  ta:{table1} cols: 1, rows: 5
+   Row 0:{}
+    te:{} {shiftedrows}
+   Row 1:{}
+    te:{} {insertedcell00}
+   Row 2:{}
+    te:{} {insertedcell10}
+   Row 3:{}
+    te:{} {row0}
+   Row 4:{}
+    te:{} {insertedcell30}
+-----test 5-----
+insert one row to table (parameter 2)  (to test it can shift more than one row)
+  ta:{table1} cols: 1, rows: 5
+   Row 0:{}
+    te:{} {shiftedrows}
+   Row 1:{}
+    te:{} {insertedcell00}
+   Row 2:{}
+    te:{} {insertedcell10}
+   Row 3:{}
+    te:{} {row0}
+   Row 4:{}
+    te:{} {insertedcell30}
+  ta:{table1} cols: 1, rows: 6
+   Row 0:{}
+    te:{} {shiftedrows}
+   Row 1:{}
+    te:{} {insertedcell00}
+   Row 2:{}
+    te:{} {(null)}
+   Row 3:{}
+    te:{} {insertedcell10}
+   Row 4:{}
+    te:{} {row0}
+   Row 5:{}
+    te:{} {insertedcell30}
+tts terminated

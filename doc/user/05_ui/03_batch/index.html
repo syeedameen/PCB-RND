@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+</head>
+<body>
+<h1 nopdf="yes"> pcb-rnd - user manual </h1>
+
+<h2> 5.3 Batch User Interface</h2>
+
+<p>
+Pcb-rnd comes with a interpreter which is known as the batch UI. This batch UI
+is a default buildin and can be summond at any time when running pcb-rnd (see
+code below). Batch mode will compile and run as the default user interface when pcb-rnd is
+compiled on systems without any GUI libs installed.
+
+<p>
+The batch UI is useful for automation, test, and debugging: it is reading
+action commands on the standard input and prints results on the standard
+output. It does not run a GUI and does not require X. Typical invocation:
+<p>
+<code>
+./pcb-rnd --gui batch [path]
+</code>
+
+<p>
+Uses and examples for Batch mode (TODO):
+<ul>
+<li>automation
+<li>export footprint  (with additional plugins)
+<li>possible hook processing (ensuring consistent layout state for a dvcs)
+</ul>
+<p>
+</body>
+</html>

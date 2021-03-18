@@ -1,0 +1,7 @@
+$class feature
+$short online board ordering
+$long order boards through the Internet
+$state WIP
+#$package cloud
+default disable
+autoload 1

@@ -1,0 +1,1496 @@
+all: empty.ediff empty_type_decl.ediff err_brace_in_text.ediff err_eof_body.ediff err_eof_comment.ediff err_eof_comment2.ediff err_nobody.ediff excess_closing_braces.ediff hash.ediff list.ediff list_del_nth.ediff list_empty.ediff list_first_symlink.ediff list_missing_last_semicolon.ediff list_nthname.ediff merge_hash.ediff nodes_for_testing.ediff quoting.ediff revpath.ediff stream.ediff sy.ediff symlink.ediff symlink_root_node.ediff ta.ediff table.ediff table_corners.ediff table_named_cell.ediff text.ediff text_root_node.ediff tiny.ediff empty.ddiff empty_type_decl.ddiff err_brace_in_text.ddiff err_eof_body.ddiff err_eof_comment.ddiff err_eof_comment2.ddiff err_nobody.ddiff excess_closing_braces.ddiff hash.ddiff list.ddiff list_del_nth.ddiff list_empty.ddiff list_first_symlink.ddiff list_missing_last_semicolon.ddiff list_nthname.ddiff merge_hash.ddiff nodes_for_testing.ddiff quoting.ddiff revpath.ddiff stream.ddiff sy.ddiff symlink.ddiff symlink_root_node.ddiff ta.ddiff table.ddiff table_corners.ddiff table_named_cell.ddiff text.ddiff text_root_node.ddiff tiny.ddiff dom_hash_get.tdiff dom_hash_put.tdiff dom_iterate.tdiff dom_list_append.tdiff dom_list_insert.tdiff dom_list_insert_after.tdiff dom_list_len.tdiff dom_load.tdiff dom_node_free.tdiff export.tdiff list.tdiff list_del_nth.tdiff list_detach_child.tdiff list_detach_nth.tdiff list_nthname.tdiff list_replace_child.tdiff merge_hash_recurse.tdiff merge_hash_simple.tdiff merge_hash_sybad.tdiff merge_hash_sygood.tdiff merge_list.tdiff merge_table.tdiff merge_text.tdiff node_is_under.tdiff path.tdiff revpath.tdiff symlink_is_broken.tdiff ta_del_c.tdiff ta_del_r.tdiff ta_ins_c.tdiff ta_ins_c2.tdiff ta_ins_r.tdiff ta_ins_r2.tdiff table_detach_cell.tdiff table_detach_child.tdiff table_find_cell.tdiff table_named_cell.tdiff table_read.tdiff table_replace_cell.tdiff table_replace_child.tdiff tree_detach.tdiff tree_dup_hash.tdiff tree_dup_list.tdiff tree_dup_sy.tdiff tree_dup_table.tdiff tree_has_symlink.tdiff tree_unlink.tdiff
+	@awk -f Eval.awk < $(LOG)
+
+valg: out/empty.valg out/empty_type_decl.valg out/err_brace_in_text.valg out/err_eof_body.valg out/err_eof_comment.valg out/err_eof_comment2.valg out/err_nobody.valg out/excess_closing_braces.valg out/hash.valg out/list.valg out/list_del_nth.valg out/list_empty.valg out/list_first_symlink.valg out/list_missing_last_semicolon.valg out/list_nthname.valg out/merge_hash.valg out/nodes_for_testing.valg out/quoting.valg out/revpath.valg out/stream.valg out/sy.valg out/symlink.valg out/symlink_root_node.valg out/ta.valg out/table.valg out/table_corners.valg out/table_named_cell.valg out/text.valg out/text_root_node.valg out/tiny.valg out/dom_hash_get.valg out/dom_hash_put.valg out/dom_iterate.valg out/dom_list_append.valg out/dom_list_insert.valg out/dom_list_insert_after.valg out/dom_list_len.valg out/dom_load.valg out/dom_node_free.valg out/export.valg out/list.valg out/list_del_nth.valg out/list_detach_child.valg out/list_detach_nth.valg out/list_nthname.valg out/list_replace_child.valg out/merge_hash_recurse.valg out/merge_hash_simple.valg out/merge_hash_sybad.valg out/merge_hash_sygood.valg out/merge_list.valg out/merge_table.valg out/merge_text.valg out/node_is_under.valg out/path.valg out/revpath.valg out/symlink_is_broken.valg out/ta_del_c.valg out/ta_del_r.valg out/ta_ins_c.valg out/ta_ins_c2.valg out/ta_ins_r.valg out/ta_ins_r2.valg out/table_detach_cell.valg out/table_detach_child.valg out/table_find_cell.valg out/table_named_cell.valg out/table_read.valg out/table_replace_cell.valg out/table_replace_child.valg out/tree_detach.valg out/tree_dup_hash.valg out/tree_dup_list.valg out/tree_dup_sy.valg out/tree_dup_table.valg out/tree_has_symlink.valg out/tree_unlink.valg
+
+clean:
+	@rm $(LOG)  out/empty.eout out/empty.dout out/empty.valg out/empty_type_decl.eout out/empty_type_decl.dout out/empty_type_decl.valg out/err_brace_in_text.eout out/err_brace_in_text.dout out/err_brace_in_text.valg out/err_eof_body.eout out/err_eof_body.dout out/err_eof_body.valg out/err_eof_comment.eout out/err_eof_comment.dout out/err_eof_comment.valg out/err_eof_comment2.eout out/err_eof_comment2.dout out/err_eof_comment2.valg out/err_nobody.eout out/err_nobody.dout out/err_nobody.valg out/excess_closing_braces.eout out/excess_closing_braces.dout out/excess_closing_braces.valg out/hash.eout out/hash.dout out/hash.valg out/list.eout out/list.dout out/list.valg out/list_del_nth.eout out/list_del_nth.dout out/list_del_nth.valg out/list_empty.eout out/list_empty.dout out/list_empty.valg out/list_first_symlink.eout out/list_first_symlink.dout out/list_first_symlink.valg out/list_missing_last_semicolon.eout out/list_missing_last_semicolon.dout out/list_missing_last_semicolon.valg out/list_nthname.eout out/list_nthname.dout out/list_nthname.valg out/merge_hash.eout out/merge_hash.dout out/merge_hash.valg out/nodes_for_testing.eout out/nodes_for_testing.dout out/nodes_for_testing.valg out/quoting.eout out/quoting.dout out/quoting.valg out/revpath.eout out/revpath.dout out/revpath.valg out/stream.eout out/stream.dout out/stream.valg out/sy.eout out/sy.dout out/sy.valg out/symlink.eout out/symlink.dout out/symlink.valg out/symlink_root_node.eout out/symlink_root_node.dout out/symlink_root_node.valg out/ta.eout out/ta.dout out/ta.valg out/table.eout out/table.dout out/table.valg out/table_corners.eout out/table_corners.dout out/table_corners.valg out/table_named_cell.eout out/table_named_cell.dout out/table_named_cell.valg out/text.eout out/text.dout out/text.valg out/text_root_node.eout out/text_root_node.dout out/text_root_node.valg out/tiny.eout out/tiny.dout out/tiny.valg out/dom_hash_get.tout out/dom_hash_put.tout out/dom_iterate.tout out/dom_list_append.tout out/dom_list_insert.tout out/dom_list_insert_after.tout out/dom_list_len.tout out/dom_load.tout out/dom_node_free.tout out/export.tout out/list.tout out/list_del_nth.tout out/list_detach_child.tout out/list_detach_nth.tout out/list_nthname.tout out/list_replace_child.tout out/merge_hash_recurse.tout out/merge_hash_simple.tout out/merge_hash_sybad.tout out/merge_hash_sygood.tout out/merge_list.tout out/merge_table.tout out/merge_text.tout out/node_is_under.tout out/path.tout out/revpath.tout out/symlink_is_broken.tout out/ta_del_c.tout out/ta_del_r.tout out/ta_ins_c.tout out/ta_ins_c2.tout out/ta_ins_r.tout out/ta_ins_r2.tout out/table_detach_cell.tout out/table_detach_child.tout out/table_find_cell.tout out/table_named_cell.tout out/table_read.tout out/table_replace_cell.tout out/table_replace_child.tout out/tree_detach.tout out/tree_dup_hash.tout out/tree_dup_list.tout out/tree_dup_sy.tout out/tree_dup_table.tout out/tree_has_symlink.tout out/tree_unlink.tout 2>/dev/null ; true
+
+############## lht (parser/dom) rules ##############
+
+# empty
+out/empty.eout: empty.lht $(ETESTER)
+	@$(ETESTER) < empty.lht >$@
+
+out/empty.dout: empty.lht $(DTESTER)
+	@$(DTESTER) < empty.lht >$@
+
+empty.ediff: out/empty.eout ref/empty.eref
+	@diff -u ref/empty.eref out/empty.eout
+	@echo "ev  empty": ok. >> $(LOG)
+
+empty.ddiff: out/empty.dout ref/empty.dref
+	@diff -u ref/empty.dref out/empty.dout
+	@echo "dom empty": ok. >> $(LOG)
+
+
+# empty_type_decl
+out/empty_type_decl.eout: empty_type_decl.lht $(ETESTER)
+	@$(ETESTER) < empty_type_decl.lht >$@
+
+out/empty_type_decl.dout: empty_type_decl.lht $(DTESTER)
+	@$(DTESTER) < empty_type_decl.lht >$@
+
+empty_type_decl.ediff: out/empty_type_decl.eout ref/empty_type_decl.eref
+	@diff -u ref/empty_type_decl.eref out/empty_type_decl.eout
+	@echo "ev  empty_type_decl": ok. >> $(LOG)
+
+empty_type_decl.ddiff: out/empty_type_decl.dout ref/empty_type_decl.dref
+	@diff -u ref/empty_type_decl.dref out/empty_type_decl.dout
+	@echo "dom empty_type_decl": ok. >> $(LOG)
+
+
+# err_brace_in_text
+out/err_brace_in_text.eout: err_brace_in_text.lht $(ETESTER)
+	@$(ETESTER) < err_brace_in_text.lht >$@
+
+out/err_brace_in_text.dout: err_brace_in_text.lht $(DTESTER)
+	@$(DTESTER) < err_brace_in_text.lht >$@
+
+err_brace_in_text.ediff: out/err_brace_in_text.eout ref/err_brace_in_text.eref
+	@diff -u ref/err_brace_in_text.eref out/err_brace_in_text.eout
+	@echo "ev  err_brace_in_text": ok. >> $(LOG)
+
+err_brace_in_text.ddiff: out/err_brace_in_text.dout ref/err_brace_in_text.dref
+	@diff -u ref/err_brace_in_text.dref out/err_brace_in_text.dout
+	@echo "dom err_brace_in_text": ok. >> $(LOG)
+
+
+# err_eof_body
+out/err_eof_body.eout: err_eof_body.lht $(ETESTER)
+	@$(ETESTER) < err_eof_body.lht >$@
+
+out/err_eof_body.dout: err_eof_body.lht $(DTESTER)
+	@$(DTESTER) < err_eof_body.lht >$@
+
+err_eof_body.ediff: out/err_eof_body.eout ref/err_eof_body.eref
+	@diff -u ref/err_eof_body.eref out/err_eof_body.eout
+	@echo "ev  err_eof_body": ok. >> $(LOG)
+
+err_eof_body.ddiff: out/err_eof_body.dout ref/err_eof_body.dref
+	@diff -u ref/err_eof_body.dref out/err_eof_body.dout
+	@echo "dom err_eof_body": ok. >> $(LOG)
+
+
+# err_eof_comment
+out/err_eof_comment.eout: err_eof_comment.lht $(ETESTER)
+	@$(ETESTER) < err_eof_comment.lht >$@
+
+out/err_eof_comment.dout: err_eof_comment.lht $(DTESTER)
+	@$(DTESTER) < err_eof_comment.lht >$@
+
+err_eof_comment.ediff: out/err_eof_comment.eout ref/err_eof_comment.eref
+	@diff -u ref/err_eof_comment.eref out/err_eof_comment.eout
+	@echo "ev  err_eof_comment": ok. >> $(LOG)
+
+err_eof_comment.ddiff: out/err_eof_comment.dout ref/err_eof_comment.dref
+	@diff -u ref/err_eof_comment.dref out/err_eof_comment.dout
+	@echo "dom err_eof_comment": ok. >> $(LOG)
+
+
+# err_eof_comment2
+out/err_eof_comment2.eout: err_eof_comment2.lht $(ETESTER)
+	@$(ETESTER) < err_eof_comment2.lht >$@
+
+out/err_eof_comment2.dout: err_eof_comment2.lht $(DTESTER)
+	@$(DTESTER) < err_eof_comment2.lht >$@
+
+err_eof_comment2.ediff: out/err_eof_comment2.eout ref/err_eof_comment2.eref
+	@diff -u ref/err_eof_comment2.eref out/err_eof_comment2.eout
+	@echo "ev  err_eof_comment2": ok. >> $(LOG)
+
+err_eof_comment2.ddiff: out/err_eof_comment2.dout ref/err_eof_comment2.dref
+	@diff -u ref/err_eof_comment2.dref out/err_eof_comment2.dout
+	@echo "dom err_eof_comment2": ok. >> $(LOG)
+
+
+# err_nobody
+out/err_nobody.eout: err_nobody.lht $(ETESTER)
+	@$(ETESTER) < err_nobody.lht >$@
+
+out/err_nobody.dout: err_nobody.lht $(DTESTER)
+	@$(DTESTER) < err_nobody.lht >$@
+
+err_nobody.ediff: out/err_nobody.eout ref/err_nobody.eref
+	@diff -u ref/err_nobody.eref out/err_nobody.eout
+	@echo "ev  err_nobody": ok. >> $(LOG)
+
+err_nobody.ddiff: out/err_nobody.dout ref/err_nobody.dref
+	@diff -u ref/err_nobody.dref out/err_nobody.dout
+	@echo "dom err_nobody": ok. >> $(LOG)
+
+
+# excess_closing_braces
+out/excess_closing_braces.eout: excess_closing_braces.lht $(ETESTER)
+	@$(ETESTER) < excess_closing_braces.lht >$@
+
+out/excess_closing_braces.dout: excess_closing_braces.lht $(DTESTER)
+	@$(DTESTER) < excess_closing_braces.lht >$@
+
+excess_closing_braces.ediff: out/excess_closing_braces.eout ref/excess_closing_braces.eref
+	@diff -u ref/excess_closing_braces.eref out/excess_closing_braces.eout
+	@echo "ev  excess_closing_braces": ok. >> $(LOG)
+
+excess_closing_braces.ddiff: out/excess_closing_braces.dout ref/excess_closing_braces.dref
+	@diff -u ref/excess_closing_braces.dref out/excess_closing_braces.dout
+	@echo "dom excess_closing_braces": ok. >> $(LOG)
+
+
+# hash
+out/hash.eout: hash.lht $(ETESTER)
+	@$(ETESTER) < hash.lht >$@
+
+out/hash.dout: hash.lht $(DTESTER)
+	@$(DTESTER) < hash.lht >$@
+
+hash.ediff: out/hash.eout ref/hash.eref
+	@diff -u ref/hash.eref out/hash.eout
+	@echo "ev  hash": ok. >> $(LOG)
+
+hash.ddiff: out/hash.dout ref/hash.dref
+	@diff -u ref/hash.dref out/hash.dout
+	@echo "dom hash": ok. >> $(LOG)
+
+
+# list
+out/list.eout: list.lht $(ETESTER)
+	@$(ETESTER) < list.lht >$@
+
+out/list.dout: list.lht $(DTESTER)
+	@$(DTESTER) < list.lht >$@
+
+list.ediff: out/list.eout ref/list.eref
+	@diff -u ref/list.eref out/list.eout
+	@echo "ev  list": ok. >> $(LOG)
+
+list.ddiff: out/list.dout ref/list.dref
+	@diff -u ref/list.dref out/list.dout
+	@echo "dom list": ok. >> $(LOG)
+
+
+# list_del_nth
+out/list_del_nth.eout: list_del_nth.lht $(ETESTER)
+	@$(ETESTER) < list_del_nth.lht >$@
+
+out/list_del_nth.dout: list_del_nth.lht $(DTESTER)
+	@$(DTESTER) < list_del_nth.lht >$@
+
+list_del_nth.ediff: out/list_del_nth.eout ref/list_del_nth.eref
+	@diff -u ref/list_del_nth.eref out/list_del_nth.eout
+	@echo "ev  list_del_nth": ok. >> $(LOG)
+
+list_del_nth.ddiff: out/list_del_nth.dout ref/list_del_nth.dref
+	@diff -u ref/list_del_nth.dref out/list_del_nth.dout
+	@echo "dom list_del_nth": ok. >> $(LOG)
+
+
+# list_empty
+out/list_empty.eout: list_empty.lht $(ETESTER)
+	@$(ETESTER) < list_empty.lht >$@
+
+out/list_empty.dout: list_empty.lht $(DTESTER)
+	@$(DTESTER) < list_empty.lht >$@
+
+list_empty.ediff: out/list_empty.eout ref/list_empty.eref
+	@diff -u ref/list_empty.eref out/list_empty.eout
+	@echo "ev  list_empty": ok. >> $(LOG)
+
+list_empty.ddiff: out/list_empty.dout ref/list_empty.dref
+	@diff -u ref/list_empty.dref out/list_empty.dout
+	@echo "dom list_empty": ok. >> $(LOG)
+
+
+# list_first_symlink
+out/list_first_symlink.eout: list_first_symlink.lht $(ETESTER)
+	@$(ETESTER) < list_first_symlink.lht >$@
+
+out/list_first_symlink.dout: list_first_symlink.lht $(DTESTER)
+	@$(DTESTER) < list_first_symlink.lht >$@
+
+list_first_symlink.ediff: out/list_first_symlink.eout ref/list_first_symlink.eref
+	@diff -u ref/list_first_symlink.eref out/list_first_symlink.eout
+	@echo "ev  list_first_symlink": ok. >> $(LOG)
+
+list_first_symlink.ddiff: out/list_first_symlink.dout ref/list_first_symlink.dref
+	@diff -u ref/list_first_symlink.dref out/list_first_symlink.dout
+	@echo "dom list_first_symlink": ok. >> $(LOG)
+
+
+# list_missing_last_semicolon
+out/list_missing_last_semicolon.eout: list_missing_last_semicolon.lht $(ETESTER)
+	@$(ETESTER) < list_missing_last_semicolon.lht >$@
+
+out/list_missing_last_semicolon.dout: list_missing_last_semicolon.lht $(DTESTER)
+	@$(DTESTER) < list_missing_last_semicolon.lht >$@
+
+list_missing_last_semicolon.ediff: out/list_missing_last_semicolon.eout ref/list_missing_last_semicolon.eref
+	@diff -u ref/list_missing_last_semicolon.eref out/list_missing_last_semicolon.eout
+	@echo "ev  list_missing_last_semicolon": ok. >> $(LOG)
+
+list_missing_last_semicolon.ddiff: out/list_missing_last_semicolon.dout ref/list_missing_last_semicolon.dref
+	@diff -u ref/list_missing_last_semicolon.dref out/list_missing_last_semicolon.dout
+	@echo "dom list_missing_last_semicolon": ok. >> $(LOG)
+
+
+# list_nthname
+out/list_nthname.eout: list_nthname.lht $(ETESTER)
+	@$(ETESTER) < list_nthname.lht >$@
+
+out/list_nthname.dout: list_nthname.lht $(DTESTER)
+	@$(DTESTER) < list_nthname.lht >$@
+
+list_nthname.ediff: out/list_nthname.eout ref/list_nthname.eref
+	@diff -u ref/list_nthname.eref out/list_nthname.eout
+	@echo "ev  list_nthname": ok. >> $(LOG)
+
+list_nthname.ddiff: out/list_nthname.dout ref/list_nthname.dref
+	@diff -u ref/list_nthname.dref out/list_nthname.dout
+	@echo "dom list_nthname": ok. >> $(LOG)
+
+
+# merge_hash
+out/merge_hash.eout: merge_hash.lht $(ETESTER)
+	@$(ETESTER) < merge_hash.lht >$@
+
+out/merge_hash.dout: merge_hash.lht $(DTESTER)
+	@$(DTESTER) < merge_hash.lht >$@
+
+merge_hash.ediff: out/merge_hash.eout ref/merge_hash.eref
+	@diff -u ref/merge_hash.eref out/merge_hash.eout
+	@echo "ev  merge_hash": ok. >> $(LOG)
+
+merge_hash.ddiff: out/merge_hash.dout ref/merge_hash.dref
+	@diff -u ref/merge_hash.dref out/merge_hash.dout
+	@echo "dom merge_hash": ok. >> $(LOG)
+
+
+# nodes_for_testing
+out/nodes_for_testing.eout: nodes_for_testing.lht $(ETESTER)
+	@$(ETESTER) < nodes_for_testing.lht >$@
+
+out/nodes_for_testing.dout: nodes_for_testing.lht $(DTESTER)
+	@$(DTESTER) < nodes_for_testing.lht >$@
+
+nodes_for_testing.ediff: out/nodes_for_testing.eout ref/nodes_for_testing.eref
+	@diff -u ref/nodes_for_testing.eref out/nodes_for_testing.eout
+	@echo "ev  nodes_for_testing": ok. >> $(LOG)
+
+nodes_for_testing.ddiff: out/nodes_for_testing.dout ref/nodes_for_testing.dref
+	@diff -u ref/nodes_for_testing.dref out/nodes_for_testing.dout
+	@echo "dom nodes_for_testing": ok. >> $(LOG)
+
+
+# quoting
+out/quoting.eout: quoting.lht $(ETESTER)
+	@$(ETESTER) < quoting.lht >$@
+
+out/quoting.dout: quoting.lht $(DTESTER)
+	@$(DTESTER) < quoting.lht >$@
+
+quoting.ediff: out/quoting.eout ref/quoting.eref
+	@diff -u ref/quoting.eref out/quoting.eout
+	@echo "ev  quoting": ok. >> $(LOG)
+
+quoting.ddiff: out/quoting.dout ref/quoting.dref
+	@diff -u ref/quoting.dref out/quoting.dout
+	@echo "dom quoting": ok. >> $(LOG)
+
+
+# revpath
+out/revpath.eout: revpath.lht $(ETESTER)
+	@$(ETESTER) < revpath.lht >$@
+
+out/revpath.dout: revpath.lht $(DTESTER)
+	@$(DTESTER) < revpath.lht >$@
+
+revpath.ediff: out/revpath.eout ref/revpath.eref
+	@diff -u ref/revpath.eref out/revpath.eout
+	@echo "ev  revpath": ok. >> $(LOG)
+
+revpath.ddiff: out/revpath.dout ref/revpath.dref
+	@diff -u ref/revpath.dref out/revpath.dout
+	@echo "dom revpath": ok. >> $(LOG)
+
+
+# stream
+out/stream.eout: stream.lht $(ETESTER)
+	@$(ETESTER) < stream.lht >$@
+
+out/stream.dout: stream.lht $(DTESTER)
+	@$(DTESTER) < stream.lht >$@
+
+stream.ediff: out/stream.eout ref/stream.eref
+	@diff -u ref/stream.eref out/stream.eout
+	@echo "ev  stream": ok. >> $(LOG)
+
+stream.ddiff: out/stream.dout ref/stream.dref
+	@diff -u ref/stream.dref out/stream.dout
+	@echo "dom stream": ok. >> $(LOG)
+
+
+# sy
+out/sy.eout: sy.lht $(ETESTER)
+	@$(ETESTER) < sy.lht >$@
+
+out/sy.dout: sy.lht $(DTESTER)
+	@$(DTESTER) < sy.lht >$@
+
+sy.ediff: out/sy.eout ref/sy.eref
+	@diff -u ref/sy.eref out/sy.eout
+	@echo "ev  sy": ok. >> $(LOG)
+
+sy.ddiff: out/sy.dout ref/sy.dref
+	@diff -u ref/sy.dref out/sy.dout
+	@echo "dom sy": ok. >> $(LOG)
+
+
+# symlink
+out/symlink.eout: symlink.lht $(ETESTER)
+	@$(ETESTER) < symlink.lht >$@
+
+out/symlink.dout: symlink.lht $(DTESTER)
+	@$(DTESTER) < symlink.lht >$@
+
+symlink.ediff: out/symlink.eout ref/symlink.eref
+	@diff -u ref/symlink.eref out/symlink.eout
+	@echo "ev  symlink": ok. >> $(LOG)
+
+symlink.ddiff: out/symlink.dout ref/symlink.dref
+	@diff -u ref/symlink.dref out/symlink.dout
+	@echo "dom symlink": ok. >> $(LOG)
+
+
+# symlink_root_node
+out/symlink_root_node.eout: symlink_root_node.lht $(ETESTER)
+	@$(ETESTER) < symlink_root_node.lht >$@
+
+out/symlink_root_node.dout: symlink_root_node.lht $(DTESTER)
+	@$(DTESTER) < symlink_root_node.lht >$@
+
+symlink_root_node.ediff: out/symlink_root_node.eout ref/symlink_root_node.eref
+	@diff -u ref/symlink_root_node.eref out/symlink_root_node.eout
+	@echo "ev  symlink_root_node": ok. >> $(LOG)
+
+symlink_root_node.ddiff: out/symlink_root_node.dout ref/symlink_root_node.dref
+	@diff -u ref/symlink_root_node.dref out/symlink_root_node.dout
+	@echo "dom symlink_root_node": ok. >> $(LOG)
+
+
+# ta
+out/ta.eout: ta.lht $(ETESTER)
+	@$(ETESTER) < ta.lht >$@
+
+out/ta.dout: ta.lht $(DTESTER)
+	@$(DTESTER) < ta.lht >$@
+
+ta.ediff: out/ta.eout ref/ta.eref
+	@diff -u ref/ta.eref out/ta.eout
+	@echo "ev  ta": ok. >> $(LOG)
+
+ta.ddiff: out/ta.dout ref/ta.dref
+	@diff -u ref/ta.dref out/ta.dout
+	@echo "dom ta": ok. >> $(LOG)
+
+
+# table
+out/table.eout: table.lht $(ETESTER)
+	@$(ETESTER) < table.lht >$@
+
+out/table.dout: table.lht $(DTESTER)
+	@$(DTESTER) < table.lht >$@
+
+table.ediff: out/table.eout ref/table.eref
+	@diff -u ref/table.eref out/table.eout
+	@echo "ev  table": ok. >> $(LOG)
+
+table.ddiff: out/table.dout ref/table.dref
+	@diff -u ref/table.dref out/table.dout
+	@echo "dom table": ok. >> $(LOG)
+
+
+# table_corners
+out/table_corners.eout: table_corners.lht $(ETESTER)
+	@$(ETESTER) < table_corners.lht >$@
+
+out/table_corners.dout: table_corners.lht $(DTESTER)
+	@$(DTESTER) < table_corners.lht >$@
+
+table_corners.ediff: out/table_corners.eout ref/table_corners.eref
+	@diff -u ref/table_corners.eref out/table_corners.eout
+	@echo "ev  table_corners": ok. >> $(LOG)
+
+table_corners.ddiff: out/table_corners.dout ref/table_corners.dref
+	@diff -u ref/table_corners.dref out/table_corners.dout
+	@echo "dom table_corners": ok. >> $(LOG)
+
+
+# table_named_cell
+out/table_named_cell.eout: table_named_cell.lht $(ETESTER)
+	@$(ETESTER) < table_named_cell.lht >$@
+
+out/table_named_cell.dout: table_named_cell.lht $(DTESTER)
+	@$(DTESTER) < table_named_cell.lht >$@
+
+table_named_cell.ediff: out/table_named_cell.eout ref/table_named_cell.eref
+	@diff -u ref/table_named_cell.eref out/table_named_cell.eout
+	@echo "ev  table_named_cell": ok. >> $(LOG)
+
+table_named_cell.ddiff: out/table_named_cell.dout ref/table_named_cell.dref
+	@diff -u ref/table_named_cell.dref out/table_named_cell.dout
+	@echo "dom table_named_cell": ok. >> $(LOG)
+
+
+# text
+out/text.eout: text.lht $(ETESTER)
+	@$(ETESTER) < text.lht >$@
+
+out/text.dout: text.lht $(DTESTER)
+	@$(DTESTER) < text.lht >$@
+
+text.ediff: out/text.eout ref/text.eref
+	@diff -u ref/text.eref out/text.eout
+	@echo "ev  text": ok. >> $(LOG)
+
+text.ddiff: out/text.dout ref/text.dref
+	@diff -u ref/text.dref out/text.dout
+	@echo "dom text": ok. >> $(LOG)
+
+
+# text_root_node
+out/text_root_node.eout: text_root_node.lht $(ETESTER)
+	@$(ETESTER) < text_root_node.lht >$@
+
+out/text_root_node.dout: text_root_node.lht $(DTESTER)
+	@$(DTESTER) < text_root_node.lht >$@
+
+text_root_node.ediff: out/text_root_node.eout ref/text_root_node.eref
+	@diff -u ref/text_root_node.eref out/text_root_node.eout
+	@echo "ev  text_root_node": ok. >> $(LOG)
+
+text_root_node.ddiff: out/text_root_node.dout ref/text_root_node.dref
+	@diff -u ref/text_root_node.dref out/text_root_node.dout
+	@echo "dom text_root_node": ok. >> $(LOG)
+
+
+# tiny
+out/tiny.eout: tiny.lht $(ETESTER)
+	@$(ETESTER) < tiny.lht >$@
+
+out/tiny.dout: tiny.lht $(DTESTER)
+	@$(DTESTER) < tiny.lht >$@
+
+tiny.ediff: out/tiny.eout ref/tiny.eref
+	@diff -u ref/tiny.eref out/tiny.eout
+	@echo "ev  tiny": ok. >> $(LOG)
+
+tiny.ddiff: out/tiny.dout ref/tiny.dref
+	@diff -u ref/tiny.dref out/tiny.dout
+	@echo "dom tiny": ok. >> $(LOG)
+
+############## tts (tree tester) rules ##############
+
+# dom_hash_get
+out/dom_hash_get.tout: dom_hash_get.tts $(TTESTER) nodes_for_testing.lht
+	@$(TTESTER) < dom_hash_get.tts >$@
+
+dom_hash_get.tdiff: out/dom_hash_get.tout ref/dom_hash_get.tref
+	@diff -u ref/dom_hash_get.tref out/dom_hash_get.tout
+	@echo "tts dom_hash_get": ok. >> $(LOG)
+
+
+# dom_hash_put
+out/dom_hash_put.tout: dom_hash_put.tts $(TTESTER) hash.lht
+	@$(TTESTER) < dom_hash_put.tts >$@
+
+dom_hash_put.tdiff: out/dom_hash_put.tout ref/dom_hash_put.tref
+	@diff -u ref/dom_hash_put.tref out/dom_hash_put.tout
+	@echo "tts dom_hash_put": ok. >> $(LOG)
+
+
+# dom_iterate
+out/dom_iterate.tout: dom_iterate.tts $(TTESTER) list.lht ta.lht tiny.lht
+	@$(TTESTER) < dom_iterate.tts >$@
+
+dom_iterate.tdiff: out/dom_iterate.tout ref/dom_iterate.tref
+	@diff -u ref/dom_iterate.tref out/dom_iterate.tout
+	@echo "tts dom_iterate": ok. >> $(LOG)
+
+
+# dom_list_append
+out/dom_list_append.tout: dom_list_append.tts $(TTESTER) list.lht
+	@$(TTESTER) < dom_list_append.tts >$@
+
+dom_list_append.tdiff: out/dom_list_append.tout ref/dom_list_append.tref
+	@diff -u ref/dom_list_append.tref out/dom_list_append.tout
+	@echo "tts dom_list_append": ok. >> $(LOG)
+
+
+# dom_list_insert
+out/dom_list_insert.tout: dom_list_insert.tts $(TTESTER) list.lht
+	@$(TTESTER) < dom_list_insert.tts >$@
+
+dom_list_insert.tdiff: out/dom_list_insert.tout ref/dom_list_insert.tref
+	@diff -u ref/dom_list_insert.tref out/dom_list_insert.tout
+	@echo "tts dom_list_insert": ok. >> $(LOG)
+
+
+# dom_list_insert_after
+out/dom_list_insert_after.tout: dom_list_insert_after.tts $(TTESTER) list.lht
+	@$(TTESTER) < dom_list_insert_after.tts >$@
+
+dom_list_insert_after.tdiff: out/dom_list_insert_after.tout ref/dom_list_insert_after.tref
+	@diff -u ref/dom_list_insert_after.tref out/dom_list_insert_after.tout
+	@echo "tts dom_list_insert_after": ok. >> $(LOG)
+
+
+# dom_list_len
+out/dom_list_len.tout: dom_list_len.tts $(TTESTER) list.lht list_empty.lht
+	@$(TTESTER) < dom_list_len.tts >$@
+
+dom_list_len.tdiff: out/dom_list_len.tout ref/dom_list_len.tref
+	@diff -u ref/dom_list_len.tref out/dom_list_len.tout
+	@echo "tts dom_list_len": ok. >> $(LOG)
+
+
+# dom_load
+out/dom_load.tout: dom_load.tts $(TTESTER)
+	@$(TTESTER) < dom_load.tts >$@
+
+dom_load.tdiff: out/dom_load.tout ref/dom_load.tref
+	@diff -u ref/dom_load.tref out/dom_load.tout
+	@echo "tts dom_load": ok. >> $(LOG)
+
+
+# dom_node_free
+out/dom_node_free.tout: dom_node_free.tts $(TTESTER)
+	@$(TTESTER) < dom_node_free.tts >$@
+
+dom_node_free.tdiff: out/dom_node_free.tout ref/dom_node_free.tref
+	@diff -u ref/dom_node_free.tref out/dom_node_free.tout
+	@echo "tts dom_node_free": ok. >> $(LOG)
+
+
+# export
+out/export.tout: export.tts $(TTESTER) merge_hash.lht text.lht table.lht table_corners.lht
+	@$(TTESTER) < export.tts >$@
+
+export.tdiff: out/export.tout ref/export.tref
+	@diff -u ref/export.tref out/export.tout
+	@echo "tts export": ok. >> $(LOG)
+
+
+# list
+out/list.tout: list.tts $(TTESTER) list.lht
+	@$(TTESTER) < list.tts >$@
+
+list.tdiff: out/list.tout ref/list.tref
+	@diff -u ref/list.tref out/list.tout
+	@echo "tts list": ok. >> $(LOG)
+
+
+# list_del_nth
+out/list_del_nth.tout: list_del_nth.tts $(TTESTER) list_del_nth.lht
+	@$(TTESTER) < list_del_nth.tts >$@
+
+list_del_nth.tdiff: out/list_del_nth.tout ref/list_del_nth.tref
+	@diff -u ref/list_del_nth.tref out/list_del_nth.tout
+	@echo "tts list_del_nth": ok. >> $(LOG)
+
+
+# list_detach_child
+out/list_detach_child.tout: list_detach_child.tts $(TTESTER) list.lht
+	@$(TTESTER) < list_detach_child.tts >$@
+
+list_detach_child.tdiff: out/list_detach_child.tout ref/list_detach_child.tref
+	@diff -u ref/list_detach_child.tref out/list_detach_child.tout
+	@echo "tts list_detach_child": ok. >> $(LOG)
+
+
+# list_detach_nth
+out/list_detach_nth.tout: list_detach_nth.tts $(TTESTER) list.lht
+	@$(TTESTER) < list_detach_nth.tts >$@
+
+list_detach_nth.tdiff: out/list_detach_nth.tout ref/list_detach_nth.tref
+	@diff -u ref/list_detach_nth.tref out/list_detach_nth.tout
+	@echo "tts list_detach_nth": ok. >> $(LOG)
+
+
+# list_nthname
+out/list_nthname.tout: list_nthname.tts $(TTESTER) list_nthname.lht
+	@$(TTESTER) < list_nthname.tts >$@
+
+list_nthname.tdiff: out/list_nthname.tout ref/list_nthname.tref
+	@diff -u ref/list_nthname.tref out/list_nthname.tout
+	@echo "tts list_nthname": ok. >> $(LOG)
+
+
+# list_replace_child
+out/list_replace_child.tout: list_replace_child.tts $(TTESTER) list.lht
+	@$(TTESTER) < list_replace_child.tts >$@
+
+list_replace_child.tdiff: out/list_replace_child.tout ref/list_replace_child.tref
+	@diff -u ref/list_replace_child.tref out/list_replace_child.tout
+	@echo "tts list_replace_child": ok. >> $(LOG)
+
+
+# merge_hash_recurse
+out/merge_hash_recurse.tout: merge_hash_recurse.tts $(TTESTER) merge_hash.lht
+	@$(TTESTER) < merge_hash_recurse.tts >$@
+
+merge_hash_recurse.tdiff: out/merge_hash_recurse.tout ref/merge_hash_recurse.tref
+	@diff -u ref/merge_hash_recurse.tref out/merge_hash_recurse.tout
+	@echo "tts merge_hash_recurse": ok. >> $(LOG)
+
+
+# merge_hash_simple
+out/merge_hash_simple.tout: merge_hash_simple.tts $(TTESTER) merge_hash.lht
+	@$(TTESTER) < merge_hash_simple.tts >$@
+
+merge_hash_simple.tdiff: out/merge_hash_simple.tout ref/merge_hash_simple.tref
+	@diff -u ref/merge_hash_simple.tref out/merge_hash_simple.tout
+	@echo "tts merge_hash_simple": ok. >> $(LOG)
+
+
+# merge_hash_sybad
+out/merge_hash_sybad.tout: merge_hash_sybad.tts $(TTESTER) merge_hash.lht
+	@$(TTESTER) < merge_hash_sybad.tts >$@
+
+merge_hash_sybad.tdiff: out/merge_hash_sybad.tout ref/merge_hash_sybad.tref
+	@diff -u ref/merge_hash_sybad.tref out/merge_hash_sybad.tout
+	@echo "tts merge_hash_sybad": ok. >> $(LOG)
+
+
+# merge_hash_sygood
+out/merge_hash_sygood.tout: merge_hash_sygood.tts $(TTESTER) merge_hash.lht
+	@$(TTESTER) < merge_hash_sygood.tts >$@
+
+merge_hash_sygood.tdiff: out/merge_hash_sygood.tout ref/merge_hash_sygood.tref
+	@diff -u ref/merge_hash_sygood.tref out/merge_hash_sygood.tout
+	@echo "tts merge_hash_sygood": ok. >> $(LOG)
+
+
+# merge_list
+out/merge_list.tout: merge_list.tts $(TTESTER) list.lht
+	@$(TTESTER) < merge_list.tts >$@
+
+merge_list.tdiff: out/merge_list.tout ref/merge_list.tref
+	@diff -u ref/merge_list.tref out/merge_list.tout
+	@echo "tts merge_list": ok. >> $(LOG)
+
+
+# merge_table
+out/merge_table.tout: merge_table.tts $(TTESTER) table.lht
+	@$(TTESTER) < merge_table.tts >$@
+
+merge_table.tdiff: out/merge_table.tout ref/merge_table.tref
+	@diff -u ref/merge_table.tref out/merge_table.tout
+	@echo "tts merge_table": ok. >> $(LOG)
+
+
+# merge_text
+out/merge_text.tout: merge_text.tts $(TTESTER) text.lht
+	@$(TTESTER) < merge_text.tts >$@
+
+merge_text.tdiff: out/merge_text.tout ref/merge_text.tref
+	@diff -u ref/merge_text.tref out/merge_text.tout
+	@echo "tts merge_text": ok. >> $(LOG)
+
+
+# node_is_under
+out/node_is_under.tout: node_is_under.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < node_is_under.tts >$@
+
+node_is_under.tdiff: out/node_is_under.tout ref/node_is_under.tref
+	@diff -u ref/node_is_under.tref out/node_is_under.tout
+	@echo "tts node_is_under": ok. >> $(LOG)
+
+
+# path
+out/path.tout: path.tts $(TTESTER) revpath.lht sy.lht
+	@$(TTESTER) < path.tts >$@
+
+path.tdiff: out/path.tout ref/path.tref
+	@diff -u ref/path.tref out/path.tout
+	@echo "tts path": ok. >> $(LOG)
+
+
+# revpath
+out/revpath.tout: revpath.tts $(TTESTER) revpath.lht
+	@$(TTESTER) < revpath.tts >$@
+
+revpath.tdiff: out/revpath.tout ref/revpath.tref
+	@diff -u ref/revpath.tref out/revpath.tout
+	@echo "tts revpath": ok. >> $(LOG)
+
+
+# symlink_is_broken
+out/symlink_is_broken.tout: symlink_is_broken.tts $(TTESTER) symlink.lht
+	@$(TTESTER) < symlink_is_broken.tts >$@
+
+symlink_is_broken.tdiff: out/symlink_is_broken.tout ref/symlink_is_broken.tref
+	@diff -u ref/symlink_is_broken.tref out/symlink_is_broken.tout
+	@echo "tts symlink_is_broken": ok. >> $(LOG)
+
+
+# ta_del_c
+out/ta_del_c.tout: ta_del_c.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_del_c.tts >$@
+
+ta_del_c.tdiff: out/ta_del_c.tout ref/ta_del_c.tref
+	@diff -u ref/ta_del_c.tref out/ta_del_c.tout
+	@echo "tts ta_del_c": ok. >> $(LOG)
+
+
+# ta_del_r
+out/ta_del_r.tout: ta_del_r.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_del_r.tts >$@
+
+ta_del_r.tdiff: out/ta_del_r.tout ref/ta_del_r.tref
+	@diff -u ref/ta_del_r.tref out/ta_del_r.tout
+	@echo "tts ta_del_r": ok. >> $(LOG)
+
+
+# ta_ins_c
+out/ta_ins_c.tout: ta_ins_c.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_ins_c.tts >$@
+
+ta_ins_c.tdiff: out/ta_ins_c.tout ref/ta_ins_c.tref
+	@diff -u ref/ta_ins_c.tref out/ta_ins_c.tout
+	@echo "tts ta_ins_c": ok. >> $(LOG)
+
+
+# ta_ins_c2
+out/ta_ins_c2.tout: ta_ins_c2.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_ins_c2.tts >$@
+
+ta_ins_c2.tdiff: out/ta_ins_c2.tout ref/ta_ins_c2.tref
+	@diff -u ref/ta_ins_c2.tref out/ta_ins_c2.tout
+	@echo "tts ta_ins_c2": ok. >> $(LOG)
+
+
+# ta_ins_r
+out/ta_ins_r.tout: ta_ins_r.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_ins_r.tts >$@
+
+ta_ins_r.tdiff: out/ta_ins_r.tout ref/ta_ins_r.tref
+	@diff -u ref/ta_ins_r.tref out/ta_ins_r.tout
+	@echo "tts ta_ins_r": ok. >> $(LOG)
+
+
+# ta_ins_r2
+out/ta_ins_r2.tout: ta_ins_r2.tts $(TTESTER) ta.lht
+	@$(TTESTER) < ta_ins_r2.tts >$@
+
+ta_ins_r2.tdiff: out/ta_ins_r2.tout ref/ta_ins_r2.tref
+	@diff -u ref/ta_ins_r2.tref out/ta_ins_r2.tout
+	@echo "tts ta_ins_r2": ok. >> $(LOG)
+
+
+# table_detach_cell
+out/table_detach_cell.tout: table_detach_cell.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < table_detach_cell.tts >$@
+
+table_detach_cell.tdiff: out/table_detach_cell.tout ref/table_detach_cell.tref
+	@diff -u ref/table_detach_cell.tref out/table_detach_cell.tout
+	@echo "tts table_detach_cell": ok. >> $(LOG)
+
+
+# table_detach_child
+out/table_detach_child.tout: table_detach_child.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < table_detach_child.tts >$@
+
+table_detach_child.tdiff: out/table_detach_child.tout ref/table_detach_child.tref
+	@diff -u ref/table_detach_child.tref out/table_detach_child.tout
+	@echo "tts table_detach_child": ok. >> $(LOG)
+
+
+# table_find_cell
+out/table_find_cell.tout: table_find_cell.tts $(TTESTER) table_corners.lht revpath.lht
+	@$(TTESTER) < table_find_cell.tts >$@
+
+table_find_cell.tdiff: out/table_find_cell.tout ref/table_find_cell.tref
+	@diff -u ref/table_find_cell.tref out/table_find_cell.tout
+	@echo "tts table_find_cell": ok. >> $(LOG)
+
+
+# table_named_cell
+out/table_named_cell.tout: table_named_cell.tts $(TTESTER) table_named_cell.lht
+	@$(TTESTER) < table_named_cell.tts >$@
+
+table_named_cell.tdiff: out/table_named_cell.tout ref/table_named_cell.tref
+	@diff -u ref/table_named_cell.tref out/table_named_cell.tout
+	@echo "tts table_named_cell": ok. >> $(LOG)
+
+
+# table_read
+out/table_read.tout: table_read.tts $(TTESTER) table.lht
+	@$(TTESTER) < table_read.tts >$@
+
+table_read.tdiff: out/table_read.tout ref/table_read.tref
+	@diff -u ref/table_read.tref out/table_read.tout
+	@echo "tts table_read": ok. >> $(LOG)
+
+
+# table_replace_cell
+out/table_replace_cell.tout: table_replace_cell.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < table_replace_cell.tts >$@
+
+table_replace_cell.tdiff: out/table_replace_cell.tout ref/table_replace_cell.tref
+	@diff -u ref/table_replace_cell.tref out/table_replace_cell.tout
+	@echo "tts table_replace_cell": ok. >> $(LOG)
+
+
+# table_replace_child
+out/table_replace_child.tout: table_replace_child.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < table_replace_child.tts >$@
+
+table_replace_child.tdiff: out/table_replace_child.tout ref/table_replace_child.tref
+	@diff -u ref/table_replace_child.tref out/table_replace_child.tout
+	@echo "tts table_replace_child": ok. >> $(LOG)
+
+
+# tree_detach
+out/tree_detach.tout: tree_detach.tts $(TTESTER) list.lht
+	@$(TTESTER) < tree_detach.tts >$@
+
+tree_detach.tdiff: out/tree_detach.tout ref/tree_detach.tref
+	@diff -u ref/tree_detach.tref out/tree_detach.tout
+	@echo "tts tree_detach": ok. >> $(LOG)
+
+
+# tree_dup_hash
+out/tree_dup_hash.tout: tree_dup_hash.tts $(TTESTER) merge_hash.lht
+	@$(TTESTER) < tree_dup_hash.tts >$@
+
+tree_dup_hash.tdiff: out/tree_dup_hash.tout ref/tree_dup_hash.tref
+	@diff -u ref/tree_dup_hash.tref out/tree_dup_hash.tout
+	@echo "tts tree_dup_hash": ok. >> $(LOG)
+
+
+# tree_dup_list
+out/tree_dup_list.tout: tree_dup_list.tts $(TTESTER) list.lht
+	@$(TTESTER) < tree_dup_list.tts >$@
+
+tree_dup_list.tdiff: out/tree_dup_list.tout ref/tree_dup_list.tref
+	@diff -u ref/tree_dup_list.tref out/tree_dup_list.tout
+	@echo "tts tree_dup_list": ok. >> $(LOG)
+
+
+# tree_dup_sy
+out/tree_dup_sy.tout: tree_dup_sy.tts $(TTESTER) sy.lht
+	@$(TTESTER) < tree_dup_sy.tts >$@
+
+tree_dup_sy.tdiff: out/tree_dup_sy.tout ref/tree_dup_sy.tref
+	@diff -u ref/tree_dup_sy.tref out/tree_dup_sy.tout
+	@echo "tts tree_dup_sy": ok. >> $(LOG)
+
+
+# tree_dup_table
+out/tree_dup_table.tout: tree_dup_table.tts $(TTESTER) table_corners.lht
+	@$(TTESTER) < tree_dup_table.tts >$@
+
+tree_dup_table.tdiff: out/tree_dup_table.tout ref/tree_dup_table.tref
+	@diff -u ref/tree_dup_table.tref out/tree_dup_table.tout
+	@echo "tts tree_dup_table": ok. >> $(LOG)
+
+
+# tree_has_symlink
+out/tree_has_symlink.tout: tree_has_symlink.tts $(TTESTER) symlink.lht table.lht symlink_root_node.lht
+	@$(TTESTER) < tree_has_symlink.tts >$@
+
+tree_has_symlink.tdiff: out/tree_has_symlink.tout ref/tree_has_symlink.tref
+	@diff -u ref/tree_has_symlink.tref out/tree_has_symlink.tout
+	@echo "tts tree_has_symlink": ok. >> $(LOG)
+
+
+# tree_unlink
+out/tree_unlink.tout: tree_unlink.tts $(TTESTER) list.lht
+	@$(TTESTER) < tree_unlink.tts >$@
+
+tree_unlink.tdiff: out/tree_unlink.tout ref/tree_unlink.tref
+	@diff -u ref/tree_unlink.tref out/tree_unlink.tout
+	@echo "tts tree_unlink": ok. >> $(LOG)
+
+############## common rules ##############
+empty.REF: empty.lht 
+	@$(ETESTER) < empty.lht >ref/empty.eref
+	@$(DTESTER) < empty.lht >ref/empty.dref
+	@echo "*** WARNING: missing reference ref/empty.eref and .dref have been generated. Please validate ***"
+
+out/empty.valg: empty.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=empty.evalg $(ETESTER) < empty.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=empty.dvalg $(DTESTER) < empty.lht > /dev/null
+
+empty_type_decl.REF: empty_type_decl.lht 
+	@$(ETESTER) < empty_type_decl.lht >ref/empty_type_decl.eref
+	@$(DTESTER) < empty_type_decl.lht >ref/empty_type_decl.dref
+	@echo "*** WARNING: missing reference ref/empty_type_decl.eref and .dref have been generated. Please validate ***"
+
+out/empty_type_decl.valg: empty_type_decl.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=empty_type_decl.evalg $(ETESTER) < empty_type_decl.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=empty_type_decl.dvalg $(DTESTER) < empty_type_decl.lht > /dev/null
+
+err_brace_in_text.REF: err_brace_in_text.lht 
+	@$(ETESTER) < err_brace_in_text.lht >ref/err_brace_in_text.eref
+	@$(DTESTER) < err_brace_in_text.lht >ref/err_brace_in_text.dref
+	@echo "*** WARNING: missing reference ref/err_brace_in_text.eref and .dref have been generated. Please validate ***"
+
+out/err_brace_in_text.valg: err_brace_in_text.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_brace_in_text.evalg $(ETESTER) < err_brace_in_text.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_brace_in_text.dvalg $(DTESTER) < err_brace_in_text.lht > /dev/null
+
+err_eof_body.REF: err_eof_body.lht 
+	@$(ETESTER) < err_eof_body.lht >ref/err_eof_body.eref
+	@$(DTESTER) < err_eof_body.lht >ref/err_eof_body.dref
+	@echo "*** WARNING: missing reference ref/err_eof_body.eref and .dref have been generated. Please validate ***"
+
+out/err_eof_body.valg: err_eof_body.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_body.evalg $(ETESTER) < err_eof_body.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_body.dvalg $(DTESTER) < err_eof_body.lht > /dev/null
+
+err_eof_comment.REF: err_eof_comment.lht 
+	@$(ETESTER) < err_eof_comment.lht >ref/err_eof_comment.eref
+	@$(DTESTER) < err_eof_comment.lht >ref/err_eof_comment.dref
+	@echo "*** WARNING: missing reference ref/err_eof_comment.eref and .dref have been generated. Please validate ***"
+
+out/err_eof_comment.valg: err_eof_comment.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_comment.evalg $(ETESTER) < err_eof_comment.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_comment.dvalg $(DTESTER) < err_eof_comment.lht > /dev/null
+
+err_eof_comment2.REF: err_eof_comment2.lht 
+	@$(ETESTER) < err_eof_comment2.lht >ref/err_eof_comment2.eref
+	@$(DTESTER) < err_eof_comment2.lht >ref/err_eof_comment2.dref
+	@echo "*** WARNING: missing reference ref/err_eof_comment2.eref and .dref have been generated. Please validate ***"
+
+out/err_eof_comment2.valg: err_eof_comment2.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_comment2.evalg $(ETESTER) < err_eof_comment2.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_eof_comment2.dvalg $(DTESTER) < err_eof_comment2.lht > /dev/null
+
+err_nobody.REF: err_nobody.lht 
+	@$(ETESTER) < err_nobody.lht >ref/err_nobody.eref
+	@$(DTESTER) < err_nobody.lht >ref/err_nobody.dref
+	@echo "*** WARNING: missing reference ref/err_nobody.eref and .dref have been generated. Please validate ***"
+
+out/err_nobody.valg: err_nobody.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_nobody.evalg $(ETESTER) < err_nobody.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=err_nobody.dvalg $(DTESTER) < err_nobody.lht > /dev/null
+
+excess_closing_braces.REF: excess_closing_braces.lht 
+	@$(ETESTER) < excess_closing_braces.lht >ref/excess_closing_braces.eref
+	@$(DTESTER) < excess_closing_braces.lht >ref/excess_closing_braces.dref
+	@echo "*** WARNING: missing reference ref/excess_closing_braces.eref and .dref have been generated. Please validate ***"
+
+out/excess_closing_braces.valg: excess_closing_braces.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=excess_closing_braces.evalg $(ETESTER) < excess_closing_braces.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=excess_closing_braces.dvalg $(DTESTER) < excess_closing_braces.lht > /dev/null
+
+hash.REF: hash.lht 
+	@$(ETESTER) < hash.lht >ref/hash.eref
+	@$(DTESTER) < hash.lht >ref/hash.dref
+	@echo "*** WARNING: missing reference ref/hash.eref and .dref have been generated. Please validate ***"
+
+out/hash.valg: hash.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=hash.evalg $(ETESTER) < hash.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=hash.dvalg $(DTESTER) < hash.lht > /dev/null
+
+list.REF: list.lht list.tts
+	@$(ETESTER) < list.lht >ref/list.eref
+	@$(DTESTER) < list.lht >ref/list.dref
+	@echo "*** WARNING: missing reference ref/list.eref and .dref have been generated. Please validate ***"
+	@$(TTESTER) < list.tts >ref/list.tref
+	@echo "*** WARNING: missing reference ref/list.tref has been generated. Please validate ***"
+
+out/list.valg: list.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list.evalg $(ETESTER) < list.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list.dvalg $(DTESTER) < list.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list.tvalg $(TTESTER) < list.tts > /dev/null
+
+list_del_nth.REF: list_del_nth.lht list_del_nth.tts
+	@$(ETESTER) < list_del_nth.lht >ref/list_del_nth.eref
+	@$(DTESTER) < list_del_nth.lht >ref/list_del_nth.dref
+	@echo "*** WARNING: missing reference ref/list_del_nth.eref and .dref have been generated. Please validate ***"
+	@$(TTESTER) < list_del_nth.tts >ref/list_del_nth.tref
+	@echo "*** WARNING: missing reference ref/list_del_nth.tref has been generated. Please validate ***"
+
+out/list_del_nth.valg: list_del_nth.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_del_nth.evalg $(ETESTER) < list_del_nth.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_del_nth.dvalg $(DTESTER) < list_del_nth.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_del_nth.tvalg $(TTESTER) < list_del_nth.tts > /dev/null
+
+list_empty.REF: list_empty.lht 
+	@$(ETESTER) < list_empty.lht >ref/list_empty.eref
+	@$(DTESTER) < list_empty.lht >ref/list_empty.dref
+	@echo "*** WARNING: missing reference ref/list_empty.eref and .dref have been generated. Please validate ***"
+
+out/list_empty.valg: list_empty.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_empty.evalg $(ETESTER) < list_empty.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_empty.dvalg $(DTESTER) < list_empty.lht > /dev/null
+
+list_first_symlink.REF: list_first_symlink.lht 
+	@$(ETESTER) < list_first_symlink.lht >ref/list_first_symlink.eref
+	@$(DTESTER) < list_first_symlink.lht >ref/list_first_symlink.dref
+	@echo "*** WARNING: missing reference ref/list_first_symlink.eref and .dref have been generated. Please validate ***"
+
+out/list_first_symlink.valg: list_first_symlink.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_first_symlink.evalg $(ETESTER) < list_first_symlink.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_first_symlink.dvalg $(DTESTER) < list_first_symlink.lht > /dev/null
+
+list_missing_last_semicolon.REF: list_missing_last_semicolon.lht 
+	@$(ETESTER) < list_missing_last_semicolon.lht >ref/list_missing_last_semicolon.eref
+	@$(DTESTER) < list_missing_last_semicolon.lht >ref/list_missing_last_semicolon.dref
+	@echo "*** WARNING: missing reference ref/list_missing_last_semicolon.eref and .dref have been generated. Please validate ***"
+
+out/list_missing_last_semicolon.valg: list_missing_last_semicolon.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_missing_last_semicolon.evalg $(ETESTER) < list_missing_last_semicolon.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_missing_last_semicolon.dvalg $(DTESTER) < list_missing_last_semicolon.lht > /dev/null
+
+list_nthname.REF: list_nthname.lht list_nthname.tts
+	@$(ETESTER) < list_nthname.lht >ref/list_nthname.eref
+	@$(DTESTER) < list_nthname.lht >ref/list_nthname.dref
+	@echo "*** WARNING: missing reference ref/list_nthname.eref and .dref have been generated. Please validate ***"
+	@$(TTESTER) < list_nthname.tts >ref/list_nthname.tref
+	@echo "*** WARNING: missing reference ref/list_nthname.tref has been generated. Please validate ***"
+
+out/list_nthname.valg: list_nthname.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_nthname.evalg $(ETESTER) < list_nthname.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_nthname.dvalg $(DTESTER) < list_nthname.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_nthname.tvalg $(TTESTER) < list_nthname.tts > /dev/null
+
+merge_hash.REF: merge_hash.lht 
+	@$(ETESTER) < merge_hash.lht >ref/merge_hash.eref
+	@$(DTESTER) < merge_hash.lht >ref/merge_hash.dref
+	@echo "*** WARNING: missing reference ref/merge_hash.eref and .dref have been generated. Please validate ***"
+
+out/merge_hash.valg: merge_hash.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash.evalg $(ETESTER) < merge_hash.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash.dvalg $(DTESTER) < merge_hash.lht > /dev/null
+
+nodes_for_testing.REF: nodes_for_testing.lht 
+	@$(ETESTER) < nodes_for_testing.lht >ref/nodes_for_testing.eref
+	@$(DTESTER) < nodes_for_testing.lht >ref/nodes_for_testing.dref
+	@echo "*** WARNING: missing reference ref/nodes_for_testing.eref and .dref have been generated. Please validate ***"
+
+out/nodes_for_testing.valg: nodes_for_testing.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=nodes_for_testing.evalg $(ETESTER) < nodes_for_testing.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=nodes_for_testing.dvalg $(DTESTER) < nodes_for_testing.lht > /dev/null
+
+quoting.REF: quoting.lht 
+	@$(ETESTER) < quoting.lht >ref/quoting.eref
+	@$(DTESTER) < quoting.lht >ref/quoting.dref
+	@echo "*** WARNING: missing reference ref/quoting.eref and .dref have been generated. Please validate ***"
+
+out/quoting.valg: quoting.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=quoting.evalg $(ETESTER) < quoting.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=quoting.dvalg $(DTESTER) < quoting.lht > /dev/null
+
+revpath.REF: revpath.lht revpath.tts
+	@$(ETESTER) < revpath.lht >ref/revpath.eref
+	@$(DTESTER) < revpath.lht >ref/revpath.dref
+	@echo "*** WARNING: missing reference ref/revpath.eref and .dref have been generated. Please validate ***"
+	@$(TTESTER) < revpath.tts >ref/revpath.tref
+	@echo "*** WARNING: missing reference ref/revpath.tref has been generated. Please validate ***"
+
+out/revpath.valg: revpath.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=revpath.evalg $(ETESTER) < revpath.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=revpath.dvalg $(DTESTER) < revpath.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=revpath.tvalg $(TTESTER) < revpath.tts > /dev/null
+
+stream.REF: stream.lht 
+	@$(ETESTER) < stream.lht >ref/stream.eref
+	@$(DTESTER) < stream.lht >ref/stream.dref
+	@echo "*** WARNING: missing reference ref/stream.eref and .dref have been generated. Please validate ***"
+
+out/stream.valg: stream.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=stream.evalg $(ETESTER) < stream.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=stream.dvalg $(DTESTER) < stream.lht > /dev/null
+
+sy.REF: sy.lht 
+	@$(ETESTER) < sy.lht >ref/sy.eref
+	@$(DTESTER) < sy.lht >ref/sy.dref
+	@echo "*** WARNING: missing reference ref/sy.eref and .dref have been generated. Please validate ***"
+
+out/sy.valg: sy.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=sy.evalg $(ETESTER) < sy.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=sy.dvalg $(DTESTER) < sy.lht > /dev/null
+
+symlink.REF: symlink.lht 
+	@$(ETESTER) < symlink.lht >ref/symlink.eref
+	@$(DTESTER) < symlink.lht >ref/symlink.dref
+	@echo "*** WARNING: missing reference ref/symlink.eref and .dref have been generated. Please validate ***"
+
+out/symlink.valg: symlink.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=symlink.evalg $(ETESTER) < symlink.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=symlink.dvalg $(DTESTER) < symlink.lht > /dev/null
+
+symlink_root_node.REF: symlink_root_node.lht 
+	@$(ETESTER) < symlink_root_node.lht >ref/symlink_root_node.eref
+	@$(DTESTER) < symlink_root_node.lht >ref/symlink_root_node.dref
+	@echo "*** WARNING: missing reference ref/symlink_root_node.eref and .dref have been generated. Please validate ***"
+
+out/symlink_root_node.valg: symlink_root_node.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=symlink_root_node.evalg $(ETESTER) < symlink_root_node.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=symlink_root_node.dvalg $(DTESTER) < symlink_root_node.lht > /dev/null
+
+ta.REF: ta.lht 
+	@$(ETESTER) < ta.lht >ref/ta.eref
+	@$(DTESTER) < ta.lht >ref/ta.dref
+	@echo "*** WARNING: missing reference ref/ta.eref and .dref have been generated. Please validate ***"
+
+out/ta.valg: ta.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta.evalg $(ETESTER) < ta.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta.dvalg $(DTESTER) < ta.lht > /dev/null
+
+table.REF: table.lht 
+	@$(ETESTER) < table.lht >ref/table.eref
+	@$(DTESTER) < table.lht >ref/table.dref
+	@echo "*** WARNING: missing reference ref/table.eref and .dref have been generated. Please validate ***"
+
+out/table.valg: table.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table.evalg $(ETESTER) < table.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table.dvalg $(DTESTER) < table.lht > /dev/null
+
+table_corners.REF: table_corners.lht 
+	@$(ETESTER) < table_corners.lht >ref/table_corners.eref
+	@$(DTESTER) < table_corners.lht >ref/table_corners.dref
+	@echo "*** WARNING: missing reference ref/table_corners.eref and .dref have been generated. Please validate ***"
+
+out/table_corners.valg: table_corners.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_corners.evalg $(ETESTER) < table_corners.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_corners.dvalg $(DTESTER) < table_corners.lht > /dev/null
+
+table_named_cell.REF: table_named_cell.lht table_named_cell.tts
+	@$(ETESTER) < table_named_cell.lht >ref/table_named_cell.eref
+	@$(DTESTER) < table_named_cell.lht >ref/table_named_cell.dref
+	@echo "*** WARNING: missing reference ref/table_named_cell.eref and .dref have been generated. Please validate ***"
+	@$(TTESTER) < table_named_cell.tts >ref/table_named_cell.tref
+	@echo "*** WARNING: missing reference ref/table_named_cell.tref has been generated. Please validate ***"
+
+out/table_named_cell.valg: table_named_cell.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_named_cell.evalg $(ETESTER) < table_named_cell.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_named_cell.dvalg $(DTESTER) < table_named_cell.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_named_cell.tvalg $(TTESTER) < table_named_cell.tts > /dev/null
+
+text.REF: text.lht 
+	@$(ETESTER) < text.lht >ref/text.eref
+	@$(DTESTER) < text.lht >ref/text.dref
+	@echo "*** WARNING: missing reference ref/text.eref and .dref have been generated. Please validate ***"
+
+out/text.valg: text.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=text.evalg $(ETESTER) < text.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=text.dvalg $(DTESTER) < text.lht > /dev/null
+
+text_root_node.REF: text_root_node.lht 
+	@$(ETESTER) < text_root_node.lht >ref/text_root_node.eref
+	@$(DTESTER) < text_root_node.lht >ref/text_root_node.dref
+	@echo "*** WARNING: missing reference ref/text_root_node.eref and .dref have been generated. Please validate ***"
+
+out/text_root_node.valg: text_root_node.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=text_root_node.evalg $(ETESTER) < text_root_node.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=text_root_node.dvalg $(DTESTER) < text_root_node.lht > /dev/null
+
+tiny.REF: tiny.lht 
+	@$(ETESTER) < tiny.lht >ref/tiny.eref
+	@$(DTESTER) < tiny.lht >ref/tiny.dref
+	@echo "*** WARNING: missing reference ref/tiny.eref and .dref have been generated. Please validate ***"
+
+out/tiny.valg: tiny.lht $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tiny.evalg $(ETESTER) < tiny.lht > /dev/null
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tiny.dvalg $(DTESTER) < tiny.lht > /dev/null
+
+dom_hash_get.REF:  dom_hash_get.tts
+	@$(TTESTER) < dom_hash_get.tts >ref/dom_hash_get.tref
+	@echo "*** WARNING: missing reference ref/dom_hash_get.tref has been generated. Please validate ***"
+
+out/dom_hash_get.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_hash_get.tvalg $(TTESTER) < dom_hash_get.tts > /dev/null
+
+dom_hash_put.REF:  dom_hash_put.tts
+	@$(TTESTER) < dom_hash_put.tts >ref/dom_hash_put.tref
+	@echo "*** WARNING: missing reference ref/dom_hash_put.tref has been generated. Please validate ***"
+
+out/dom_hash_put.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_hash_put.tvalg $(TTESTER) < dom_hash_put.tts > /dev/null
+
+dom_iterate.REF:  dom_iterate.tts
+	@$(TTESTER) < dom_iterate.tts >ref/dom_iterate.tref
+	@echo "*** WARNING: missing reference ref/dom_iterate.tref has been generated. Please validate ***"
+
+out/dom_iterate.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_iterate.tvalg $(TTESTER) < dom_iterate.tts > /dev/null
+
+dom_list_append.REF:  dom_list_append.tts
+	@$(TTESTER) < dom_list_append.tts >ref/dom_list_append.tref
+	@echo "*** WARNING: missing reference ref/dom_list_append.tref has been generated. Please validate ***"
+
+out/dom_list_append.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_list_append.tvalg $(TTESTER) < dom_list_append.tts > /dev/null
+
+dom_list_insert.REF:  dom_list_insert.tts
+	@$(TTESTER) < dom_list_insert.tts >ref/dom_list_insert.tref
+	@echo "*** WARNING: missing reference ref/dom_list_insert.tref has been generated. Please validate ***"
+
+out/dom_list_insert.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_list_insert.tvalg $(TTESTER) < dom_list_insert.tts > /dev/null
+
+dom_list_insert_after.REF:  dom_list_insert_after.tts
+	@$(TTESTER) < dom_list_insert_after.tts >ref/dom_list_insert_after.tref
+	@echo "*** WARNING: missing reference ref/dom_list_insert_after.tref has been generated. Please validate ***"
+
+out/dom_list_insert_after.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_list_insert_after.tvalg $(TTESTER) < dom_list_insert_after.tts > /dev/null
+
+dom_list_len.REF:  dom_list_len.tts
+	@$(TTESTER) < dom_list_len.tts >ref/dom_list_len.tref
+	@echo "*** WARNING: missing reference ref/dom_list_len.tref has been generated. Please validate ***"
+
+out/dom_list_len.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_list_len.tvalg $(TTESTER) < dom_list_len.tts > /dev/null
+
+dom_load.REF:  dom_load.tts
+	@$(TTESTER) < dom_load.tts >ref/dom_load.tref
+	@echo "*** WARNING: missing reference ref/dom_load.tref has been generated. Please validate ***"
+
+out/dom_load.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_load.tvalg $(TTESTER) < dom_load.tts > /dev/null
+
+dom_node_free.REF:  dom_node_free.tts
+	@$(TTESTER) < dom_node_free.tts >ref/dom_node_free.tref
+	@echo "*** WARNING: missing reference ref/dom_node_free.tref has been generated. Please validate ***"
+
+out/dom_node_free.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=dom_node_free.tvalg $(TTESTER) < dom_node_free.tts > /dev/null
+
+export.REF:  export.tts
+	@$(TTESTER) < export.tts >ref/export.tref
+	@echo "*** WARNING: missing reference ref/export.tref has been generated. Please validate ***"
+
+out/export.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=export.tvalg $(TTESTER) < export.tts > /dev/null
+
+list_detach_child.REF:  list_detach_child.tts
+	@$(TTESTER) < list_detach_child.tts >ref/list_detach_child.tref
+	@echo "*** WARNING: missing reference ref/list_detach_child.tref has been generated. Please validate ***"
+
+out/list_detach_child.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_detach_child.tvalg $(TTESTER) < list_detach_child.tts > /dev/null
+
+list_detach_nth.REF:  list_detach_nth.tts
+	@$(TTESTER) < list_detach_nth.tts >ref/list_detach_nth.tref
+	@echo "*** WARNING: missing reference ref/list_detach_nth.tref has been generated. Please validate ***"
+
+out/list_detach_nth.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_detach_nth.tvalg $(TTESTER) < list_detach_nth.tts > /dev/null
+
+list_replace_child.REF:  list_replace_child.tts
+	@$(TTESTER) < list_replace_child.tts >ref/list_replace_child.tref
+	@echo "*** WARNING: missing reference ref/list_replace_child.tref has been generated. Please validate ***"
+
+out/list_replace_child.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=list_replace_child.tvalg $(TTESTER) < list_replace_child.tts > /dev/null
+
+merge_hash_recurse.REF:  merge_hash_recurse.tts
+	@$(TTESTER) < merge_hash_recurse.tts >ref/merge_hash_recurse.tref
+	@echo "*** WARNING: missing reference ref/merge_hash_recurse.tref has been generated. Please validate ***"
+
+out/merge_hash_recurse.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash_recurse.tvalg $(TTESTER) < merge_hash_recurse.tts > /dev/null
+
+merge_hash_simple.REF:  merge_hash_simple.tts
+	@$(TTESTER) < merge_hash_simple.tts >ref/merge_hash_simple.tref
+	@echo "*** WARNING: missing reference ref/merge_hash_simple.tref has been generated. Please validate ***"
+
+out/merge_hash_simple.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash_simple.tvalg $(TTESTER) < merge_hash_simple.tts > /dev/null
+
+merge_hash_sybad.REF:  merge_hash_sybad.tts
+	@$(TTESTER) < merge_hash_sybad.tts >ref/merge_hash_sybad.tref
+	@echo "*** WARNING: missing reference ref/merge_hash_sybad.tref has been generated. Please validate ***"
+
+out/merge_hash_sybad.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash_sybad.tvalg $(TTESTER) < merge_hash_sybad.tts > /dev/null
+
+merge_hash_sygood.REF:  merge_hash_sygood.tts
+	@$(TTESTER) < merge_hash_sygood.tts >ref/merge_hash_sygood.tref
+	@echo "*** WARNING: missing reference ref/merge_hash_sygood.tref has been generated. Please validate ***"
+
+out/merge_hash_sygood.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_hash_sygood.tvalg $(TTESTER) < merge_hash_sygood.tts > /dev/null
+
+merge_list.REF:  merge_list.tts
+	@$(TTESTER) < merge_list.tts >ref/merge_list.tref
+	@echo "*** WARNING: missing reference ref/merge_list.tref has been generated. Please validate ***"
+
+out/merge_list.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_list.tvalg $(TTESTER) < merge_list.tts > /dev/null
+
+merge_table.REF:  merge_table.tts
+	@$(TTESTER) < merge_table.tts >ref/merge_table.tref
+	@echo "*** WARNING: missing reference ref/merge_table.tref has been generated. Please validate ***"
+
+out/merge_table.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_table.tvalg $(TTESTER) < merge_table.tts > /dev/null
+
+merge_text.REF:  merge_text.tts
+	@$(TTESTER) < merge_text.tts >ref/merge_text.tref
+	@echo "*** WARNING: missing reference ref/merge_text.tref has been generated. Please validate ***"
+
+out/merge_text.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=merge_text.tvalg $(TTESTER) < merge_text.tts > /dev/null
+
+node_is_under.REF:  node_is_under.tts
+	@$(TTESTER) < node_is_under.tts >ref/node_is_under.tref
+	@echo "*** WARNING: missing reference ref/node_is_under.tref has been generated. Please validate ***"
+
+out/node_is_under.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=node_is_under.tvalg $(TTESTER) < node_is_under.tts > /dev/null
+
+path.REF:  path.tts
+	@$(TTESTER) < path.tts >ref/path.tref
+	@echo "*** WARNING: missing reference ref/path.tref has been generated. Please validate ***"
+
+out/path.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=path.tvalg $(TTESTER) < path.tts > /dev/null
+
+symlink_is_broken.REF:  symlink_is_broken.tts
+	@$(TTESTER) < symlink_is_broken.tts >ref/symlink_is_broken.tref
+	@echo "*** WARNING: missing reference ref/symlink_is_broken.tref has been generated. Please validate ***"
+
+out/symlink_is_broken.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=symlink_is_broken.tvalg $(TTESTER) < symlink_is_broken.tts > /dev/null
+
+ta_del_c.REF:  ta_del_c.tts
+	@$(TTESTER) < ta_del_c.tts >ref/ta_del_c.tref
+	@echo "*** WARNING: missing reference ref/ta_del_c.tref has been generated. Please validate ***"
+
+out/ta_del_c.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_del_c.tvalg $(TTESTER) < ta_del_c.tts > /dev/null
+
+ta_del_r.REF:  ta_del_r.tts
+	@$(TTESTER) < ta_del_r.tts >ref/ta_del_r.tref
+	@echo "*** WARNING: missing reference ref/ta_del_r.tref has been generated. Please validate ***"
+
+out/ta_del_r.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_del_r.tvalg $(TTESTER) < ta_del_r.tts > /dev/null
+
+ta_ins_c.REF:  ta_ins_c.tts
+	@$(TTESTER) < ta_ins_c.tts >ref/ta_ins_c.tref
+	@echo "*** WARNING: missing reference ref/ta_ins_c.tref has been generated. Please validate ***"
+
+out/ta_ins_c.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_ins_c.tvalg $(TTESTER) < ta_ins_c.tts > /dev/null
+
+ta_ins_c2.REF:  ta_ins_c2.tts
+	@$(TTESTER) < ta_ins_c2.tts >ref/ta_ins_c2.tref
+	@echo "*** WARNING: missing reference ref/ta_ins_c2.tref has been generated. Please validate ***"
+
+out/ta_ins_c2.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_ins_c2.tvalg $(TTESTER) < ta_ins_c2.tts > /dev/null
+
+ta_ins_r.REF:  ta_ins_r.tts
+	@$(TTESTER) < ta_ins_r.tts >ref/ta_ins_r.tref
+	@echo "*** WARNING: missing reference ref/ta_ins_r.tref has been generated. Please validate ***"
+
+out/ta_ins_r.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_ins_r.tvalg $(TTESTER) < ta_ins_r.tts > /dev/null
+
+ta_ins_r2.REF:  ta_ins_r2.tts
+	@$(TTESTER) < ta_ins_r2.tts >ref/ta_ins_r2.tref
+	@echo "*** WARNING: missing reference ref/ta_ins_r2.tref has been generated. Please validate ***"
+
+out/ta_ins_r2.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=ta_ins_r2.tvalg $(TTESTER) < ta_ins_r2.tts > /dev/null
+
+table_detach_cell.REF:  table_detach_cell.tts
+	@$(TTESTER) < table_detach_cell.tts >ref/table_detach_cell.tref
+	@echo "*** WARNING: missing reference ref/table_detach_cell.tref has been generated. Please validate ***"
+
+out/table_detach_cell.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_detach_cell.tvalg $(TTESTER) < table_detach_cell.tts > /dev/null
+
+table_detach_child.REF:  table_detach_child.tts
+	@$(TTESTER) < table_detach_child.tts >ref/table_detach_child.tref
+	@echo "*** WARNING: missing reference ref/table_detach_child.tref has been generated. Please validate ***"
+
+out/table_detach_child.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_detach_child.tvalg $(TTESTER) < table_detach_child.tts > /dev/null
+
+table_find_cell.REF:  table_find_cell.tts
+	@$(TTESTER) < table_find_cell.tts >ref/table_find_cell.tref
+	@echo "*** WARNING: missing reference ref/table_find_cell.tref has been generated. Please validate ***"
+
+out/table_find_cell.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_find_cell.tvalg $(TTESTER) < table_find_cell.tts > /dev/null
+
+table_read.REF:  table_read.tts
+	@$(TTESTER) < table_read.tts >ref/table_read.tref
+	@echo "*** WARNING: missing reference ref/table_read.tref has been generated. Please validate ***"
+
+out/table_read.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_read.tvalg $(TTESTER) < table_read.tts > /dev/null
+
+table_replace_cell.REF:  table_replace_cell.tts
+	@$(TTESTER) < table_replace_cell.tts >ref/table_replace_cell.tref
+	@echo "*** WARNING: missing reference ref/table_replace_cell.tref has been generated. Please validate ***"
+
+out/table_replace_cell.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_replace_cell.tvalg $(TTESTER) < table_replace_cell.tts > /dev/null
+
+table_replace_child.REF:  table_replace_child.tts
+	@$(TTESTER) < table_replace_child.tts >ref/table_replace_child.tref
+	@echo "*** WARNING: missing reference ref/table_replace_child.tref has been generated. Please validate ***"
+
+out/table_replace_child.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=table_replace_child.tvalg $(TTESTER) < table_replace_child.tts > /dev/null
+
+tree_detach.REF:  tree_detach.tts
+	@$(TTESTER) < tree_detach.tts >ref/tree_detach.tref
+	@echo "*** WARNING: missing reference ref/tree_detach.tref has been generated. Please validate ***"
+
+out/tree_detach.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_detach.tvalg $(TTESTER) < tree_detach.tts > /dev/null
+
+tree_dup_hash.REF:  tree_dup_hash.tts
+	@$(TTESTER) < tree_dup_hash.tts >ref/tree_dup_hash.tref
+	@echo "*** WARNING: missing reference ref/tree_dup_hash.tref has been generated. Please validate ***"
+
+out/tree_dup_hash.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_dup_hash.tvalg $(TTESTER) < tree_dup_hash.tts > /dev/null
+
+tree_dup_list.REF:  tree_dup_list.tts
+	@$(TTESTER) < tree_dup_list.tts >ref/tree_dup_list.tref
+	@echo "*** WARNING: missing reference ref/tree_dup_list.tref has been generated. Please validate ***"
+
+out/tree_dup_list.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_dup_list.tvalg $(TTESTER) < tree_dup_list.tts > /dev/null
+
+tree_dup_sy.REF:  tree_dup_sy.tts
+	@$(TTESTER) < tree_dup_sy.tts >ref/tree_dup_sy.tref
+	@echo "*** WARNING: missing reference ref/tree_dup_sy.tref has been generated. Please validate ***"
+
+out/tree_dup_sy.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_dup_sy.tvalg $(TTESTER) < tree_dup_sy.tts > /dev/null
+
+tree_dup_table.REF:  tree_dup_table.tts
+	@$(TTESTER) < tree_dup_table.tts >ref/tree_dup_table.tref
+	@echo "*** WARNING: missing reference ref/tree_dup_table.tref has been generated. Please validate ***"
+
+out/tree_dup_table.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_dup_table.tvalg $(TTESTER) < tree_dup_table.tts > /dev/null
+
+tree_has_symlink.REF:  tree_has_symlink.tts
+	@$(TTESTER) < tree_has_symlink.tts >ref/tree_has_symlink.tref
+	@echo "*** WARNING: missing reference ref/tree_has_symlink.tref has been generated. Please validate ***"
+
+out/tree_has_symlink.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_has_symlink.tvalg $(TTESTER) < tree_has_symlink.tts > /dev/null
+
+tree_unlink.REF:  tree_unlink.tts
+	@$(TTESTER) < tree_unlink.tts >ref/tree_unlink.tref
+	@echo "*** WARNING: missing reference ref/tree_unlink.tref has been generated. Please validate ***"
+
+out/tree_unlink.valg: $(ETESTER)
+	valgrind -v --show-reachable=yes --leak-check=full --log-file=tree_unlink.tvalg $(TTESTER) < tree_unlink.tts > /dev/null
+
+############## build testers ##############
+$(ETESTER) $(DTESTER) $(TTESTER):
+	cd .. && make

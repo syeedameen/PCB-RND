@@ -1,0 +1,12 @@
+li:root {
+	{te:te:brace} = foo
+	{TE:text node} = {this has TE: in name}
+	{te:text node} = {hello world}
+	{sy:sym link}  = {hello world}
+	{li:list node} = {hello; world}
+	{ha:hash node} = {1=hello; 2=world}
+	{ta:table spc} = {
+		{a; b}
+		{1; 2}
+	}
+}

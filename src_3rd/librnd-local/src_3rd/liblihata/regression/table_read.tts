@@ -1,0 +1,72 @@
+load_doc D1 table.lht
+
+echo root:
+root N1 D1
+print_tree N1
+
+echo first table:
+list_child N1
+print_node N1
+
+equ_node N2 N1
+
+echo Reading from empty table:
+echo 1) item (0,0)
+table_cell N1 0 0
+print_node N1
+
+echo 2) item (1,1)
+equ_node N1 N2
+table_cell N1 1 1
+print_node N1
+
+echo 3) item (-1, -1)
+equ_node N1 N2
+table_cell N1 -1 -1
+print_node N1
+
+echo second table:
+root N1 D1
+list_child N1
+list_next N1
+print_node N1
+
+equ_node N2 N1
+
+echo Reading from filled table:
+
+echo 1) item (0,0)
+table_cell N1 0 0
+print_node N1
+
+echo 2) item (0,1)
+equ_node N1 N2
+table_cell N1 0 1
+print_node N1
+
+echo 3) item (1,0)
+equ_node N1 N2
+table_cell N1 1 0
+print_node N1
+
+echo 4) item (1,1)
+equ_node N1 N2
+table_cell N1 1 1
+print_node N1
+
+echo 5) item (-1, -1)
+equ_node N1 N2
+table_cell N1 -1 -1
+print_node N1
+
+echo 6) item (1,2)
+equ_node N1 N2
+table_cell N1 1 2
+print_node N1
+
+echo 7) item (2,1)
+equ_node N1 N2
+table_cell N1 2 1
+print_node N1
+
+free_doc D1

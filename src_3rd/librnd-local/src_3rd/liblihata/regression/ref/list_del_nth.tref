@@ -1,0 +1,55 @@
+root:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{a} LAST te:{c}
+    te:{a} {val1}
+    te:{b} {val2}
+    te:{c} {val3}
+second list:
+  li:{non-empty} FIRST te:{a} LAST te:{c}
+   te:{a} {val1}
+   te:{b} {val2}
+   te:{c} {val3}
+delete 0th item from first list:
+list_del_nth: boundary check error: out of bounds
+  li:{empty} 
+delete 1st item from first list:
+list_del_nth: boundary check error: out of bounds
+  li:{empty} 
+delete -1st item from first list:
+list_del_nth: boundary check error: out of bounds
+  li:{empty} 
+delete 0th item from second list, repeated 4x:
+  li:{non-empty} FIRST te:{a} LAST te:{c}
+   te:{a} {val1}
+   te:{b} {val2}
+   te:{c} {val3}
+  li:{non-empty} FIRST te:{b} LAST te:{c}
+   te:{b} {val2}
+   te:{c} {val3}
+  li:{non-empty} FIRST te:{c} LAST te:{c}
+   te:{c} {val3}
+  li:{non-empty} 
+list_del_nth: boundary check error: out of bounds
+  li:{non-empty} 
+delete last item from second list, repeated 4x:
+  li:{non-empty} FIRST te:{a} LAST te:{c}
+   te:{a} {val1}
+   te:{b} {val2}
+   te:{c} {val3}
+  li:{non-empty} FIRST te:{a} LAST te:{b}
+   te:{a} {val1}
+   te:{b} {val2}
+  li:{non-empty} FIRST te:{a} LAST te:{a}
+   te:{a} {val1}
+  li:{non-empty} 
+list_del_nth: boundary check error: out of bounds
+  li:{non-empty} 
+delete middle item from second list:
+  li:{non-empty} FIRST te:{a} LAST te:{c}
+   te:{a} {val1}
+   te:{b} {val2}
+   te:{c} {val3}
+  li:{non-empty} FIRST te:{a} LAST te:{c}
+   te:{a} {val1}
+   te:{c} {val3}

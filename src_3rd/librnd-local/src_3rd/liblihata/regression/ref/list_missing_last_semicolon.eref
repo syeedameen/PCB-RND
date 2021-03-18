@@ -1,0 +1,3 @@
+list x
+ text 'foo' = 'bar'
+*EOF*

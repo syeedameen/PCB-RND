@@ -1,0 +1,18 @@
+#ifndef GENHT_VERSION_H
+#define GENHT_VERSION_H
+
+/* API version: MAJOR changes only on incompatible API change */
+#define GENHT_APIVER_MAJOR _VER_MAJOR_
+
+/* API version: MAJOR changes only on compatible API change (additions) */
+#define GENHT_APIVER_MINOR _VER_MINOR_
+
+/* Code version as numbers */
+#define GENHT_VER_MAJOR GENHT_APIVER_MAJOR
+#define GENHT_VER_MINOR GENHT_APIVER_MINOR
+#define GENHT_VER_PATCH _VER_PATCH_
+
+/* Code version as string */
+#define GENHT_VER_STR "_VER_MAJOR_._VER_MINOR_._VER_PATCH_"
+
+#endif

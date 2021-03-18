@@ -1,0 +1,26 @@
+put /local/pcb/mod {io_tedax}
+put /local/pcb/mod/OBJS [@
+	$(PLUGDIR)/io_tedax/io_tedax.o
+	$(PLUGDIR)/io_tedax/tnetlist.o
+	$(PLUGDIR)/io_tedax/footprint.o
+	$(PLUGDIR)/io_tedax/stackup.o
+	$(PLUGDIR)/io_tedax/tlayer.o
+	$(PLUGDIR)/io_tedax/tboard.o
+	$(PLUGDIR)/io_tedax/tdrc.o
+	$(PLUGDIR)/io_tedax/tdrc_keys_sphash.o
+	$(PLUGDIR)/io_tedax/tdrc_query.o
+	$(PLUGDIR)/io_tedax/trouter.o
+	$(PLUGDIR)/io_tedax/tetest.o
+	$(PLUGDIR)/io_tedax/parse.o
+@]
+put /local/pcb/mod/MENUFILE {tedax-menu.lht}
+put /local/pcb/mod/MENUVAR {tedax_menu}
+
+put /local/pcb/mod/SPHASH  {$(PLUGDIR)/io_tedax/tdrc_keys.sphash}
+put /local/pcb/mod/SPHASH_ARGS {--multi}
+
+switch /local/pcb/io_tedax/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

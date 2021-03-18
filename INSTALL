@@ -1,0 +1,86 @@
+NOTE: This file is the generic description. For per host system type details,
+      please look in doc/INSTALL.*
+
+NOTE: If you are packaging pcb-rnd for an OS distribution, please read
+      doc/developer/packaging.txt carefully and please try to follow the
+      conventions documented in doc/developer/packaging/
+
+1. Configure
+
+Run ./configure.
+
+For compile-time options run ./configure --help.
+
+Dependencies: almost none. For GUI, install the (-dev or -devel) libs
+of lesstif or motif and/or gtk2.
+
+Read the summary table and the warnings at the end of ./configure output
+and decide if you need the features missing. If there was no error, only
+warnings, pcb-rnd cab be compiled, even if some dependencies were missing.
+
+Summary of dependencies:
+For users:
+ - mandatory: C compiler
+ - mandatory: make
+ - optional: glib and gtk2 if you are using the GTK GUI
+ - optional: gtkglext if you need opengl rendering
+ - optional: motif or lesstif if you are using the lesstif frontend
+ - optional: gdlib if you want to export/import to/from png, jpg or gif
+ - optional: imagemagick for running the pixmap export tests
+
+For developers, only in case grammar files are to be modified:
+ - flex
+ - bison
+
+NOTE: if you did not install any GUI lib dependency, pcb-rnd will be
+compiled with command line interface only.
+
+./configure will try to static link most plugins and disable ones that
+have missing dependencies. This process can be controlled using configure
+command line switches, see ./configure --help.
+
+
+2. Compiling
+
+Run make.
+
+Optionally also run make test.
+
+
+3. Running from source
+
+cd src && ./pcb-rnd
+
+(Note: it is important to cd to src to run pcb-rnd from source; src/pcb-rnd
+won't work unless pcb-rnd is installed).
+
+If this doesn't work, please refer to doc/INSTALL*.
+
+
+4. Installation
+
+To install PCB after it has been built run:
+
+  make install
+
+from the top level directory. An alternative installation method
+is the link-install, which places symlinks instead of copying files so
+no subsequent make install is needed after a recompilation if no new
+files appeared (useful for developers):
+
+  make linstall
+
+
+5. Packaging
+
+Major distros already have pcb-rnd packages.
+
+If you are planning to package pcb-rnd, please read
+doc/developer/packaging.txt and if it is binary packaging, please consider
+following the package naming and layout documented in
+doc/developer/packaging/packaging/packages.html - this way different
+distros will have similar packages which will make both users' and developers'
+life easier while supporting the software.
+
+
+

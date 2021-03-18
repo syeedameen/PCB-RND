@@ -1,0 +1,26 @@
+load_doc D1 table_corners.lht
+root N1 D1
+path N1 /1
+root N2 D1
+path N2 /1/0/0
+
+echo Before detaching:
+echo The doc:
+print_doc D1
+echo The node:
+print_node N2
+
+echo -
+table_detach_child N1 N2
+
+echo After detaching:
+echo The doc:
+print_doc D1
+echo The node:
+print_node N2
+
+echo -
+echo Trying to detach again:
+table_detach_child N1 N2
+
+free_doc D1

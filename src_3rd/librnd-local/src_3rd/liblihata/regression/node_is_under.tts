@@ -1,0 +1,12 @@
+load_doc D1 table_corners.lht
+
+root N1 D1
+root N2 D1
+path N2 /0
+
+node_is_under N2 N1
+node_is_under N1 N2
+node_is_under N1 N1
+node_is_under N2 N2
+
+free_doc D1

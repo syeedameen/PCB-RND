@@ -1,0 +1,31 @@
+Original:
+  li:{root} [root] FIRST te:{key1} LAST te:{}
+   te:{key1} {val1}
+   te:{key2} {val2}
+   te:{key3} {val3}
+   te:{key4} {val4}
+   te:{key5} {val5}
+   te:{key6} {val6}
+   te:{} {anon1}
+   te:{} {anon2}
+   te:{} {anon3}
+   te:{empty} {}
+   te:{empty2} {}
+   te:{empty3} {}
+   te:{} {}
+   te:{} {}
+After merging key1,key2:
+  li:{root} [root] FIRST te:{key1} LAST te:{}
+   te:{key1} {val1val2}
+   te:{key3} {val3}
+   te:{key4} {val4}
+   te:{key5} {val5}
+   te:{key6} {val6}
+   te:{} {anon1}
+   te:{} {anon2}
+   te:{} {anon3}
+   te:{empty} {}
+   te:{empty2} {}
+   te:{empty3} {}
+   te:{} {}
+   te:{} {}

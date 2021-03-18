@@ -1,0 +1,25 @@
+libminuid - minimalistic globally unique IDs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The library implements non-standard "universally" unique IDs of 18 bytes
+in binary. The IDs can be converted forth and back to 24 characters long
+(base64 encoded) plain text.
+
+The library is implemented in C89 and does not require any configuration.
+
+The UID consists of a 14 bytes long session ID and a 4 bytes long counter.
+The session ID is an unique random number for each session. There must be
+a session per process per thread. The counter is incremented on each new
+UID generated. When the counter overflows, the session ID is changed.
+
+The random session ID is generated using:
+ - /dev/urandom
+ - or /dev/random
+ - or the current time
+ - plus the host application should salt it with unique numbers such
+   as the process ID, the thread ID and whatever uniq identifier data it
+   has access to.
+
+Salting is a fallback mechanism for systems where /dev/urandom and /dev/random
+are not available.
+

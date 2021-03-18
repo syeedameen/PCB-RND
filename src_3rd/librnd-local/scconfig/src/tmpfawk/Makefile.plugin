@@ -1,0 +1,11 @@
+TMPFAWK_OBJS = \
+  $(BIN)/tmpfawk/tmpfawk.o \
+  $(BIN)/tmpasm/openfiles.o
+
+TMPFAWK_CFLAGS = -I$(SRC)/tmpfawk -I$(SRC)/tmpasm
+
+$(BIN)/tmpasm/openfiles.o: $(SRC)/tmpasm/openfiles.c
+	$(CC) $(CFLAGS) -c $(SRC)/tmpasm/openfiles.c -o $(BIN)/tmpasm/openfiles.o
+
+$(BIN)/tmpfawk/tmpfawk.o: $(SRC)/tmpfawk/tmpfawk.c $(SRC)/tmpfawk/tmpfawk.h $(SRC)/default/dep.h $(SRC)/default/log.h $(SRC)/default/regex.h
+	$(CC) $(CFLAGS) -c $(SRC)/tmpfawk/tmpfawk.c -o $(BIN)/tmpfawk/tmpfawk.o

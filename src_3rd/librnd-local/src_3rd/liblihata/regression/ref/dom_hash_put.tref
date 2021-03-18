@@ -1,0 +1,21 @@
+Doc before put:
+  ha:{} [root] entries: 2
+   ha:{empty} entries: 0
+   ha:{non-empty} entries: 2
+    te:{key1} {val1}
+    te:{key2} {val2}
+Node before put:
+  te:{} [root] [nodoc] {"to_be_put"}
+-
+Doc after put:
+  ha:{} [root] entries: 3
+   ha:{empty} entries: 0
+   ha:{non-empty} entries: 2
+    te:{key1} {val1}
+    te:{key2} {val2}
+   te:{} {"to_be_put"}
+Node after put:
+  te:{} {"to_be_put"}
+Node before put:
+  te:{} [root] [nodoc] {"to_be_put_again"}
+Error during dom_hash_put: duplicate key in hash

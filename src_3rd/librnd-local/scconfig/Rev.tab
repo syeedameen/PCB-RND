@@ -1,0 +1,289 @@
+32275	configure	menu patch infra
+32120	configure	removing the old drc in favor of drc_query
+32113	configure	removing custom per hid attribute editor in favor of generic central propedit
+32103	configure	librnd DAD API transition (label cleanup)
+32099	configure	remove lesstif local dialog implementations: library, netlist
+31776	configure	new plugin: formula, for impedance calculations
+31708	configure	query plugin: move the advanced search dialog from dialogs plugin to query to better access of internals
+31623	configure	query plugin: net length calculations
+31519	configure	io_tedax drc block upgrade for drc_query
+31420	configure	online support plugin (irc) and lib for IPv4/tcp
+31295	configure	tEDAx drc_query block parse
+31249	configure	enabled io_bxl
+31116	configure	include libulzw in librnd 3rd
+31041	configure	pcb_ -> rnd_ renames in librnd
+30779	configure	remove distaligntext - all cases handled by distalign properly
+30754	configure	remove the old import_sch plugin (in favor of import_sch2)
+30753	configure	disable the old drc, enable the new drc
+30497	configure	new util: bxl2txt
+30191	configure	drc_orig: plugin configuration so the checks can be disabled
+30181	configure	query plugin: make bloat/shrink net drc loop reusable
+30169	configure	query plugin: function implementation/split
+29927	configure	generalizing zoom and pan actions for ringdove
+29778	configure	new object type: gfx
+29655	configure	librnd separation: scconfig hooks code
+29647	configure	generalize the toolbar code so it can be reused in camv-rnd and sch-rnd
+29567	configure	import_sch conf changes, new netlist import formats
+29412	configure	move generic actions from core to librnd
+29385	configure	remove build system special casing: generated lists for action registration
+29375	configure	librnd separation: stroke plugin API conversion from stub to event
+29340	configure	librnd separation: tool code
+29309	distclean	librnd separation
+28871	configure	compile standard extobjs by default
+28855	configure	extended object action infra
+28805	configure	generate new header for librnd header integrity test
+28609	configure	layer code split (layer_addr.[ch])
+28441	configure	remove old gcode plugin
+28114	distclean	puplug bug blocked loading script pups
+27952	configure	removing dolists.h to simplify action declaration
+27878	configure	hidlib related bugfix in ./configure
+27468	configure	order pcbway now depends on libxml2
+27454	configure	order plugin config file
+27403	configure	tEDAx: new source file for etest save
+27401	configure	remove cairo from optional dependencies
+27296	configure	gtk: detect GDK_KEY_ prefix for supporting ~10 years old systems
+27155	configure	hidlib: pixmap support framework: new .c file in the hidlib and pnm, png, jpeg, gif loader plugin
+27100	configure	hidlib: move base64 to core for reuse in hidlib (mainly for pixmaps)
+27086	configure	hidlib: tests and utils should use hidlib instead of manual object linking from the source tree
+27069	configure	retire the export_bboard plugin in favor of subc pixmaps that are going to be implemented soon
+27041	configure	hidlib: remove hid_color.[ch] in favor of color_cache
+26986	configure	hidlib: fallback scripting with libfawk
+26982	configure	hidlib: conf namespace cleanup
+26976	configure	rename netlist2.[ch] to netlist.[ch]
+26946	configure	hidlib: split DAD from hid_attrib
+26906	configure	hidlib: split hidlib into modular rndlib and install relevant headers
+26716	configure	gtk: merge lib_gtk_hid into lib_gtk_common
+26299	configuew	hidlib: include the batch HID in hidlib
+26262	configure	order: move wget to lib_wget for reuse, add order plugins
+26253	configure	hidlib: move hidlib-common dialogs from the dialogs plugin to lib_hid_common so other hidlib apps can benefit from them
+26000	configure	hildib: separate polygon generator funtions so they can be reused by hidlib apps
+25853	configure	new plugin for data access actions
+25789	configure	centralize the unit selector widget in a DAD compound
+25783	congigure	hidlib: remove unused parts of the gtk HID
+25758	configure	compound DAD widgets, for DAD based spinboxes: remove old, gtk-only coord entry
+25701	configure	hidlib: generate hidlib.h for external project use
+25666	configure	hidlib: make gtk2-gl part of the hidlib
+25664	configure	remove the gtk-only, old library window
+25652	configure	lib_hid_common: internal conf image for the file selection dialog upgrade
+25634	configure	infra for an stl export plugin
+25603	configure	infrastructure for extended objects
+25463	configure	new library window (DAD based)
+25436	configure	remove plugin lib_legacy_func
+25418	configure	remove obsolete menufiles from the install
+25402	configure	hidlib: rewrite the gtk-only layer selector using generic DAD
+25350	configure	hidlib: polygon vs. HID API cleanup
+25331	configure	new, DAD-based search dialog
+25261	configure	hidlib: various lesstif fixes
+25255	configure	split the tool API and default menus to hidlib doesn't depend on core
+25228	configure	rewrite PCB-file-changed-on-disk detection to common code, instead of gtk-specific
+25226	configure	hidlib: core-independent mouse cursor vs. tool handling
+25187	configure	hidlib: further split core code to hidlib and non-hidlib to reduce hidlib size
+25154	configure	hidlib: split lib_hid_common into a PCB-related and a PCB-unrelated plugin
+25143	configure	hidlib: indirect conf lookups to cut conf_core dependency
+25036	configure	hidlib: centralize GUI actions to remove code dup among gtk/lesstif and free up HIDs from PCB
+25016	configure	move the status bar and readouts out from gtk/lesstif to plugin lib_hid_pcbui
+24987	configure	move the toolbar out from gtk to plugin lib_hid_pcbui
+24951	configure	remove the lesstif implementation of route style
+24944	configure	reimplement the gtk-only route style selector and dialog using DAD
+24910	configure	hidlib: split lib_hid_common into a PCB-related and a PCB-unrelated plugin
+24872	configure	split excellon exporter from gerber to a separate plugin
+24862	configure	code simplification: merge hid_flags.[ch] into lib_hid_common
+24824	configure	move window placement from dialogs to lib_hid_commonfor hidlib cleanup
+24816	configure	safety wrapper around unlink, opendir, closedir and readdir
+24736	configure	make distclean fixes to really remove all generated files
+24625	configure	io_kicad common layer table code among read and write side
+24585	configure	io_kicad depends on the shape plugin for round-rect pads
+24494	configure	core shall not use glib for CFLAGS/LDFLAGS as core doesn't depend on glib
+24429	configure	move paper sizes out from ps to common code (io_kicad needs it too)
+24389	configure	live scripting: new source files for the new feature
+24292	configure	preparing for hidlib, splitting source files, scconfig hidlib deps
+23902	configure	cleanup: remove dead code from gtk
+23857	configure	new, centralized log dialog
+23788	configure	lesstif tabbed widget reimplementation for portability
+23737	configure	new fileselect dialog API and new, centralized load/save actions
+23602	configure	io_tedax namespace cleanup
+23589	configure	removing the old netlist dialog leftover from gtk
+23585	configure	removing the mincut stub (switched over to the event API)
+23579	configure	removing old netlist
+23486	configure	gerber/excellon splitup
+23462	configure	splitting up the dialog plugin code linking into multiple objects for compilation speed
+23292	configure	rewriting user lead, moving the code from gtk to common
+23140	configure	netlist rewrite
+23099	configure	merge copy.[ch] into move.[ch] for compactness
+22617	distclean	enable the socket plugin in scconfig for detecting select() as an alternative to usleep()
+22462	configure	lesstif tree table widget code, low level
+22305	configure	new source files for lesstif color button
+22264	configure	new source files for tEDAx layer, board and drc save
+22167	configure	removal of the old gtk-only preferences dialog code
+22119	configure	dialogs config for window placement
+21977	configure	new propedit
+21972	configure	boardflip plugin removed (core functionality took over)
+21942	configure	io_tedax for new blocks
+21876	configure	moving out the old drc to a plugin
+21580	configure	HID API cleanup, including dialogs rewritten with DAD and new DAD features
+21289	configure	new drc infra and GUI
+21098	configure	old pinout dialog removal
+20317	configure	new core color infra
+20260	configure	plugin frame for ttf import
+20249	configure	central gettimeofday() wrapper to fix a compilation bug on IRIX
+20233	configure	new plugin: act_draw
+20188	configure	dad() action
+20152	configure	remove notebook helper from gtk for the DAD transition
+20061	configure	made asm configurable
+20030	configure	new plugin: asm
+19890	configure	tree-table widget in DAD core
+19656	configure	new plugin for c-pcb
+19626	configure	retired the nelma exporter
+19343	configure	export_gerber: plugin configuration for G85 slots
+19048	configure	gtk: command line source cleanup/rename and centralize history handling
+18668	configure	ddraft: sphash for constraints
+18603	configure	ddraft: default buildin
+18569	configure	ddraft: new plugin
+18446	configure	fp_wget configuration
+18380	configure	siwtched over to the new about box and export dialog
+18304	configure	introducing the cam system: rename hid_helper to hid_cam + cam plugin
+18166	configure	swithc over to scconfig's cquote
+17960	configure	script plugin
+17691	configure	action code cleanup
+17436	configure	renamed hid_actions.[ch]
+17426	configure	introduce new 3rd party lib dep: fungw
+17304	configure	new plugin: expfeat for experimental features
+17216	configure	rendering optimizations: gl inlining
+17200	configure	moved clip.h out from core
+16898	configure	new stroke plugin
+16616	configure	fixes for large boards and 64 bit coords
+16591	configure	export_xy: tempalte config
+16456	configure	new plugin: import_ipcd356; rewrite export_ipcd356
+16265	configure	introducing pcb api ver
+16233	configure	retire hid_srv_ws: we are not going to use websockets for the web variant
+16155	configure	rewrite route style anchored menu to be central
+16109	configure	split off grid code from crosshair code and move gui-specific part out from core
+15944	configure	new default menu file preparation: embed the new menu, do not embed the old menus
+15910	configure	old data model removal
+15352	configure	typo in LIBDIR_INSTALLED
+15104	configure	openems mesher code
+14724	configure	subc hash and compare
+13953	configure	rtree switchover
+13726	configure	opnegl code moved to a separate plugin for reuse
+13584	configure	opengl -lGLU bugfix
+13386	configure	proper detection of includes for fileno() and usleep()
+13364	configure	new plugin: extedit
+13269	configure	remove free_atexit
+13171	configure	io_eagle: new source file for parsing dru files
+13037	configure	code simplification: PCB_INLINE
+12835	configure	new plugin: shape
+12748	configure	libminuid cflags fix
+12708	configure	new source file for the 'brave' feature
+12673	configure	new lib plugin: compat helper (because of the data model rewrite)
+12595	configure	new source files for padstacks
+12401	configure	new source files for more generic thermal support
+12108	configure	tool code splitup
+11724	configure	new default pcb
+11611	configure	enforce safe_fs
+11529	configure	gsch2pcb-rnd uses safe_fs
+11436	configure	dialogs plugin for moving dialog boxes out from core
+11396	configure	hid_lesstif linking bug
+11265	configure	deprecate dbus
+11247	configure	HPGL importer
+11189	configure	replace the openscad exporter
+11159	configure	new source files in hid_gtk2_gl for new HID API
+11156	configure	new source files in core for safe FS access
+11151	configure	new source files in dxf_export
+11051	make clean	new HID API for composite layer drawing
+10867	configure	loghid resurrect
+10799	configure	attributes dialog split in gtk
+10679	configure	infra for new core feature: subcircuit terminal
+10672	configure	switching over to libuundo
+10662	configure	split undo code, preparing for a more modular undo
+10356	configure	move genht out of liblihata
+10285	configure	control variable name fix in 3 lib plugins
+10042	configure	generalize lib_netmap and lib_padstack_hash and add lib_polyhelp
+9966	configure	hyperlynx write
+9919	configure	rubberband_orig got its own config subtree
+9840	configure	compile and link libminuid
+9600	configure	eagle bin parser
+9271	configure	core cleanup (split select.c and operation.c)
+9036	configure	diag configuration for integrity checks
+9025	configure	new source files for eagle subformats
+9019	configure	new source file in diag for integrity checks
+8990	configure	new source files for subcircuits
+8920	configure	build changes in puplug
+8912	configure	fp_board enabled by default; new plugin for mentor cell footprints
+8817	configure	fp_board: new plugin
+8774	configure	layer: all-hid common library plugin for the layer menus
+8748	configure	core: new pcb_bool source file
+8593	configure	gtk: new layer selector
+8331	configure	cquote generates C98-safe long strings
+8275	configure	puplug
+8153	configure	enable io_hyp by default
+8054	configure	setenv() detection for parametric footprint env
+7998	configure	gtk GTK3 box compatibility
+7968	configure	clean up global namespace: rename VERSION, PACKAGE and REVISION
+7967	configure	rename import_hyp to io_hyp
+7954	configure	fp_wget configuration, edakrill integration
+7720	configure	new route feature
+7594	configure	gtk splitup and gl
+7509	configure	rubber band upgrade, new go code
+7439	configure	tEDAx chnaged from import to io
+7432	configure	mentor_sch plugin upgrades
+7372	configure	gtk splitup
+7241	configure	gtk parametric footprint handling
+7217	configure	gtk splitup
+7136	configure	mentor sch import plugin
+7117	configure	gtk splitup: DRC dialog
+7105	configure	font selector gui dependencies
+7086	configure	gtk splitup
+7063	configure	gtk dialog for font selection
+7055	configure	gtk splitup
+7050	configure	multifont support: merge all draw stubs for simplicity
+7042	configure	gtk splitup
+7022	configure	multifont support: new actions
+6980	configure	gtk splitup: preferences dialog
+6924	configure	new import plugins
+6735	configure	gtk splitup
+6392	configure	draw cross section plugin (gtk and lesstif depend on it)
+6365	configure	gtk splitup
+6111	configure	layer vs. layer group code split
+6093	distclean,configure	hid API extension for the common Cursor action
+6087	configure	start splitting up hid_gtk: new plugin that hid_gtk depends on: lib_gtk_common
+6056	configure	gschp2pcb-rnd build deps bug
+6007	configure	switch over Makefiles to use sccbox
+6004	distclean,configure	scconfig compiles sccbox thast will ease portable clean and installation rules
+5982	make clean	gsch2pcb-rnd build fix
+5611	configure	new feature: UI layer
+5487	configure	layer cleanup: layer visibility in a new source file
+5472	configure	draw_fab config subtree
+5278	configure	prepare for arc UI extension: blank arc_ui.[ch] to move arc UI logics into
+5256	configure	move rubberband code into a plugin
+5199	configure	new export plugin: export_stat
+5108	configure	cleanup: remove old pointer list and use genvt
+5019	configure	unravel - remove set.[ch]
+4616	configure	unravel - the big cleanup, moving code
+4904	make clean,configure	unravel2 - regenerate action registration because regiestrator function name changed
+4882	configure	unravel2 - the big cleanup, renaming types
+4608	configure	unravel - the big cleanup, moving code and files
+4588	configure	disable bison by default
+4587	configure	draw_fab moved to a plugin
+4450	configure	io_lihata plugin config and 3rd party lib dependency fix
+4398	configure	io_kicad plugin interdeps and enable io_kicad by default
+4375	configure	custom output style support in io_lihata
+4321	configure	imported lihata persistent save lib in src_3rd as svn extern
+4160	configure	lib_* plugins (renames, s-expression)
+4063	configure	netlist.c split and cleanup
+4019	configure	case sensitive string regex for query
+4011	configure	sphash available for all plugins (needed by query first)
+4002	configure	auto-enable the query plugin
+3926	configure	advanced search in gtk, imported 10 old plugins
+3841	configure	link string->int hash table (for the query language)
+3822	configure	new global struct: obj_any_t that will allow a query to list objects
+3745	configure	gsch2pcb-rnd footprint lib initialization bug fixed
+3695	configure	bind signals to emergency save so that a copy of the in-memory PCB is saved on most crashes
+3513	configure	rename detect gcc attribute "unused" and use it for static inline local functions
+3510	configure	rename the debug plugin to diag plugin to avoid confusion with --debug in ./configure
+3509	configure	solve non-c89-compliant function pointer <-> data pointer casts
+3361	configure	cleanup: layer.c is compiled into layer.o now
+3339	configure	C89: round() is detected by scconfig
+3183	distclean,configure	C89 switchover
+3179	configure	C89 correctness: do not depend on hardwired long long, detect it
+2985	configure	Revcheck installed in Makefiles.
+2984	configure	Introduction of the config-rev system.

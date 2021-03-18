@@ -1,0 +1,9 @@
+### Generated file, do not edit, run make dep ###
+
+os_dep.o: os_dep.c config.h os_dep.h libs.h error.h
+os_dep_fs.o: os_dep_fs.c config.h os_dep_fs.h
+error.o: error.c config.h error.h os_dep.h libs.h
+libs.o: libs.c config.h libs.h os_dep.h error.h
+puplug.o: puplug.c puplug.h error.h
+libs_bu.o: libs_bu.c config.h libs.h error.h
+libs_dep.o: libs_dep.c config.h libs.h error.h libs_dep_parse.h

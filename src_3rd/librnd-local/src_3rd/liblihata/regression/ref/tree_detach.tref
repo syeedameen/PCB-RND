@@ -1,0 +1,32 @@
+The tree before detaching:
+  li:{non-empty} FIRST te:{key1} LAST te:{key2}
+   te:{key1} {val1}
+   te:{key2} {val2}
+The node before detaching:
+  te:{key1} {val1}
+tree_detach: done
+---
+The tree after detaching:
+  li:{non-empty} FIRST te:{key2} LAST te:{key2}
+   te:{key2} {val2}
+The node after detaching:
+  te:{key1} [root] [detached] {val1}
+========
+The tree before detaching:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{key1} LAST te:{key2}
+    te:{key1} {val1}
+    te:{key2} {val2}
+The node before detaching:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+tree_detach: done
+---
+The tree after detaching:
+  li:{} [root] [detached] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} [detached] 
+   li:{non-empty} [detached] FIRST te:{key1} LAST te:{key2}
+    te:{key1} [detached] {val1}
+    te:{key2} [detached] {val2}
+The node after detaching:
+  li:{} [root] [detached] FIRST li:{empty} LAST li:{non-empty}

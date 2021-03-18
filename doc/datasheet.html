@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd - datasheet </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+<!--AUTO head begin-->
+	<link rel="icon" href="resources/logo16.png">
+<!--AUTO head end-->
+</head>
+<body>
+
+<!--AUTO navbar begin-->
+<table border=0 cellspacing=2 cellpadding=10  bgcolor="#eeeeee" width="100%">
+<tr>
+<th align=center bgcolor="#ccc0cc"> <a href="index.html"> Main </a>
+<th align=center bgcolor="#ccc0cc"> <a href="news.html"> News </a>
+<th align=center bgcolor="#ccc0cc"> <a href="doc.html">Doc</a>&nbsp;&amp;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&amp;&nbsp;<a href="http://repo.hu/projects/pcb-rnd-aux/pool">pool</a>
+<th align=center bgcolor="#ccc0cc"> <a href="support.html"> Support </a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi">People</a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=events">Events</a>&nbsp;&amp;&nbsp;<a href="http://www.repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=timeline">timeline</a>
+<td align=right width="60%"> <font size="+2"><i>pcb-rnd</i></font> <img src="resources/logo32.png" alt="[pcb-rnd logo]">
+</table>
+<!--AUTO navbar end-->
+
+<h1> pcb-rnd - datasheet </h1>
+
+<table border=1 cellspacing=0 cellpadding=5>
+<tr>
+	<td bgcolor="#ccccff"> layout characteristics
+	<td bgcolor="#ddddff"> multiple layers (16 copper, compile time tunable limit)
+                         <br> smd and through-hole components
+                         <br> editable solder mask, paste, assembly, keepout, documentation drawings
+                         <br> board size up to 2x2 meter at nanometer precision
+                         <br> arbitrary amount of routing styles
+                         <br> Design Rule Checker
+<tr>
+	<td bgcolor="#ccccff"> native file format
+	<td bgcolor="#ddddff"> lihata (structured text tree); support for loading and saving <b>all</b> old file versions
+<tr>
+	<td bgcolor="#ccccff"> board file formats
+	<td bgcolor="#ddddff"> lihata (native), tEDAx board, KiCad's s-expr kicad_pcb, geda/PCB's .pcb, Eagle (binary and xml, read-only), Protel/Autotrax (read-only), Mentor Graphics Hyperlynx
+<tr>
+	<td bgcolor="#ccccff"> footprint formats
+	<td bgcolor="#ddddff"> lihata (native), tEDAx footprint, KiCad s-expression modules, geda/PCB's .fp
+<tr>
+	<td bgcolor="#ccccff"> import formats
+	<td bgcolor="#ddddff"> tEDAx netlist, gEDA/gaf sch, gEDA/gaf netlist, EasyEDA netlist, dsn, edif, ipcd356, HP-GL, tEDAx, PADS ASCII netlist, Orcad netlist, Accel EDA netlist, Protel netlist 2.0
+<tr>
+	<td bgcolor="#ccccff"> data model: layers
+	<td bgcolor="#ddddff"> copper, silk, mask, paste, plated route/cut, unplated route/cut, arbitrary documentation/misc layers
+<tr>
+	<td bgcolor="#ccccff"> data model: padstacks
+	<td bgcolor="#ddddff"> holes, slots, blind/buried vias, different shape on different layers (including non-copper layers), arbitrary polygon shape
+<tr>
+	<td bgcolor="#ccccff"> data model: footprint
+	<td bgcolor="#ddddff"> any object and layer supported in footprint; rich metadata; option for run-time generated footprints
+<tr>
+	<td bgcolor="#ccccff"> data model: netlist
+	<td bgcolor="#ddddff"> named networks, rats nest, deliberate netlist changes + back annotation
+<tr>
+	<td bgcolor="#ccccff"> netlist support
+	<td bgcolor="#ddddff"> <br> draw using netlist/footprints imported from schematics
+	                       <br> back annotation to schematics editor
+	                       <br> alternatively create netlist from scratch while drawing the PCB
+	                       <br> altnenatively draw without netlist
+<tr>
+	<td bgcolor="#ccccff"> DRC
+	<td bgcolor="#ddddff"> powerful, user scriptable DRC that has full access to all board data (including logical such as networks and physical such as layer stackup and object geometry)
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Load/import board
+	<td bgcolor="#ddddff">
+		<!-- begin fmt import board -->
+ autotrax PCB board, version 4 <br>  autotrax PCB board, version 5 <br>  dsn board <br>  eagle xml board version 6, 7, 8 <br>  eagle binary board version 3, 4, 5 <br>  hyperlynx board, version 2 and above <br>  kicad board, version 3, 4 and 5 (s-expr) <br>  lihata pcb-rnd board (any version) <br>  gEDA/PCB .pcb board (any version up to 2017)
+		<!-- end fmt import board -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Load/import footprint
+	<td bgcolor="#ddddff">
+		<!-- begin fmt import footprint -->
+ BXL footprints <br>  eagle xml footprint lib <br>  eagle binary footprint lib <br>  lihata pcb-rnd footprint (any version) <br>  Mentor Graphics cell footprints <br>  gEDA/PCB .fp footprints <br>  tEDAx footprint (any version)
+		<!-- end fmt import footprint -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Import netlist
+	<td bgcolor="#ddddff">
+		<!-- begin fmt import netlist -->
+ Accel ASCII netlists + footprint info <br>  calay (netlists + footprint info) <br>  flat netlist from EDIF <br>  freepcb netlist + footprint info <br>  gEDA/gschem (netlist + footpritn info, running gnetlist) <br>  import ltspice .net and .asc (netlist and footprint info) <br>  flat .edf (netlist+footprint, produced by Mentor Graphics Design Capture) <br>  pcb-rnd action script (netlist + footprint info) <br>  schematics import by running a commandline <br>  netlist import by running a commandline <br>  gEDA netlist (plain text, no footprint info) <br>  Orcad PCB II (netlist + footprint info) <br>  PADS ascii (.asc, netlists + footprint info) <br>  Protel netlists 2.0 + footprint info <br>  tinycad .net (netlists + footprint info) <br>  eeschema netlist and footprint info <br>  tEDAx netlist (any version)
+		<!-- end fmt import netlist -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Import misc
+	<td bgcolor="#ddddff">
+		<!-- begin fmt import misc -->
+ specctra .dsn (wires and vias) <br>  HPGL plot (lines, arcs, polygons) <br>  MUCS unixplot .pl (lines and vias) <br>  ttf font <br>  eagle DRU (design rules) <br>  lihata pcb-rnd font (any version) <br>  gEDA/PCB font <br>  tEDAx drc <br>  tEDAx pcb-rnd drc script
+		<!-- end fmt import misc -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Save/export board
+	<td bgcolor="#ddddff">
+		<!-- begin fmt export board -->
+ anonimized board statistics in lihata <br>  autotrax PCB board, version 4 <br>  dsn board <br>  hyperlynx board, version 2.0 <br>  kicad board, version 3 (s-expr) <br>  kicad pcbnew-board, version 1 (legacy plain text format) <br>  lihata pcb-rnd board (any version) <br>  gEDA/PCB .pcb board (various version up to 2017 )
+		<!-- end fmt export board -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Save/export footprint
+	<td bgcolor="#ddddff">
+		<!-- begin fmt export footprint -->
+ kicad module (s-expr, according to version 3) <br>  kicad pcbnew-module (legacy plain text format) <br>  lihata pcb-rnd footprint (any version) <br>  gEDA/PCB .fp footprints <br>  tEDAx footprint (any version)
+		<!-- end fmt export footprint -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Export netlist
+	<td bgcolor="#ddddff">
+		<!-- begin fmt export netlist -->
+ tEDAx netlist (any version)
+		<!-- end fmt export netlist -->
+<tr>
+	<td bgcolor="#ccccff"> File formats:<br>Export misc
+	<td bgcolor="#ddddff">
+		<!-- begin fmt export misc -->
+ bom (Bill of Materials, text) <br>  specctra .dsn (padstacks and subcircuits, works with freerouting.net) <br>  .dxf (2D drawing for mech CADs) <br>  excellon drill/cnc (for PCB fabbing) <br>  fidocad .fcd (partial export) <br>  export gcode (for milling) <br>  gerber for PCB fabbing <br>  IPC-D-356 Netlist (for automated testing) <br>  printer (using ps) <br>  list of terminal connections (old, custom format) <br>  OpenEMS (simulation, matlab files) <br>  openscad script (colored 3D model) <br>  stl (3d triangulated surface model) <br>  geda/PCB xy <br>  gxyrs <br>  Macrofab's pick&place <br>  pick&place file for the TM220/TM240 device <br>  KiCad .pos file <br>  IPC-D-356 Netlist (from automated testing) <br>  lihata pcb-rnd font (any version) <br>  tEDAx etest <br>  tEDAx drc <br>  tEDAx pcb-rnd drc script
+		<!-- end fmt export misc -->
+<tr>
+	<td bgcolor="#ccccff"> UI options
+	<td bgcolor="#ddddff"> gtk2, lesstif (motif), batch (automated processing)
+                         <br> configurable menus, keyboard and mouse actions
+<tr>
+	<td bgcolor="#ccccff"> footprint library
+	<td bgcolor="#ddddff"> parametric footprints written in any programming language
+	                       <br>optionally per system, per user, per project libs
+	                       <br>footprints from local files
+	                       <br>footprints from the web (edakrill, gedasymbols.org)
+<tr>
+	<td bgcolor="#ccccff"> scripting
+	<td bgcolor="#ddddff"> embedded scripting using fungw (awk, python, lua, tcl, ruby, perl, javascript, lisp, shell, pascal, BASIC)
+<tr>
+	<td bgcolor="#ccccff"> layout helpers
+	<td bgcolor="#ddddff"> basic autorouter, basic autoplace, place objects in aligned grid,
+	                       asymmetric pin shapes, back annotation tracking,
+	                       trace puller, teardrops
+	                       <br>understands internal connections in footprints
+	                       <br>query mini-language for finding and selecting objects by rules
+	                       <br>command line mode for 2d drafting
+	                       <br>manual board assembly helper GUI
+<tr>
+	<td bgcolor="#ccccff"> misc
+	<td bgcolor="#ddddff"> flexible configuration system
+	                       <br>support for small screen (800x600)
+	                       <br>strong support for automated processing
+                         <br>modularity (most code implemented in plugins)
+                         <br>slim code, reduced external dependency, portability
+</table>
+
+</body>
+</html>

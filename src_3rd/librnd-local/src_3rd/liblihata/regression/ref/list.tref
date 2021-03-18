@@ -1,0 +1,20 @@
+root:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{key1} LAST te:{key2}
+    te:{key1} {val1}
+    te:{key2} {val2}
+first list:
+  li:{empty} 
+second list:
+  li:{non-empty} FIRST te:{key1} LAST te:{key2}
+   te:{key1} {val1}
+   te:{key2} {val2}
+nth 0:
+  te:{key1} {val1}
+nth 1:
+  te:{key2} {val2}
+nth 2:
+  * node is NULL *
+nth -1:
+  * node is NULL *

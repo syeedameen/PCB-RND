@@ -1,0 +1,34 @@
+1. Action scripting
+~~~~~~~~~~~~~~~~~~~
+Action scripting is the builtin, non-turing-complete way of giving pcb-rnd
+commands. On the GUI it's usually the ':' key that pops up the command line.
+Most HIDs support the --listen argument that makes pcb-rnd also read commands
+on the stdin.
+
+The batch HID always reads commands on stdin (without --listen). Automated
+pcb-rnd runs from shell is possible using a script like:
+
+echo '
+	action1()
+	action2()
+	...
+' | pcb-rnd --gui batch
+
+From within pcb-rnd the ExecuteFile(filename) action can be used to
+load and execute a pcb-rnd action script from a file.
+
+2. Embedded scripting
+~~~~~~~~~~~~~~~~~~~~~
+pcb-rnd uses fungw for embedded scripting. This allows pcb-rnd to be
+scripted in 10+ turing complete scripting languages, including awk, tcl,
+python, perl, lua, some lisp dialects, etc. Embedded scripts run within
+pcb-rnd (in the same process, same address space), having full access
+to the action infrastructure:
+ - embedded scripts can declare new actions that are accessible from
+   menu, from the command line and from other embedded scripts
+ - embedded scripts can execute actions (defined by pcb-rnd or other
+   embedded scripts)
+
+For more info see user/06_feature/scripting/
+
+

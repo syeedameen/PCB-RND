@@ -1,0 +1,17 @@
+load_doc D1 list.lht
+root N1 D1
+new_text N2 "to_be_appended"
+echo Doc before append:
+print_doc D1
+echo Node before append:
+print_node N2
+
+dom_list_append N1 N2
+
+echo -
+echo Doc after append:
+print_doc D1
+echo Node after append:
+print_node N2
+
+free_doc D1

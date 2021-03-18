@@ -1,0 +1,14 @@
+Doc before insert:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{key1} LAST te:{key2}
+    te:{key1} {val1}
+    te:{key2} {val2}
+Doc after insert:
+  li:{} [root] FIRST li:{empty} LAST li:{non-empty}
+   li:{empty} 
+   li:{non-empty} FIRST te:{key1} LAST te:{tti2}
+    te:{key1} {val1}
+    te:{tti1} {to_be_inserted1}
+    te:{key2} {val2}
+    te:{tti2} {to_be_inserted2}

@@ -1,0 +1,7 @@
+$class feature
+$short renumber action
+$long Renumber subcircuits (renaming them) and generate a text file for back annotation.
+$state works
+$package extra
+default buildin
+autoload 1

@@ -1,0 +1,214 @@
+<html>
+<body>
+
+<h1> pcb-rnd internals </h1>
+
+<h2> concepts </h2>
+
+<p>
+Convention: typedef'd types are called pcb_*_t - the corresponding struct
+is pcb_*_s.
+
+<h3> board </h3>
+<p>
+There is only one board being edited. A board is the model of the whole world
+for pcb-rnd - any other, auxiliary data is only a partial description of a board.
+The data struct for board is <i>pcb_board_t</i>. As of now, pcb-rnd edits only one
+board at a time, and it is stored in a global variable called <i>PCB</i>.
+The code is single threaded and is not reentrant.
+<p>
+Half of the board structure describes global board properties:
+<ul>
+	<li> layer stack
+	<li> netlist
+	<li> editor settings (e.g. routing styles, which layers are visible)
+	<li> metadata (such as name of the author, size of the board).
+</ul>
+The other half is the actual board data, stored in a <i>pcb_data_t</i> field.
+<p>
+Relevant structs, variables and functions are in board.[ch].
+
+<h3> data </h3>
+<p>
+A <i>pcb_data_t</i> contains everything to describe the 2d geometry of
+an existing board:
+<ul>
+	<li> per-layer objects (lines, arcs, polygons, text objects)
+	<li> global objects (subcircuits, padstacks)
+	<li> temporary logical connections (rat lines)
+	<li> padstack prototypes (padstack shapes referenced by padstack references/instances)
+</ul>
+<p>
+Relevant structs, variables and functions are in data.[ch].
+<p>
+However, it does not contain the layer stackup, but references to it.
+This means a data_t can be copied or moved from within one board to
+another, even with mismatching layer stack. When a pcb_data_t is within a
+pcb_board_t, the layer references are fixed, pointing to actual layers
+within the board's layer stack (e.g. "layer 3 in the stack"). Such a layer is
+also called a <i>real</i> layer. When a
+pcb_data_t is used outside of a board (e.g. as a buffer), a generalized,
+recipe-like layer description is used (e.g. "second copper layer counted
+from the top"). Such a layer is not a <i>real</i> layer, but can be <i>bound</i>
+to a real layer. The binding means that while it keeps it's recipe-like
+description, it is also referring to an actual layer of the stack of the
+current PCB structure. (This happens to subcircuits: they are specified
+with generalized, recipe-like layers that are bound to the board's layer stack
+once the subcircuit is placed on the board.)
+
+<h3> buffers </h3>
+<p>
+Paste buffers are <i>pcb_buffer_t</i>; the main field is <i>pcb_data_t</i>.
+<p>
+Relevant structs, variables and functions are in buffer.[ch].
+<p>
+A paste buffer doesn't have a layer stack. When data is copied from a board
+to a buffer, the layer references are generalized.
+
+<h3> terminology: layers and layer groups</h3>
+<p>
+<i>Layers</i> are abstract canvases also serving as a logical grouping
+of drawing primitives. Every <i>layer</i> is part of exactly one <i>layer
+group</i>. A <i>layer group</i> is close to what a physical layer is on
+the FR4.
+<p>
+Limitations:
+<ul>
+	<li> as of now pcb-rnd does not have Z-coordinate: layers have no thickness;
+	<li> substrate is not represented at all in the layers stack.
+</ul>
+<p>
+The location of a <i>layer group</i> on of (flags are in layer.h):
+<ul>
+	<li> top (component) side - PCB_LYT_TOP
+	<li> bottom (solder) side - PCB_LYT_BOTTOM
+	<li> inner or internal (e.g. signal) - PCB_LYT_INTERN
+	<li> global (affects all locations, e.g. the outline layer for routing) - 0
+</ul>
+<p>
+In pcb-rnd most layer types are fully explicit:
+<ul>
+	<li> copper - PCB_LYT_COPPER (not composite)
+	<li> silk screen - PCB_LYT_SILK
+	<li> mask - PCB_LYT_MASK
+	<li> paste - PCB_LYT_PASTE
+	<li> outline - PCB_LYT_OUTLINE (not composite)
+</ul>
+<p>
+The layers of a composite layer group are combined + and -, depending
+on the PCB_LYC_SUB in their comb field.
+<p>
+Assumptions: there are two silk layers, one for the top and one for the bottom
+side and there are always a top and a bottom copper layer. (Long term
+assumptions will be removed.) The outline layer has to be global.
+<p>
+The rest of the layers are virtual layers, often just GUI hacks, e.g.:
+<ul>
+	<li> Subcircuit dashed outline, subcricuit parts - no layer struct, calculated on-the-fly from the subc list
+	<li> fab - no layer struct, calculated on-the-fly from drill/hole data
+</ul>
+
+<h3> pcb_data_t: global data </h3>
+<p>
+Global data affect all layers. The most trivial example is
+<i>padstack</i>: it has a hole and potentially a copper ring on all
+layers. A padstack
+directly under the board's pcb_data_t is considered a "via" (by convention,
+by purpose), a padstack under subcircuit's pcb_data_t is usually a "pin"
+or "pad" (when has a term ID) or a "via". The quoted terms don't exist
+in the code, they are just conventions. Padtsacks are vertical constructions,
+they may affect multiple layers.
+<p>
+The other global object is subcircuit; using its own layer list, it potentially
+can affect all layers of the board. The children objects of a subcircuit is
+a pcb_data_t, which allows arbitrary (loop-free) recursion in data.
+
+<h3> pcb_data_t: layer-local data </h3>
+<p>
+The data struct has a <i>pcb_layer_t</i> for each logical layer, to host
+the per layer objects (drawing primitives).
+
+<h3> the layer struct </h3>
+<p>
+Layer data is stored in struct <i>pcb_layer_t</i>. A layer has a list
+for each object type (drawing primitive type): arcs, lines, polygons, etc.
+These lists are local: in a tree of subcircuits, the layer list contains only
+what's strictly directly on the given layer, there's no recursion.
+<p>
+Relevant structs, variables and functions are in layer.[ch].
+
+<h2> map </h2>
+<img src="data1.svg">
+
+
+<h2> tree </h2>
+<p>
+A tree can be built using subcircuits. The top level is always a board or
+a buffer, which are essentially just different wrappers around pcb_data_t.
+Then pcb_data_t can host subcircuits in it global data. A subcircuit
+is also just a 3rd kind of wrapper around a pcb_data_t, which means it
+opens a new level of the tree.
+<p>
+When we will start supporting subc-in-sunc this means the root is:
+<ul>
+	<li> a PCB board: pcb_board_t
+	<li> a paste buffer: pcb_buffer_t
+</ul>
+<p>
+(When the user opens a subcircuit for editing, the root is still a pcb_board_t,
+it just has a field that tells it is a fake board for a single subc. Still
+the real subc to edit is in the fake board's pcb_data_t. This is needed so
+we have all the global states stored in pcb_baord_t.)
+<p>
+Then the next levels are arbitrary encapsulation of subcircuits.
+
+
+<h2> list vs. rtree </h2>
+<p>
+Each level of pcb_data_t has its own lists storing the local objects.
+<p>
+The root of the tree also ha an rtrees for each object type. An rtree is
+a spatial data structure that provides efficient coordinate lookups. All objects,
+recursively, are added in these rtrees. That means, if there's a line on the
+board, that's really a line stored on a pcb_layer_t's list, and the
+full tree path is somehting like this:
+<pre>
+	pcb_board_t -> pcb_data_t -> pcb_layer_t -> linelist_t
+</pre>
+<p>
+The same line is also added in the same layer's rtree (called line_tree for lines):
+<pre>
+	pcb_board_t -> pcb_data_t -> pcb_layer_t -> pcb_rtree_t
+</pre>
+<p>
+On subsequent levels, the list is the same. If a line is part of
+a subcircuit, it's sitting on one of the linelists on one of the bound
+layers provided by the subc:
+<pre>
+	pcb_board_t -> pcb_data_t -> pcb_subclist_t -> pcb_data_t -> pcb_layer_t -> pcb_linelist_t
+</pre>
+<p>
+The subcircuit's pcb_layer_t would also have an rtree. But instead of having
+it's own rtree, it's rather linked to the root's rtree. Which means any access
+to any rtree under a subc is really access to the corresponding rtree of the root!
+In other words, <b>object lists are level-local, but rtrees are tree-global</b>.
+<p>
+This also means as a programmer, you can alsways do two kind of searches or
+iterations:
+<ul>
+	<li> level-local (only linear iteration is possible)
+	<li> global (both linear iteration and efficient, bounding box based, geometrical rtree lookups are possible)
+</ul>
+<p>
+Rationale: this way if we need to look up what's on a specific coord
+(e.g. the user clicks or find.c needs to check what is connected to a given
+point), we can use the global rtree's and we will get the answers without having
+to recurse into subcircuits.
+<p>
+Note: layer bindings complicate this a bit. A subc layer is bound to one of
+the root's real layers. When that binding is created, the rtrees are also
+linked together, and all subc layer objects on the given layer are added
+in the common rtree. When the layer binding needs to change, that means
+we first need to unbind the subcircuit's bound layer from the root's real
+layer: when we do that, we need to unlink the rtrees <b>and</b> remove all
+the objects we added to the global tree from our subcircuit layer.

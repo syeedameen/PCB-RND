@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+</head>
+<body>
+<h2 autotoc="yes"> ddraft - 2 dimensional drafting aid </h2>
+<p>
+The purpose of ddraft is to provide actions and GUI tools to help users
+drawing precise 2d drafts. Many of the features in ddraft are very similar
+to those found in standard 2d CAD packages.
+<p>
+Ddraft uses the following coordinate system (when looked from the top
+of the board):
+<p>
+<img src="coord_sys.png" alt="ddraft coordinate system: upper left corner is 0;0, x+ is tot he right, y+ is down, 0 deg is at 3 o'clock and increases clockwise">
+
+<h3 autotoc="yes"> constraints </h3>
+<p>
+Coordinate and/or angle constraints can be applied on line drawing (when
+<i>all-direction lines</i> turned on) and move operation. Executing the
+<i>constraint()</i> action without arguments opens a dialog box with the
+settings. The same settings are accessible from the command line, using
+the <i>constraint()</i> action with arguments:
+<p>
+<table border=1>
+	<caption><b>Constraint arguments: explicitly set</b>
+	<tr><th> action syntax                            <th> description
+	<tr><td> constraint(line_angle, ang1, ang2, ...)  <td> permit drawing lines only at specific angles
+	<tr><td> constraint(line_angle_mod, ang)          <td> permit drawing lines only at angles which are integer multiplies of <i>ang</i>
+	<tr><td> constraint(line_length, len1, len2, ...) <td> draw lines with length matching any length on the list
+	<tr><td> constraint(line_length_mod, len)         <td> draw lines with length matching any integer multiply of the <i>len</i>
+	<tr><td> constraint(move_angle, ang1, ang2, ...)  <td> permit moving objects only at specific angles
+	<tr><td> constraint(move_angle_mod, ang)          <td> permit moving objects only at angles which are integer multiplies of <i>ang</i>
+	<tr><td> constraint(move_length, len1, len2, ...) <td> move objects at a distance matching any length on the list
+	<tr><td> constraint(move_length_mod, len)         <td> move objects at a distance matching an integer multiply of the <i>len</i>
+	<tr><td> constraint(reset)                        <td> reset all constraints
+</table>
+<p>
+Length can include unit (on the GUI: without space). Multiple constraints
+can be set in the same time. Constraints are reset upon explicit user
+request or pcb-rnd restart.
+<p>
+For line drawing, it is possible to get the angle constraints calculated using
+the line start point and an existing object:
+<p>
+<table border=1>
+	<caption><b>Constraint arguments: calculated</b>
+	<tr><th> action syntax   <th> description
+	<tr><td> perp()          <td> click on a line; set line_angle perpendicular to that line
+	<tr><td> paral()         <td> click on a line; set line_angle parallel to that line
+	<tr><td> tang()          <td> click on an arc; set line_angle tangential to the circle of the arc
+</table>
+
+<h3 autotoc="yes"> Cutting edges </h3>
+<p>
+For already existing, intersecting objects (lines and arcs), the user may
+define cutting edges that can manipulate target objects they intersect. There
+are two actions for cutting edges: trim() and split(). The first argument of
+these actions is:
+<ul>
+	<li> object (selecting a single cutting edge)
+	<li> selected (to use any selected object as cutting edge)
+	<li> found (to use any found (green highlight) object as cutting edge)
+</ul>
+<p>
+The objects participating may be on different layers. All calculation use
+the centerline of the objects.
+<p>
+In a <b>trim</b> operation the target objects are cut at the intersection point,
+excess parts (at the click) removed. If there are multiple cutting edges,
+the shortest possible section is removed. The below examples are generated
+with <i>trim(selected)</i>, clicking on the horizontal line at the small
+triangle mark.
+<p>
+<img src="trim.png" alt="[Effect of trim on a few examples]">
+<p>
+In a <b>split</b> operation target objects are split into multiple section wherever
+they cross a cutting edge. A split means a single line object becomes multiple
+line objects or a single arc object becomes multiple arc objects.
+
+<h3 autotoc="yes"> Command line drafting </h3>
+<p>
+The above features are pcb-rnd actions designed to fit in the action framework,
+to work together with the original pcb-rnd drawing tools, like the line tool.
+An alternative to that is using the new, ddraft command line interpreter, which
+offers a different syntax, optimized for drafting.
+<p>
+There are two ways to use the ddraft command line interpreter:
+<ul>
+	<li> a command wrapped in the ddraft() action, e.g. <i>ddraft(line from 1,3 to 4,2)</i>
+	<li> switching the command entry to <i>ddraft CLI mode</i>, by issuing the <i>ddraft()</i> action;
+	     to exit from the ddraft CLI mode, type /exit
+</ul>
+<p>
+When used as a CLI mode, mouse clicks on the drawing will also edit the
+command line at the cursor. The generic rule is that a click will replace
+an already entered numerical value or inserts a missing numerical value, but
+all instruction keywords are typed on the keyboard. Instructions can
+be abbreviated; the shortest form accepted is the shortest prefix that
+is unique among the instruction keywords. For example "li" means "line"
+and "rel" or even "re" works for "relative".
+<p>
+The first instruction is the drawing command, which is one of the following.
+<p>
+<table border=1>
+	<caption><b>ddraft drawing commands</b>
+	<tr><th> command <th> syntax summary <th> purpose
+	<tr><td> line
+	    <td> line [from] <i>coord</i> to <i>coord</i> <!--[to <i>coord</i> ...]-->
+	    <td> draw line segments on the current layer, using the current routing style
+</table>
+<p>
+Parts enclosed in [] are optional. A <i>coord</i> description is a sequence
+of absolute and relative coordinates:
+<p>
+<table border=1>
+	<caption><b>ddraft drawing commands</b>
+	<tr><th> keyword <th> next instruction (argument) <th> example <th> purpose
+	<tr><td> absolute
+	    <td rowspan=3> xcoord,ycoord
+	    <td> abs 1mm,15mm
+	    <td rowspan=3> an absolute coordinate; units are optional; must not contain space
+	<tr><td> *
+	    <td> *1mm,15mm
+	<tr><td> &nbsp;
+	    <td> 1mm,15mm
+
+	<tr><td> relative
+	    <td rowspan=2> xcoord,ycoord
+	    <td> rel 1mm,15mm
+	    <td rowspan=2> a relative coordinate measured from the absolute coord specified so far; units are optional; must not contain space
+	<tr><td> @
+	    <td> @1mm,15mm
+
+	<tr><td> angle
+	    <td rowspan=2> degree
+	    <td> ang 15
+	    <td rowspan=2> an absolute angle in degrees; always measured from the X axis; should be used together with <i>length</i>
+	<tr><td> &lt;
+	    <td> &lt;15
+
+	<tr><td> relative angle
+	    <td rowspan=2> degree
+	    <td> rel ang 15
+	    <td rowspan=2> a relative angle in degrees; always measured from the X axis; should be used together with <i>length</i>
+	<tr><td> @&lt;
+	    <td> @&lt;15
+
+<!--TODO: paral -->
+
+	<tr><td> length
+	    <td rowspan=2> coord
+	    <td> len 3.1mm
+	    <td rowspan=2> length or distance to move from the previous coordinate; always relative; used together with an angle
+	<tr><td> ~
+	    <td> ~3.1mm
+
+</table>
+<p>
+For example the sequence
+<i>5mm,100mil relative 1mm,1mm relative angle 30 length 2mm</i>
+means:
+<ul>
+	<li> step 1: start from absolute coords at 5mm, 100mil; after this the current coordinate is: 5.0000mm,2.5400mm
+	<li> step 2: move relative (to the right and down) 1 and 1 mm; after this the current coordinate is: 6.0000mm,3.5400mm
+	<li> step 3: the last move was a 45 degree move; relative to this 45 degrees, start moving at 30 degrees (that is, in absolute 75 degrees), and...
+	<li> step 4: ... move 2mm in that direction
+	<li> step 5: the sequence ends here, the coordinate it points to is: 6.5176mm,5.4719mm
+</ul>
+<p>
+Below the same steps are demonstrated; dark red lines demonstrate the moves,
+thin black lines show how they are calculated. The result is a single coordinate
+marked with a thin black cross at step 5. The sequence itself does not draw
+anything, the drawing merely demonstrates how the steps are executed in
+memory.
+<p>
+<img src="coord_seq.png" alt="the coord sequence annotated with auxiliary lines and step numbers">
+<p>
+Equivalent alternative forms for the same sequence:
+<pre>
+5mm,100mil rel 1mm,1mm rel ang 30 len 2mm
+5mm,100mil @1mm,1mm @&lt;30~2mm
+5,100mil @1,1 @&lt;30~2
+</pre>
+<p>
+The last one assumes unit is set to mm.
+
+
+
+</body>
+</html>

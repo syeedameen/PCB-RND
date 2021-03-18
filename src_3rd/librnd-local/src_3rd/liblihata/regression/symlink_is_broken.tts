@@ -1,0 +1,8 @@
+load_doc D1 symlink.lht
+root N1 D1
+root N2 D1
+path_nofollow N2 /13
+symlink_is_broken N1 N2
+path_nofollow N2 /14
+symlink_is_broken N1 N2
+free_doc D1

@@ -1,0 +1,51 @@
+load_doc D1 list.lht
+
+root N1 D1
+equ_node N2 N1
+list_child N2
+
+echo The root tree before detaching:
+print_tree N1
+echo The root node before detaching:
+print_node N1
+echo The node should be detached before action:
+print_node N2
+
+echo -----
+list_detach_nth N1 0
+echo -----
+
+echo The root tree after detaching:
+print_tree N1
+echo The root node after detaching:
+print_node N1
+echo The detached node:
+print_node N2
+
+echo =====
+equ_node N2 N1
+list_child N2
+
+echo The root tree before detaching:
+print_tree N1
+echo The root node before detaching:
+print_node N1
+echo The node should be detached before action:
+print_node N2
+
+echo -----
+list_detach_nth N1 0
+echo -----
+
+echo The root tree after detaching:
+print_tree N1
+echo The root node after detaching:
+print_node N1
+echo The detached node:
+print_node N2
+
+echo =====
+echo Trying to detach from empty tree:
+list_detach_nth N1 0
+
+free_doc D1

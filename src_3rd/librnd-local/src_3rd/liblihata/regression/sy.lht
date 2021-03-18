@@ -1,0 +1,4 @@
+li:rt = {
+	te:text = {textnode}
+	sy:symlink = {/}
+}

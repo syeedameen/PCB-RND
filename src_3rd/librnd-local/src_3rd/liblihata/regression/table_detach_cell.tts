@@ -1,0 +1,100 @@
+# test with a lihata doc in which the root is a li
+load_doc D1 table_corners.lht
+# N1 is a non-empty, N2 is an empty table
+root N1 D1
+path N1 /1
+root N2 D1
+path N2 /0
+
+echo Untouched, original tree:
+print_tree N1
+echo -
+
+table_detach_cell N1 0 0 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 0 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 1 0 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 1 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 2 0 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 2 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 3 0 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 3 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+
+echo Trying to detach a cell again:
+table_detach_cell N1 3 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+
+# Detaching out boundaries:
+table_detach_cell N1 4 1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 1 4 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+table_detach_cell N1 -1 -1 N8
+echo tree:
+print_tree N1
+echo node:
+print_tree N8
+echo -
+
+# Detaching in empty table:
+echo Empty table, before trying to detach:
+print_tree N2
+echo -
+table_detach_cell N2 0 0 N8
+echo tree:
+print_tree N2
+echo node:
+print_tree N8
+
+free_doc D1

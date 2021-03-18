@@ -1,0 +1,17 @@
+load_doc D1 merge_hash.lht
+root N1 D1
+root N2 D1
+
+echo Original 1:
+print_tree N1
+
+path N1 /dst
+path N2 /src2
+
+tree_merge N1 N2
+
+echo After merg:
+
+root N1 D1
+print_tree N1
+free_doc D1

@@ -1,0 +1,44 @@
+echo Trying to replace an existing node in the list:
+
+load_doc D1 list.lht
+
+root N1 D1
+list_child N1
+list_next N1
+
+equ_node N2 N1
+list_child N2
+
+new_text N3 for_replacing
+
+echo --- Before replacing
+print_tree N1
+
+list_replace_child N1 N2 N3
+
+echo --- After replacing
+print_tree N1
+
+
+free_doc D1
+
+echo Trying to replace a node that is not even on the list
+load_doc D1 list.lht
+
+root N1 D1
+list_child N1
+
+equ_node N2 N1
+list_child N2
+
+echo --- Before replacing
+print_tree N1
+
+new_text N3 for_replacing
+list_replace_child N1 N2 N3
+
+echo --- After replacing
+print_tree N1
+
+dom_node_free N3
+free_doc D1

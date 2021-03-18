@@ -1,0 +1,17 @@
+load_doc D1 list.lht
+root N1 D1
+new_text N2 "to_be_inserted"
+echo Doc before insert:
+print_doc D1
+echo Node before insert:
+print_node N2
+
+dom_list_insert N1 N2
+
+echo -
+echo Doc after insert:
+print_doc D1
+echo Node after insert:
+print_node N2
+
+free_doc D1

@@ -1,0 +1,12 @@
+ha:{nodes_for_testing} [root] entries: 11
+ te:{0} {zero}
+ te:{1} {one}
+ te:{2} {two}
+ te:{3} {three}
+ te:{4} {four}
+ te:{5} {five}
+ te:{6} {six}
+ te:{7} {seven}
+ te:{8} {eight}
+ te:{9} {nine}
+ te:{10} {ten}

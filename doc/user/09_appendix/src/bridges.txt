@@ -1,0 +1,395 @@
+            *io------------------------------------------------------------+
+            |[kica    ]       [gpcb  ]    [hyp_]  [gsch]  [c_pcb] [dsn_ ]  |
+            |        [  tedax  ]    [ frt_ ]  [fido]  [prtl]  [eagl]       |
+            +--------------------------------------------------------------+
+*inp----+                                                                        *hid--------+
+|[eesc ]|   *pcbrnd----------------------------------------------------------+   |[batch  ]  |
+|[mucs ]|   |                                                                |   |           |
+|[lept ]|   |                                                                |   |[gtk     ] |
+|[ltsp ]|   |                                                                |   |           |
+|[tcad ]|   |                                                                |   |[lesstif]  |
+|[edif ]|   |                                                                |   |           |
+|[netl ]|   |                                                                |   |[remote]   |
+|[ipcd ]|   |                                                                |   |           |
+|[easy ]|   |                                                                |   |           |
+|[xsch ]|   |                                                                |   |           |
+|[caly ]|   |                                                                |   |           |
+|[hpgl ]|   |                                                                |   |           |
+|[hkp_ ]|   |                                                                |   |           |
+|[fpcb ]|   |                                                                |   |           |
+|[padsn]|   |                                                                |   |           |
+|[orcdn]|   |                                                                |   |           |
+|[accln]|   |                                                                |   |           |
+|[prtln]|   |                                                                |   |           |
+|[msch ]|   +----------------------------------------------------------------+   +-----------+
++-------+
+          *out----------------------------------------------------------------+
+          |        [bom_]  [xy__]  [gerb]  [opcd]  [lpr_]  [scad]  [oems]     |    [web     ]
+          |    [stat]  [ps__]  [svg_]  [png_]  [stl_]  [dxf_]  [gcod]  [exce] |
+          +-------------------------------------------------------------------+
+%%
+OA
+[]
+	shape box
+
+
+[inp]
+	linecolor #cccccc
+	bgcolor #cccccc
+	textcolor #884433
+	label input-only
+	valign top
+
+[io]
+	linecolor #cccccc
+	bgcolor #cccccc
+	textcolor #884433
+	label input-output
+	valign top
+
+[out]
+	linecolor #cccccc
+	bgcolor #cccccc
+	textcolor #884433
+	label output-only
+	valign bottom
+
+[hid]
+	linecolor #cccccc
+	bgcolor #cccccc
+	textcolor #884433
+	label HID (GUI)
+	valign top
+
+
+[pcbrnd]
+	label pcb-rnd
+	bgcolor #00ffff
+
+
+[eesc]
+	label kicad\neeschema
+
+[mucs]
+	label mucs PCB\nautorouter
+
+[lept]
+	label Lepton EDA\ngschem
+
+[ltsp]
+	label LTSpice
+	
+[tcad]
+	label TinyCAD
+
+[edif]
+	label (any)\nEDIF
+
+[netl]
+	label (any)\nnetlist
+
+[ipcd]
+	label (any)\nIPC-D-356
+
+[hpgl]
+	label HPGL\n(2D CAD)
+
+[hkp_]
+	label hkp\n(mentor)
+
+[fpcb]
+	label FreePCB\n(netlist)
+
+[padsn]
+	label PADS ASCII\n(netlist)
+
+[orcdn]
+	label Orcad\n(netlist)
+
+[accln]
+	label Accel EDA\n(netlist)
+
+[prtln]
+	label Protel\n(netlist)
+
+[msch]
+	label Mentor grp.\n(netlist)
+
+[easy]
+	label EasyEDA\n(web2.0)
+
+[xsch]
+	label XSCHEM\n
+
+[caly]
+	label Calay\n
+
+
+[hyp_]
+	label Mentor\nhyperlynx
+
+[gsch]
+	label gEDA\ngschem
+
+[kica]
+	label kicad\npcbnew
+
+[tedax]
+	label tEDAx\n(exchange file format)
+
+[gpcb]
+	label gEDA\npcb
+
+[frt_]
+	label freerouting.net\nautorouter
+
+[fido]
+	label FidoCadJ\n(board)
+
+[prtl]
+	label Protel\nAutotrax
+
+[eagl]
+	label Eagle\n(board)
+
+[c_pcb]
+	label c-pcb\n(autorouting)
+
+[dsn_]
+	label dsn\n(autorouting)
+
+
+
+[bom_]
+	label BOM
+
+[xy__]
+	label XY\ntemplated
+
+[gerb]
+	label gerber
+
+[opcd]
+	label ipcd356\ne-tester
+
+[stl_]
+	label STL\n(3d)
+
+[lpr_]
+	label lpr\n(print)
+
+[dxf_]
+	label dxf\n(2D CAD)
+
+[scad]
+	label openscad\n(3D CAD)
+
+[gcod]
+	label g-code\n(mill)
+
+[oems]
+	label OpenEMS\n(sim)
+
+[exce]
+	label excellon\n(drill)
+
+[stat]
+	label stat\nstatistics
+
+[ps__]
+	label ps\npostscript
+
+[svg_]
+	label svg
+
+[png_]
+	label png\njpg, bmp
+
+
+
+
+
+[batch]
+	label batch\nCLI/automation
+
+[gtk]
+	label gtk\ngdk or gl render
+
+[lesstif]
+	label lesstif\n(motif)
+
+[remote]
+	label remote\n(network)
+
+[web]
+	label web client\n(javascript)
+	linecolor #aaaaaa
+	textcolor #aaaaaa
+
+
+-> pcbrnd bom_.n
+	label text
+
+-> pcbrnd xy__.n
+	label .xy
+
+-> pcbrnd gerb.n
+	label .grb, .cnc
+
+-> eesc.e pcbrnd
+	label import\nschematics
+
+-> pcbrnd opcd.n
+	label IPC356D
+
+-> pcbrnd stl_.n
+	label stl
+
+-> pcbrnd lpr_.n
+	label ps
+
+-> pcbrnd dxf_.n
+
+-> pcbrnd scad.n
+
+-> pcbrnd gcod.n
+
+-> pcbrnd oems.n
+
+-> pcbrnd exce.n
+
+-> pcbrnd stat.n
+	label lihata
+
+-> pcbrnd ps__.n
+	label postscript
+
+-> pcbrnd svg_.n
+	label svg
+
+-> pcbrnd png_.n
+
+
+
+-> mucs.e pcbrnd
+	label import\nnetlist
+
+-> lept.e pcbrnd
+	label import\nschematics
+
+-> ltsp.e pcbrnd
+	label import\nschematics
+
+-> tcad.e pcbrnd
+	label import\nschematics
+
+-> edif.e pcbrnd
+	label import\nschematics
+
+-> netl.e pcbrnd
+	label import\nnetlist
+
+-> ipcd.e pcbrnd
+	label netlist\npads/subcs
+
+-> easy.e pcbrnd
+	label import\nschematics
+
+-> xsch.e pcbrnd
+	label import\nschematics
+
+-> caly.e pcbrnd
+	label import\nschematics
+
+-> hpgl.e pcbrnd
+	label import\nlines/arcs
+
+-> hkp_.e pcbrnd
+	label import\nPCB
+
+-> fpcb.e pcbrnd
+	label import\nnetlist
+
+-> padsn.e pcbrnd
+	label import\nschematics
+
+-> orcdn.e pcbrnd
+	label import\nschematics
+
+-> accln.e pcbrnd
+	label import\nschematics
+
+-> prtln.e pcbrnd
+	label import\nschematics
+
+-> msch.e pcbrnd
+	label import\nnetlist
+
+
+
+
+<-> hyp_.s pcbrnd
+	label board
+
+<-> gsch.s pcbrnd
+	label schematics
+
+<-> gpcb.s-0.2 pcbrnd
+	label board
+
+<-> gpcb.s+0.2 pcbrnd
+	label footprint
+
+<-> kica.s-0.3 pcbrnd
+	label board\ns-expr
+
+<- kica.s pcbrnd
+	label board\nlegacy
+
+<-> kica.s+0.3 pcbrnd
+	label footprint\ns-expr
+
+<-> tedax.s-0.35 pcbrnd
+	label netlist
+
+<-> tedax.s-0.1 pcbrnd
+	label footprint
+
+<-> tedax.s+0.1 pcbrnd
+	label etest
+
+<-> tedax.s+0.4 pcbrnd
+	label DRC\nspec
+
+
+<-> frt_.s pcbrnd
+	label board
+
+<-> fido.s pcbrnd
+	label board
+
+<-> prtl.s pcbrnd
+	label board
+
+-> eagl.s-0.2 pcbrnd
+	label board
+
+-> eagl.s+0.2 pcbrnd
+	label DRU
+
+<-> c_pcb.s pcbrnd
+	label board
+
+<-> dsn_.s pcbrnd
+	label board
+
+<-> pcbrnd batch.w
+
+<-> pcbrnd gtk.w
+
+<-> pcbrnd lesstif.w
+
+<-> pcbrnd remote.w
+
+<-> remote.s web
+	label TCP/IP

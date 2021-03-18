@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<title> pcb-rnd - contribution </title>
+<!--AUTO head begin-->
+	<link rel="icon" href="resources/logo16.png">
+<!--AUTO head end-->
+</head>
+<body>
+
+<!--AUTO navbar begin-->
+<table border=0 cellspacing=2 cellpadding=10  bgcolor="#eeeeee" width="100%">
+<tr>
+<th align=center bgcolor="#ccc0cc"> <a href="index.html"> Main </a>
+<th align=center bgcolor="#ccc0cc"> <a href="news.html"> News </a>
+<th align=center bgcolor="#ccc0cc"> <a href="doc.html">Doc</a>&nbsp;&amp;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&amp;&nbsp;<a href="http://repo.hu/projects/pcb-rnd-aux/pool">pool</a>
+<th align=center bgcolor="#ccc0cc"> <a href="support.html"> Support </a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi">People</a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=events">Events</a>&nbsp;&amp;&nbsp;<a href="http://www.repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=timeline">timeline</a>
+<td align=right width="60%"> <font size="+2"><i>pcb-rnd</i></font> <img src="resources/logo32.png" alt="[pcb-rnd logo]">
+</table>
+<!--AUTO navbar end-->
+
+<h1> pcb-rnd - contribution </h1>
+
+If you are interested to help out, please
+<a href="contact.html">contact the lead developer</a>.
+
+
+<H2> Contributing as a user </h2>
+Using pcb-rnd in production and just reporting bugs is already a huge contribution.
+<p>
+We also have a <a href="help.html#list">list of tasks</a> that can be contributed by users.
+<p>
+More dedicated users can join in scheduled, systematic testing. Such testing
+is split up into independent chunks that each can be done in an hour.
+<p>
+Even more dedicated users can join developing the documentation.
+<p>
+None of the above requires or assumes any programming skill.
+
+<H2> Contributing as a developer </h2>
+<p>
+The project is lead in an autocratic way by Igor2.
+<p>
+Developer freedom taken away:
+<ul>
+	<li> the basic concept of pcb-rnd is set and won't change
+	<li> the toolchain is chosen, and won't change; the usual hot topics: svn, scconfig, <a href="developer/c89.html">C</a>.
+	<li> don't add code that restricts usability for others; add code that increases usability for some; thus prefer to add code in plugins!
+</ul>
+<p>
+Developer freedom promptly granted:
+<ul>
+	<li> svn commit access from day 0
+	<li> work together in trunk/, not alone in a branch
+	<li> pcb-rnd has a strong plugin support; want to implement a strange/controversial feature? In a plugin, almost anything goes
+	<li> especially in plugins, work on whatever you want, even if noone else needs that feature
+</ul>
+<p>
+Coding style/indentation: there's an <a href="developer/indent.html">unified style</a>
+in core and core plugins. If you work on those parts, try to stick to it. If you
+are working on a new plugin, it's still the preferred style but you can use
+a different style. However, the rule is that if someone else starts hacking
+that part too, he is allowed to convert the code to the unified format; but
+unified format can not be converted to anything else. So it's a one way
+process which long term grants unified style while not demotivates a plugin
+developer by forcing a style on him in the early, "when the bulk of the code
+is written" phase.
+</body>
+</html>

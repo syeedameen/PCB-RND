@@ -1,0 +1,19 @@
+put /local/pcb/mod {io_kicad}
+put /local/pcb/mod/OBJS [@
+ $(PLUGDIR)/io_kicad/io_kicad.o
+ $(PLUGDIR)/io_kicad/layertab.o
+ $(PLUGDIR)/io_kicad/write.o
+ $(PLUGDIR)/io_kicad/read.o
+ $(PLUGDIR)/io_kicad/read_net.o
+ $(PLUGDIR)/io_kicad/uniq_name.o
+@]
+#put /local/pcb/mod/YACC {$(PLUGDIR)/io_kicad/parse_y}
+#put /local/pcb/mod/LEX  {$(PLUGDIR)/io_kicad/parse_l}
+put /local/pcb/mod/MENUFILE {kicad-menu.lht}
+put /local/pcb/mod/MENUVAR {kicad_menu}
+
+switch /local/pcb/io_kicad/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

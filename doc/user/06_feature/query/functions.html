@@ -1,0 +1,380 @@
+<html>
+<body>
+
+<H2 autotoc="yes"> Query: advanced search, command line: function calls available </H2>
+<p>
+Functions listed below can be called from a query expression.
+
+<h3 autotoc="yes"> List manipulation </h3>
+
+	<h4 autotoc="yes"> llen(lst) </h4>
+	<p>
+	Determine length of a list.
+	<p>
+	Arguments:
+	<ul>
+		<li> lst is the list (should be written as list(lst) to make sure no iteration is done)
+	</ul>
+	<p>
+	Return value: integer length of the list.
+
+
+	<h4 autotoc="yes"> mklist(args...) </h4>
+	<p>
+	Determine length of a list.
+	<p>
+	Arguments:
+	<p>
+	Variable number of objects.
+	<p>
+	Return value: a list built of the objects passed.
+
+	<h4 autotoc="yes"> layerlist() </h4>
+	<p>
+	Returns a list of all layers.
+
+
+<h3 autotoc="yes"> Math & abstract geometry </h3>
+
+	<h4 autotoc="yes"> distance(x1, y1, x2, y2) </h4>
+	<p>
+	Calculate the distance of two points.
+	<p>
+	Arguments:
+	<ul>
+		<li> x1: first point, X coordinate
+		<li> y1: first point, Y coordinate
+		<li> x2: second point, X coordinate
+		<li> y2: second point, Y coordinate
+	</ul>
+	<p>
+	Return value: floating point distance value in nanometers.
+	
+	
+	<h4 autotoc="yes"> abs(number) </h4>
+	<p>
+	Returns the absolute value of a number
+
+	<h4 autotoc="yes"> int(arg) </h4>
+	<p>
+	Returns the argument converted to an integer (truncating floating point numbers)
+
+	<h4 autotoc="yes"> double(arg) </h4>
+	<p>
+	Returns the argument converted to a double precision number.
+
+<h3 autotoc="yes"> Object geometry </h3>
+
+	<h4 autotoc="yes"> overlap(obj1, obj2, [bloat]) </h4>
+	<p>
+	Returns 1 if obj1 and obj2 overlap (even if they are on different layers)
+	<p>
+	Arguments:
+	<ul>
+		<li> obj1 and obj2 are objects;
+		<li> an optional bloat value, in coords: bloat up (or shrink, if negative) one of the objects by this value before the test.
+	</ul>
+	<p>
+	Return value: 1 for overlap, 0 for no overlap.
+	
+	<h4 autotoc="yes"> intersect(obj1, obj2, [bloat]) </h4>
+	<p>
+	Returns 1 if obj1 and obj2 intersect (must share a layer)
+	<p>
+	Arguments:
+	<ul>
+		<li> obj1 and obj2 are objects;
+		<li> an optional bloat value, in coords: bloat up (or shrink, if negative) one of the objects by this value before the test.
+	</ul>
+	<p>
+	Return value: 1 for intersection, 0 for no overlap.
+	
+	<h4 autotoc="yes"> pstkring(pstk, minimum_ring_thickness) </h4>
+	<p>
+	Return the number of layers on which the ring of a padstack is too thin.
+	<p>
+	Arguments:
+	<ul>
+		<li> pstk is the padstack object
+		<li> minimum_ring_thickness is a coordinate value of the minimum ring thickness
+	</ul>
+	<p>
+	Return value: negative on wrong arguments, 0 if the padstack does not violate
+	the minimum_ring_thickness requirement, positive integer (number of violations)
+	otherwise.
+	
+	
+<h3 autotoc="yes"> Networks </h3>
+	
+	<h4 autotoc="yes"> netlist() </h4>
+	<p>
+	Return the netlist.
+	<p>
+	Arguments: None.
+	<p>
+	Return value: an unordered list of all networks specified on the
+	<i>edited</i> netlist (which is the netlist the board is currently
+	using). Each item of the list is a net.
+	
+
+	<h4 autotoc="yes"> netterms(net) </h4>
+	<p>
+	Return terminals of a network.
+	<p>
+	Arguments:
+	<ul>
+		<li> net is a network of the netlist of the current board.
+	</ul>
+	<p>
+	Return value: an unordered list of objects (each terminal of the network
+	as described by the <i>edited</i> netlist).
+	
+	
+	<h4 autotoc="yes"> netobjs(net) </h4>
+	<p>
+	Return terminals and all copper objects galvanically connected to a network.
+	<p>
+	Arguments:
+	<ul>
+		<li> net is a network of the netlist of the current board.
+	</ul>
+	<p>
+	Return value: an unordered list of copper objects connected to the network.
+	
+	
+	<h4 autotoc="yes"> netsegs(net) </h4>
+	<p>
+	Return a list of objects, one terminal object per disconnecte segment of
+	the network.
+	<p>
+	Arguments:
+	<ul>
+		<li> net is a network of the netlist of the current board.
+	</ul>
+	<p>
+	Return value: an unordered list of terminal objects, one picked randomly
+	from each disconnected segment of the net.
+	
+	
+	<h4 autotoc="yes"> netbreak(obj, minimum_overlap) </h4>
+	<p>
+	Start a search on a galvanically connected network segment starting from
+	an object (typically returned by netsegs()) and generate a DRC violation
+	if there are copper objects with overlap smaller than the minimum_overlap.
+	<p>
+	Arguments:
+	<ul>
+		<li> obj is the starting object of the search
+		<li> minimum_overlap is the coordinate value that represents the minimum required ovlerap between copper objects (e.g. 0.5mm)
+	</ul>
+	<p>
+	Return value: a list that represents a DRC violation (or empty list).
+	
+	<h4 autotoc="yes"> netshort(obj, minimum_distance) </h4>
+	<p>
+	Start a search on a galvanically connected network segment starting from
+	an object (typically returned by netsegs()) and generate a DRC violation
+	if there are disconnected copper objects with distance smaller than
+	the minimum_distance from the network.
+	<p>
+	Arguments:
+	<ul>
+		<li> obj is the starting object of the search
+		<li> minimum_distance is the coordinate value that represents the minimum required distance from any non-connected copper objects (e.g. 0.5mm)
+	</ul>
+	<p>
+	Return value: a list that represents a DRC violation (or empty list).
+
+	<h4 autotoc="yes"> netlen(net) </h4>
+	<p>
+	Return the length of a 2-terminal network.
+	<p>
+	Arguments: net object or net name.
+	<p>
+	Return value: network length.
+
+
+<h3 autotoc="yes"> Object accessors </h3>
+
+	<h4 autotoc="yes"> subcobjs(subc) </h4>
+	<p>
+	Return a list of objects that are within the subc.
+	<p>
+	Arguments:
+	<ul>
+		<li> subc is an object of type subcircuit
+	</ul>
+	<p>
+	Return value: an unordered list of objects.
+	
+	
+	<h4 autotoc="yes"> poly_num_islands(poly) </h4>
+	<p>
+	Return the number of visible polygon islands.
+	<p>
+	Arguments:
+	<ul>
+		<li> poly is the polygon object
+	</ul>
+	<p>
+	Return value: 0 if the polygon has been cleared out of existnece, 1 for normal
+	polygons and a positive integer higher than 1 if the polygon has the FULLPOLY
+	flag and is sliced into multiple parts not naturally connected by the polygon
+	itself.
+
+	<h4 autotoc="yes"> thermal_on(tobj, lobj) </h4>
+	<p>
+	Return a string description of thermals of tobj on layer corrseponding to lobj.
+	<p>
+	Arguments:
+	<ul>
+		<li> tobj is the object whose thermals are being queried
+		<li> lobj is either a layer or an object-on-a-layer, and it addresses the layer to query the thermals on
+	</ul>
+	<p>
+	Return value: a string that consists of:
+	<ul>
+		<li> empty if there's no thermal; or
+		<li> a single 'n' for no-shape; or
+		<li> a single '@' for solid connection; or
+		<li> 'o' for round, 'x' for sharp thermal
+		<li> in case of round or sharp thermal, a 'd' suffix if it is diagonal
+	</ul>
+
+
+<h3 autotoc="yes"> Advanced layer access </h3>
+
+	<h4 autotoc="yes"> layer_setup(obj, directive [, res]) </h4>
+	<p id="layer_setup">
+	Takes an object and executes a directive on the layer setup of the object.
+	If the directive matches, retruns either a measure (if result is specified)
+	or returns true.
+	<p>
+	Directive is a comma separated list of requirements; the directive matches
+	only if all requirements matched. A requirement is specified in the form
+	of <i>key:value</i>.
+	<p>
+	<i>Key</i> is a dash separated list of:
+	<ul>
+		<li> <i>above</i> - match a layer group that is above the object's layer (location modifier)
+		<li> <i>below</i> - match a layer group that is below the object's layer (location modifier)
+		<li> <i>on</i> - match the layer group of the object (location modifier)
+		<li> <i>type</i> - match a layer group type; <i>value</i> is a layer group type
+		<li> <i>net</i> - objects belonging to a specific net on an adjacent copper layer group that covers the current object; <i>value</i> is the name of a net
+		<li> <i>netmargin</i> - supplement for the <i>net</i> key: require the cover to extend the specified; <i>value</i> is a size (coord)
+	</ul>
+	<p>
+	Examples requirements:
+	<ul>
+		<li> <i>above-type:copper</i> - there is an adjacent copper layer group above the object's layer
+		<li> <i>below-type:!copper</i> - there is no adjacent copper layer group below the object's layer
+		<li> <i>above-net:vcc</i> - there are copper objects connected to the net called "vcc" on the adjacent copper layer group above the current object
+		<li> <i>above-net:vcc,above-netmargin:1.3mm</i> - there are copper objects connected to the net called "vcc" on the adjacent copper layer group above the current object; coverage calculated +1.3mm around the object; defaults to 0 if not specified
+	</ul>
+	<p>
+	"Above" and "below" are not in the board's coordinate system, but are
+	relative to the object. In other words, the function first assumes
+	above is upward and below is downward, then runs all requirements on the object.
+	If there is no match, above/below directions are reversed and the test is ran
+	again.
+	<p>
+	Example directive:
+	<p><i>above-type:!copper,below-net:gnd,below-netmargin:125mil</i>
+	<p>This directive requires:
+	<ul>
+		<li> there's no copper layer group above the object (so that the object is on the top or bottom copper layer group)
+		<li> the object is fully covered on the adjacent copper layer group "below" by copper objects belonging to the network named "gnd"
+		<li> plus this coverage extends beyond the object to 125mil in every direction
+	</ul>
+	<p>
+	Normally the return value is integer 0 (no match) or 1 (match).
+	<p>
+	If the optional <i>res</i> parameter is specified, it must be a requirement
+	where key is <i>result</i>. Alternatively the <i>result</i> requirement can
+	be specified in the <i>directive</i> parameter. When a <i>result</i> is
+	specified, the return value of layer_setup() will not be a 0/1 boolean but
+	a readout specified by the <i>result</i> requirement (or the <i>invalid value</i>
+	is returned on no match). The value of a
+	<i>result</i> requirement is one of:
+	<ul>
+		<li> <i>above</i> - use a layer group that is above the object's layer (location modifier)
+		<li> <i>below</i> - use a layer group that is below the object's layer (location modifier)
+		<li> <i>on</i> - use the layer group of the object (location modifier)
+		<li> <i>substrate</i> - return the substrate layer group (using the location)
+		<li> <i>uncovered</i> - return the area (in square nanometers) that are not covered by the "net" directive; note: the total area is the area of the original object bloated by netmargin
+	</ul>
+	<p>
+	Complex query script example:
+	<p>layer_setup(OBJ, "above-type:!copper,below-net:gnd", "result:below-substrate").a."thickness"
+	<p>
+	OBJ will match if it is on the top or bottom copper layer and is fully
+	covered by gnd copper on the adjacent copper layer group on the next internal
+	copper layer group. When matched, the return value of layer_setup is the
+	substrate layer group between the object's layer and that adjacent
+	internal layer group. The .a."thickness" part retrieves the value of
+	the thickness attribute of this substrate layer. On mismatch, the whole expression
+	evaluates to the <i>invalid value</i>.
+
+<h3 autotoc="yes"> Misc </h3>
+
+	<h4 autotoc="yes"> action(args...) </h4>
+	<p>
+	Execute a pcb-rnd action.
+	<p>
+	Arguments: variable nunmber of objects and constants.
+	<p>
+	Return value: invalid on error, or the return value of the action.
+
+	<h4 autotoc="yes"> coord(str) </h4>
+	<p>
+	Converts str to coordinates. Useful when using attribute values.
+	<p>
+	Arguments:
+	<ul>
+		<li> str is a string (number with units) or a numeric value (taken as nanometers)
+	</ul>
+	<p>
+	Return value: integer length of the list.
+
+	<h4 autotoc="yes"> isvoid(value) </h4>
+	<p>
+	Checks whether value is void (invalid).
+	<p>
+	Arguments:
+	<ul>
+		<li> value is any value, typically a function call
+	</ul>
+	<p>
+	Return value: 1 if value is void (invalid), 0 otherwise.
+
+	<h4 autotoc="yes"> getconf(path) </h4>
+	<p>
+	Fetch the value of a config node
+	<p>
+	Arguments:
+	<ul>
+		<li> path is a conf node path, e.g. editor/grid
+	</ul>
+	<p>
+	Return value: invalid if the config node doesn't exist, else the value of
+	the config node (converted to the most appropriate data type).
+	
+	<h4 autotoc="yes"> violation(i1, v1, ..., iN, vN) </h4>
+	<p>
+	Build a DRC violation report (a list object).
+	<p>
+	Arguments (a variable number of pairs of instruction and value):
+	<ul>
+		<li> i is an instruction, see below.
+		<li> v is a value (a constant or an object)
+	</ul>
+	<p>
+	Instruction is one of the following constants:
+	<ul>
+		<li> DRCGRP1 - the following v is an object, part of group 1 of offending objects
+		<li> DRCGRP2 - the following v is an object, part of group 2 of offending objects
+		<li> DRCEXPECT - the following v is a numeric value that represent the expected value
+		<li> DRCMEASURE - the following v is a numeric value that represent the measured value that mismatches the expected value
+	</ul>
+	<p>
+	Return value: a list suitable for the drc_query to process.

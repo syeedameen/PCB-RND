@@ -1,0 +1,170 @@
+(pcb Rotated round cap and square pads
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "pcb-rnd")
+    (host_version "<version>")
+  )
+  (resolution mm 1000000)
+  (structure
+    (layer "3__top_copper"
+      (type signal)
+    )
+    (layer "5__Intern"
+      (type signal)
+    )
+    (layer "7__Intern"
+      (type signal)
+    )
+    (layer "10__bottom_copper"
+      (type signal)
+    )
+    (boundary
+      (rect pcb 0.0 0.0 12.700000 12.700000)
+    )
+    (via via_685800_381000)
+    (rule
+      (width 0.2032)
+      (clear 0.2032)
+      (clear 0.2032 (type wire_area))
+      (clear 0.2032 (type via_smd via_pin))
+      (clear 0.2032 (type smd_smd))
+      (clear 0.2032 (type default_smd))
+    )
+  )
+  (placement
+    (component 5
+      (place "R1" 1.270000 11.430000 front 0 (PN 0))
+    )
+    (component 32
+      (place "R3" 1.270000 7.620000 front 0 (PN 0))
+    )
+    (component 59
+      (place "R2" 5.080000 11.430000 front 0 (PN 0))
+    )
+    (component 86
+      (place "R6" 1.270000 5.715000 front 0 (PN 0))
+    )
+    (component 113
+      (place "R4" 3.175000 8.890000 front 0 (PN 0))
+    )
+    (component 140
+      (place "R5" 5.715000 8.890000 front 0 (PN 0))
+    )
+    (component 167
+      (place "R7" 3.175000 5.080000 front 0 (PN 0))
+    )
+    (component 194
+      (place "R8" 6.985000 5.080000 front 0 (PN 0))
+    )
+  )
+  (library
+    (image 5
+      (pin Pstk_shape_7 "1" 0.952500 0.000000)
+    )
+    (image 32
+      (pin Pstk_shape_34 "1" 0.000000 0.952500)
+    )
+    (image 59
+      (pin Pstk_shape_61 "1" 0.952500 0.000000)
+    )
+    (image 86
+      (pin Pstk_shape_88 "1" 0.000000 -0.952500)
+    )
+    (image 113
+      (pin Pstk_shape_115 "1" 0.673481 -0.673481)
+    )
+    (image 140
+      (pin Pstk_shape_142 "1" 0.673481 -0.673481)
+    )
+    (image 167
+      (pin Pstk_shape_169 "1" 0.881761 -0.360172)
+    )
+    (image 194
+      (pin Pstk_shape_196 "1" 0.881761 -0.360172)
+    )
+    (padstack Pstk_shape_7
+      (shape
+        (polygon "3__top_copper" 0
+        -1.079500 -0.127000 -1.079500 0.127000 1.079500 0.127000
+        1.079500 -0.127000
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_34
+      (shape
+        (polygon "3__top_copper" 0
+        -0.127000 1.079500 0.127000 1.079500 0.127000 -1.079500
+        -0.127000 -1.079500
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_61
+      (shape
+        (polygon "3__top_copper" 0
+        -1.079499 0.126999 -1.079499 -0.126999 1.079499 -0.126999
+        1.079499 0.126999
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_88
+      (shape
+        (polygon "3__top_copper" 0
+        0.126999 1.079499 -0.126999 1.079499 -0.126999 -1.079499
+        0.126999 -1.079499
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_115
+      (shape
+        (polygon "3__top_copper" 0
+        -0.853086 0.673481 -0.673481 0.853086 0.853086 -0.673481
+        0.673481 -0.853086
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_142
+      (shape
+        (polygon "3__top_copper" 0
+        -0.673481 0.853085 -0.853085 0.673481 0.673481 -0.853085
+        0.853085 -0.673481
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_169
+      (shape
+        (polygon "3__top_copper" 0
+        -1.047355 0.290626 -0.951307 0.525766 1.047355 -0.290626
+        0.951307 -0.525766
+        )
+      )
+      (attach off)
+    )
+    (padstack Pstk_shape_196
+      (shape
+        (polygon "3__top_copper" 0
+        -0.951308 0.525765 -1.047354 0.290625 0.951308 -0.525765
+        1.047354 -0.290625
+        )
+      )
+      (attach off)
+    )
+  )
+  (network
+    (class geda_default
+      (circuit
+        (use_via via_685800_381000)
+      )
+      (rule (width 0.203200))
+    )
+  )
+    (wiring
+
+    )
+)

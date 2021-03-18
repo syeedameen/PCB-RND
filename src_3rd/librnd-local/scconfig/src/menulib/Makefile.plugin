@@ -1,0 +1,14 @@
+MENULIB_CFLAGS = -DPLUGIN_MENULIB
+MENULIB_OBJS = \
+  $(BIN)/menulib/hookreadline.o \
+  $(BIN)/menulib/scmenu.o \
+  $(BIN)/menulib/vt100.o
+
+$(BIN)/menulib/hookreadline.o: $(SRC)/menulib/hookreadline.c $(SRC)/menulib/hookreadline.h $(SRC)/menulib/vt100.h
+	$(CC) $(CFLAGS) -c $(SRC)/menulib/hookreadline.c -o $(BIN)/menulib/hookreadline.o
+
+$(BIN)/menulib/vt100.o: $(SRC)/menulib/vt100.c $(SRC)/menulib/vt100.h
+	$(CC) $(CFLAGS) -c $(SRC)/menulib/vt100.c -o $(BIN)/menulib/vt100.o
+
+$(BIN)/menulib/scmenu.o: $(SRC)/menulib/scmenu.c $(SRC)/menulib/scmenu_menu.c $(SRC)/menulib/scmenu_rl.c $(SRC)/menulib/scmenu_text.c $(SRC)/menulib/scmenu.h
+	$(CC) $(CFLAGS) -c $(SRC)/menulib/scmenu.c -o $(BIN)/menulib/scmenu.o

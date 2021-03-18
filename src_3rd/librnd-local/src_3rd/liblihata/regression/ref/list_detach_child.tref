@@ -1,0 +1,22 @@
+Trying to detach an existing node in the list:
+--- Before detaching
+  li:{non-empty} FIRST te:{key1} LAST te:{key2}
+   te:{key1} {val1}
+   te:{key2} {val2}
+list_detach_child: done
+--- After detaching
+  li:{non-empty} FIRST te:{key2} LAST te:{key2}
+   te:{key2} {val2}
+Detaching the last node from the list:
+--- Before detaching
+  li:{non-empty} FIRST te:{key2} LAST te:{key2}
+   te:{key2} {val2}
+list_detach_child: done
+--- After detaching
+  li:{non-empty} 
+Trying to detach from an empty list:
+--- Before detaching
+  li:{non-empty} 
+Error during list_detach_child: boundary check error: out of bounds
+--- After detaching
+  li:{non-empty} 

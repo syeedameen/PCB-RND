@@ -1,0 +1,16 @@
+-----test 1----
+insert one row to empty table
+  ta:{empty} cols: 0, rows: 0
+  te:{} [root] [nodoc] {text1}
+  ta:{empty} cols: 1, rows: 1
+  ta:{empty} cols: 1, rows: 1
+  te:{} {(null)}
+after replace
+  te:{} {text1}
+  ta:{empty} cols: 1, rows: 1
+-----test 2-----
+the length of table is 0 so we could not insert element to 1st position
+  ta:{empty} cols: 0, rows: 0
+table_ins_row: boundary check error: out of bounds
+  ta:{empty} cols: 0, rows: 0
+tts terminated

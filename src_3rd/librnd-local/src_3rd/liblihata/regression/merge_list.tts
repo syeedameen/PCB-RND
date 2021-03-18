@@ -1,0 +1,30 @@
+load_doc D1 list.lht
+load_doc D2 list.lht
+root N1 D1
+root N2 D2
+
+echo Original 1:
+print_tree N1
+echo Original 2:
+print_tree N2
+
+list_child N1
+list_next N1
+list_child N2
+list_next N2
+
+
+tree_merge N1 N2
+echo After merging the two non-empty lists:
+
+
+root N1 D1
+root N2 D2
+
+echo Original 1:
+print_tree N1
+echo Original 2:
+print_tree N2
+
+free_doc D1
+free_doc D2

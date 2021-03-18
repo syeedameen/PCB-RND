@@ -1,0 +1,31 @@
+The doc:
+  ta:{non-empty} cols: 2, rows: 5
+   Row 0:{row0}
+    te:{col0} {00}
+    te:{col1} {01 }
+   Row 1:{row1}
+    te:{col0} {10}
+    te:{col1} {11 }
+   Row 2:{row2}
+    te:{col0} {20}
+    li:{col1} FIRST te:{cell0} LAST te:{cell3}
+     te:{cell0} {a}
+     te:{cell1} {b}
+     te:{cell2} {c}
+     te:{cell3} {d }
+   Row 3:{row3}
+    te:{col0} {30}
+    ha:{col1} entries: 4
+     te:{c} {3}
+     te:{d} {4 }
+     te:{a} {1}
+     te:{b} {2}
+   Row 4:{row0}
+    te:{col0} {0a}
+    te:{col0} {0b }
+Node row0-0-col0-0:
+  te:{col0} {00}
+Node row0-1-col0-1:
+  te:{col0} {0b }
+Node row0-2-col0-2:
+  * node is NULL *

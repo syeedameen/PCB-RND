@@ -1,0 +1,16 @@
+li:root = {
+	key1=val1
+	key2 =val2;
+	key3={val3}
+	key4=val4;
+	key5 {val5}
+	{key6} val6
+	anon1
+	{anon2}
+	anon3;
+	empty={}
+	empty2=
+	{empty3}={}
+	{} {}
+	=
+}

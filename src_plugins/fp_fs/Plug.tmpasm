@@ -1,0 +1,11 @@
+put /local/pcb/mod {fp_fs}
+put /local/pcb/mod/OBJS [@ $(PLUGDIR)/fp_fs/fp_fs.o @]
+put /local/pcb/mod/CONF {$(PLUGDIR)/fp_fs/fp_fs_conf.h}
+put /local/pcb/mod/CONFFILE {fp_fs.conf}
+put /local/pcb/mod/CONFVAR {fp_fs_conf_internal}
+
+switch /local/pcb/fp_fs/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

@@ -1,0 +1,40 @@
+load_doc D1 list.lht
+echo list.lht:
+print_doc D1
+
+root N1 D1
+echo root:
+print_node N1
+
+echo Children of root:
+dom_iterate N1
+
+echo -
+
+load_doc D2 ta.lht
+echo ta.lht:
+print_doc D2
+
+root N2 D2
+echo root:
+print_node N2
+
+echo Children of root:
+dom_iterate N2
+
+echo -
+
+load_doc D3 tiny.lht
+echo tiny.lht:
+print_doc D3
+
+root N3 D3
+echo root:
+print_node N3
+
+echo Children of root:
+dom_iterate N3
+
+free_doc D1
+free_doc D2
+free_doc D3

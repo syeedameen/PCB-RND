@@ -1,0 +1,13 @@
+# overwrite list with text
+li:ja {
+	k1=t1
+	k2=t1
+ li:2nd  {		
+	key1=val1
+empty=none
+	key2  =	{val2}  ;
+	valonly 
+ } 
+	k3=t1
+	k4=t1
+}

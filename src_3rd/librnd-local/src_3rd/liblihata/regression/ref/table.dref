@@ -1,0 +1,9 @@
+li:{} [root] FIRST ta:{empty} LAST ta:{non-empty}
+ ta:{empty} cols: 0, rows: 0
+ ta:{non-empty} cols: 2, rows: 2
+  Row 0:{}
+   te:{} {11}
+   te:{} {12}
+  Row 1:{}
+   te:{} {21}
+   te:{} {22}

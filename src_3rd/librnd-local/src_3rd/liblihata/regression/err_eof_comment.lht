@@ -1,0 +1,3 @@
+li:root {
+	key=value;
+# unterminated comment with list left open

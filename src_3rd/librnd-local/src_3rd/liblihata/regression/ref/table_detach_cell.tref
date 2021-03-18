@@ -1,0 +1,304 @@
+Untouched, original tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {00}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+-
+table_detach_cell: 0;0 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {01}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {00}
+-
+table_detach_cell: 0;1 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {10}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {01}
+-
+table_detach_cell: 1;0 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {11}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {10}
+-
+table_detach_cell: 1;1 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {20}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {11}
+-
+table_detach_cell: 2;0 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    li:{21} FIRST te:{} LAST te:{}
+     te:{} {a}
+     te:{} {b}
+     te:{} {c}
+     te:{} {d}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {20}
+-
+table_detach_cell: 2;1 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {30}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  li:{21} [root] [detached] FIRST te:{} LAST te:{}
+   te:{} [detached] {a}
+   te:{} [detached] {b}
+   te:{} [detached] {c}
+   te:{} [detached] {d}
+-
+table_detach_cell: 3;0 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    ha:{31} entries: 4
+     te:{c} {3}
+     te:{d} {4}
+     te:{a} {1}
+     te:{b} {2}
+node:
+  te:{} [root] [detached] {30}
+-
+table_detach_cell: 3;1 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    te:{} {(null)}
+node:
+  ha:{31} [root] [detached] entries: 4
+   te:{c} [detached] {3}
+   te:{d} [detached] {4}
+   te:{a} [detached] {1}
+   te:{b} [detached] {2}
+-
+Trying to detach a cell again:
+table_detach_cell: 3;1 success
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    te:{} {(null)}
+node:
+  te:{} [root] [detached] {(null)}
+-
+table_detach_cell: error: boundary check error: out of bounds
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    te:{} {(null)}
+node:
+  * node is NULL *
+-
+table_detach_cell: error: boundary check error: out of bounds
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    te:{} {(null)}
+node:
+  * node is NULL *
+-
+table_detach_cell: error: boundary check error: out of bounds
+tree:
+  ta:{non-empty} cols: 2, rows: 4
+   Row 0:{rowname0}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 1:{rowname1}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 2:{rowname2}
+    te:{} {(null)}
+    te:{} {(null)}
+   Row 3:{rowname3}
+    te:{} {(null)}
+    te:{} {(null)}
+node:
+  * node is NULL *
+-
+Empty table, before trying to detach:
+  ta:{empty} cols: 0, rows: 0
+-
+table_detach_cell: error: boundary check error: out of bounds
+tree:
+  ta:{empty} cols: 0, rows: 0
+node:
+  * node is NULL *

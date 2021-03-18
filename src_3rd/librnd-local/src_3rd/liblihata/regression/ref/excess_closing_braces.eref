@@ -1,0 +1,4 @@
+# ' this document is valid: characters are ignored after closing the root node.'
+list 
+ text '' = ''
+*EOF*

@@ -1,0 +1,174 @@
+-----test 1-----
+insert column (parameter 1)
+**before**
+  ta:{table4} cols: 4, rows: 4
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {row2col0}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {row3col0}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+**after**
+  ta:{table4} cols: 5, rows: 4
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {(null)}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {(null)}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {row2col0}
+    te:{} {(null)}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {row3col0}
+    te:{} {(null)}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+-----test 2-----
+insert column (parameter 0)
+**before**
+  ta:{table4} cols: 5, rows: 4
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {(null)}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {(null)}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {row2col0}
+    te:{} {(null)}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {row3col0}
+    te:{} {(null)}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+**after**
+  ta:{table4} cols: 6, rows: 4
+   Row 0:{}
+    te:{} {(null)}
+    te:{} {row0col0}
+    te:{} {(null)}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {(null)}
+    te:{} {row1col0}
+    te:{} {(null)}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {(null)}
+    te:{} {row2col0}
+    te:{} {(null)}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {(null)}
+    te:{} {row3col0}
+    te:{} {(null)}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+-----test 3-----
+insert column (parameter 6, last row)
+**before**
+  ta:{table4} cols: 6, rows: 4
+   Row 0:{}
+    te:{} {(null)}
+    te:{} {row0col0}
+    te:{} {(null)}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {(null)}
+    te:{} {row1col0}
+    te:{} {(null)}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {(null)}
+    te:{} {row2col0}
+    te:{} {(null)}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {(null)}
+    te:{} {row3col0}
+    te:{} {(null)}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+**after**
+  ta:{table4} cols: 7, rows: 4
+   Row 0:{}
+    te:{} {(null)}
+    te:{} {row0col0}
+    te:{} {(null)}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+    te:{} {(null)}
+   Row 1:{}
+    te:{} {(null)}
+    te:{} {row1col0}
+    te:{} {(null)}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+    te:{} {(null)}
+   Row 2:{}
+    te:{} {(null)}
+    te:{} {row2col0}
+    te:{} {(null)}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+    te:{} {(null)}
+   Row 3:{}
+    te:{} {(null)}
+    te:{} {row3col0}
+    te:{} {(null)}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+    te:{} {(null)}

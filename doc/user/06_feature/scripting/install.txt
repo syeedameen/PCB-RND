@@ -1,0 +1,27 @@
+Note: if you need only fawk, fbas and fpascal scripting, there is no
+      need to do the steps below, pcb-rnd source comes with those
+      embedded. The below steps are needed if you need more scripting
+      languages (e.g. python, lua, perl, tcl, mawk).
+
+Requirements:
+ 1. download and install genht - svn://repo.hu/genht/trunk
+    Some Linux distributions already have this packaged, please check your
+    repositories (and install the development version)
+    NOTE: version 1.0.1 is too old, please get a newer one (e.g. svn version)
+    NOTE: you need to install genht under /usr or /usr/local - non-standard
+    installation will NOT work for now.
+ 2. recommended, non-standard, optional dependency for running mawk scripts:
+    install libmawk - svn://repo.hu/libmawk/trunk
+    (Many of the example scripts are written in awk)
+    At least version 1.0.2 is required.
+    At the moment libmawk must be installed as root into /usr
+      e.g. './configure --prefix=/usr'
+ 3. download and install fungw - svn://repo.hu/fungw/trunk
+ 4. fungw should be installed as root, into /usr/local/ or /usr/
+    during configuration, make sure all relevant scripting languages are found
+ 5. (re)configure and (re)compile pcb-rnd so that it uses the system-installed
+    version of fungw instead of the local, no-script version; make sure the
+    "script" plugin is compiled (as builtin or plugin)
+ 6. later on if a new scripting language is required, reconfigure,
+    recompile and reinstall fungw - no pcb-rnd recompilation is needed as
+    long as the system-installed fungw version is not upgraded

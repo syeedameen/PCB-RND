@@ -1,0 +1,50 @@
+<title>fp2preview</title>
+<sect>1</sect>
+<date>2019-10-01</date>
+
+<name> fp2preview - generate a preview for a library footprint </name>
+<syn> <call>fp2preview</call> [<arg>options</arg>] [<arg>inputfile</arg>] </syn>
+
+<description>
+<call>fp2preview</call> invokes pcb-rnd to generate a preview image of a
+library footprint. Its main use is to have a automated, light-weight footprint
+preview generator using a static linked pcb-rnd (e.g. on web servers).
+<p>
+</description>
+
+<options>
+<kvlist>
+
+	<item>
+		<key> --photo </key>
+		<value> draw the footprint in "photo realistic mode" </value>
+	</item>
+	<item>
+		<key> -p </key>
+		<value> same as --photo
+	</item>
+
+	<item>
+		<key> --grid unit </key>
+		<value> set grid unit e.g. to mm or mil </value>
+	</item>
+	<item>
+		<key> -g unit </key>
+		<value> same as --grid
+	</item>
+
+	<item>
+		<key> --mm </key>
+		<value> use an mm grid instead of a mil grid; shorthand for -g mm</value>
+	</item>
+
+	<item>
+		<key> --annotation types </key>
+		<value> turn on annotation types; types is a string that may consist
+		        "pins" for pin/pad numbers, "dimname" and "dimvalue" for dimension
+		        names and values and "background" for drawing a background under
+		        annotation text </value>
+	</item>
+
+</kvlist>
+</options>

@@ -1,0 +1,22 @@
+ha:{
+	ta:empty{}
+	ta:table1 {
+		{row0}
+	}
+	ta:table2 {
+		{row0col0; row0col1}
+		{row1col0; row1col1}
+	}
+	ta:table3 {
+		{row0}
+		{row1}
+		{row2}
+		{row3}
+	}
+	ta:table4 {
+		{row0col0; row0col1; row0col2; row0col3}
+		{row1col0; row1col1; row1col2; row1col3}
+		{row2col0; row2col1; row2col2; row2col3}
+		{row3col0; row3col1; row3col2; row3col3}
+	}
+}

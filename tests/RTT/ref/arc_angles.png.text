@@ -1,0 +1,22 @@
+r6630
+
+right circle
+132 pixels (110 mil) horizontally
+132 pixels (110 mil) vertically
+13 pixels (10.833 mil) wall thickness
+
+left circle
+132 pixels (110 mil) horizontally
+132 pixels (100 mil) vertically
+13 pixels (10.833 mil) wall thickness
+
+central dot
+13 pixel (10.833 mil) diameter
+
+air gap between right circle and central dot
+107 pixels (89.166 mil)
+
+air gap between left circle and central dot
+108 pixels (90 mil)
+
+

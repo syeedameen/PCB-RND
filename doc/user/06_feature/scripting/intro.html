@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+</head>
+<body>
+
+<H2 autotoc="yes"> Scripting - User Intro </H2>
+This document is an introduction to fungw for pcb-rnd users. It focuses on
+scripting pcb-rnd and doesn't discuss fungw deeper than the minimum necessary.
+Fungw is more generic than shown here.
+
+<h3 autotoc="yes"> Stored scripts </h3>
+<p>
+Stored scripts are typically larger piece of works that register actions,
+may create menus, GUI dialog boxes. Their role is to introduce new
+functionality to pcb-rnd - functionality written and shared by users,
+using their favorite script language.
+<p>
+Loading a script using the CLI: run action
+<pre>
+	LoadScript(id, filename, language)
+</pre>
+<p>
+where id is an arbitrary text ID. The ID is used for referencing the script
+once it is loaded. The filename should be a full path (CWD is pcb-rnd's
+CWD). Language must be one of the languages configured in fungw.
+<p>
+Once the script is loaded, it is accessible by calling the actions it
+registered using the standard fgw_func_reg() mechanism.
+<p>
+Scripts can be unloaded using the action
+<pre>
+	UnloadScript(id)
+</pre>
+<p>
+These operations can also be done using the script browser dialog box, which
+is invoked from the menu system or by running action
+<pre>
+	BrowseScripts()
+</pre>
+<p>
+Stored scripts also can be made permanent, which means they are always loaded
+automatically on startup. pcb-rnd loads scripts.lht from the user config
+dir (typically ~/.pcb-rnd/) and from the system config dir (typically
+/usr/share/pcb-rnd/). This file has the list of scripts to load under
+its root <i>li:pcb-rnd-perma-script-v1</i>. Each script is a hash node,
+node name is the ID of the script.
+<p>
+The has nodes have two text children: path and lang. Node <i>path</i>
+sepcifies the path to the script file to load; if relative, it is
+relative to scripts.lht. Node <i>lang</i> is optional and specifies
+the scripting language engine to load for the script - when not specified, a
+guess is made based on <i>path</i>.
+<p>
+For example the user may place foo.awk in ~/.pcb-rnd/scripts/foo.awk and
+write the following ~/.pcb-rnd/scripts.lht:
+<pre>
+li:pcb-rnd-perma-script-v1 {
+	ha:bar { path=scripts/foo.awk; lang=mawk; }
+}
+</pre>
+<p>
+which will then load ~/.pcb-rnd/scripts/foo.awk using the mawk scripting
+engine with the script id <i>bar</i>.
+
+<h3 autotoc="yes"> Oneliners </h3>
+<p>
+Note: examples in this section assume pcb-rnd is configured and compiled
+with system <a href="install.txt">installed</a> fungw, and libmawk is also installed
+and the libmawk binding is compiled in fungw.
+<p>
+pcb-rnd also offers script one-liners. A one-liner is a short script
+intended to do one thing at the moment of execution. It is typically not
+saved in a file and is not recalled later. One-liners are invoked by
+the Oneliner action:
+<pre>
+	OneLiner(awk, 'message("hello")')
+</pre>
+<p>
+Alternatively the language-specific shorthand action can be used; the
+following example is equivalent to the above example:
+<pre>
+	awk('message("hello")')
+</pre>
+<p>
+A third approach, most convenient for experimenting, is switching the
+command line interpreter to the given script lagnuage temporarily. For this
+the shorthand action (e.g. "awk", "python", "perl") should be exected without
+arguments. The promp of the cli changes to reflect the language that will
+interpret all the following command lines entered. To leave the script mode,
+type "/exit".
+<p>
+For example:
+<ul>
+	<li> open the command line (pressing ':' with the default menu config)
+	<li> enter <i>awk</i> and press enter - this will switch to awk mode
+	<li> enter <i>for(y=1; y &lt; 10; y += 3) { createtext("#1", 0, "1 mm", y " mm", 0, 100, "foo:" y) } </i>
+	<li> enter more awk one-liners 
+	<li> enter <i>/exit</i> and press enter - this will switch back to the command line
+
+</ul>
+<p>
+The one-liner mode can be used to get a better command interpreter. After
+all, any pcb-rnd action is accessible from any scripting language. For
+example the user may choose to switch to awk mode and issue normal
+pcb-rnd actions using the awk syntax. The default mode can even be
+configured through the conf system, by setting rc/cli_backend to the
+language name. However, the CPU and memory footprint of executing a full
+script interpreter for each command entered should be noted.
+<p>
+Limitations: each command line is a separate script context, there are no
+script states (e.g. variables) preserved between lines entered. Actions
+defined in one-liners are also discarded after the one-liner finished. For
+such use cases, stored script shall be written.
+
+<h3 autotoc="yes"> Live Scripting </h3>
+<p>
+Action LiveScript() pops up the Live Scripting window. The script
+entered here can be executed, saved or loaded.
+<p>
+The main use case is experimenting with board edit (object generation)
+sctipts: pcb-rnd keeps track of board edits execution may have done and
+can undo them. The re-run button combines "undo the effects of the
+previous run and run the new version of the script" into a single click.
+<p>
+Using the persistent mode allows developers to debug, fix and finalize
+a script that is intended to be used as a stored script. This mode allows
+the script to register actions.
+<p>
+A <a href="http://repo.hu/cgi-bin/pool.cgi?cmd=show&node=live_script">
+Live Scripting Tutorial</a> is available in the knowledge pool.
+
+
+<H2 autotoc="yes"> Scripting - Developer Intro </H2>
+<p>
+
+<h3 autotoc="yes"> The big picture </h3>
+<p>
+The main interface between pcb-rnd internals and the outside world
+(e.g. user interface, scripts) is called actions. An action is typically
+a function with a few arguments that executes a smallish task. The
+actions implemented by pcb-rnd are all functions written in C; some of
+the actions are part of core pcb-rnd, others are implemented in plugins.
+<p>
+GUI operations, menu items, clicking on buttons all call these
+actions. The advantage of this system is that the actions are accessible
+in an user-interface-independent way: the same operations can be done
+with and without GUI, initiated by an user with a mouse or by a script.
+<p>
+Thus the two main aspects of pcb-rnd scripting are:
+<ul>
+	<li> defining new actions in script; actions that then can be called from
+	     the user interface or from other scripts
+	<li> calling pcb-rnd actions from within the script to execute the actual
+	     task
+</ul>
+
+<h3 autotoc="yes"> Defining actions </h3>
+<p>
+With fungw, every action is just a native function - the syntax varies
+from scripting language to scripting language (see
+<a href="rosetta/10_hello/"> the rosetta hello world example</a>). The
+arguments of the function are the arguments of the action. The return value
+of the function is the return value of the action.
+<p>
+For the <b>arguments</b>, new actions should try to follow the conventions that
+can be found in already existing
+<a href="../../09_appendix/action_reference.html"> core actions</a>
+for similar purpose.
+<p>
+The <b>return value</b> depends on the purpose of the action. If the
+action is used to calculate something, typically not changing any global
+state (e.g. the board), it should return the value calculated, in whatever
+scalar native data type the scripting language supports. If the action
+is not called to get a value but to perform some changes, the return
+value should be an integer: 0 means success, anything else means error.
+
+<h3 autotoc="yes"> Calling actions </h3>
+<p>
+The script may call any action available at a given time, independently
+of whether the action is defined in pcb-rnd core, in plugins or in other
+scripts. In most scripting languages the action call looks like a simple
+function call: function arguments are the action's arguments, the return
+value of the function is the return value generated by the action. The calls
+are all single threaded, blocking calls. The script may use any scalar native
+data type for action arguments without conversion, fungw will take care of
+the conversions automatically.
+
+<h3 autotoc="yes"> Action names </h3>
+<p>
+All action names are registered in lowercase version. The script shall
+register lower case function names and action (function) calls should be
+spelled lowercase too.
+

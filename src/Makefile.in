@@ -1,0 +1,505 @@
+append /local/pcb/CFLAGS [@-I. -I.. -I../@/local/pcb/librnd_root@ -I../@/local/pcb/librnd_root@/../src_3rd -I../src_3rd -I../src -I../src_3rd/liblihata @]
+append /local/pcb/LDFLAGS cc/ldflags
+append /local/pcb/LDFLAGS cc/rdynamic
+append /local/pcb/LDFLAGS ?/local/pcb/cflags_profile
+put /local/pcb/DEPCFLAGS {}
+put /local/pcb/OBJS_3RDLIB {}
+
+# These files are to be generated before make dep is run
+put /local/pcb/DEPDEPS { $(LIBRND)/core/hidlib_conf_fields.h conf_core_fields.h conf_internal.c defpcb_internal.c buildin.c buildin.hidlib.c pcb_menu_default.c }
+
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/debug.tmpasm@]
+
+# main: objects
+# hidlib will be a library that provides:
+#  - the plugin system
+#  - the conf system
+#  - some basic/generic types like pcb_coord_t
+#  - the HID infra, including DAD
+# but nothing else; in short the HID part of pcb-rnd for developing a
+# GUI program based on pcb-rnd HIDs.
+
+put /local/pcb/OBJS_C99 {}
+put /local/pcb/OBJS {}
+append /local/pcb/OBJS /local/pcb/OBJS_3RDLIB
+append /local/pcb/OBJS [@
+	actions_pcb.o
+	attrib.o
+	board.o
+	brave.o
+	buffer.o
+	build_run.o
+	change.o
+	change_act.o
+	conf_act.o
+	conf_core.o
+	conf_internal.o
+	crosshair.o
+	data.o
+	draw.o
+	drc.o
+	event.o
+	extobj.o
+	extobj_act.o
+	font.o
+	font_act.o
+	file_act.o
+	find.o
+	flag.o
+	flag_str.o
+	gui_act.o
+	hid_cam.o
+	hidlib_pcb.o
+	ht_subc.o
+	idpath.o
+	insert.o
+	intersect.o
+	layer.o
+	layer_addr.o
+	layer_grp.o
+	layer_ui.o
+	layer_vis.o
+	main.o
+	main_act.o
+	move.o
+	netlist.o
+	netlist_act.o
+	object_act.o
+	obj_common.o
+	obj_arc.o
+	obj_arc_list.o
+	obj_arc_ui.o
+	obj_gfx.o
+	obj_gfx_list.o
+	obj_line.o
+	obj_line_drcenf.o
+	obj_line_list.o
+	obj_pstk.o
+	obj_pstk_act.o
+	obj_pstk_list.o
+	obj_pstk_proto.o
+	obj_pinvia_therm.o
+	obj_poly.o
+	obj_poly_list.o
+	obj_rat.o
+	obj_rat_list.o
+	obj_subc.o
+	obj_subc_hash.o
+	obj_subc_list.o
+	obj_term.o
+	obj_text.o
+	obj_text_list.o
+	operation.o
+	pcb_menu_default.o
+	pcb_minuid.o
+	pixmap_pcb.o
+	plug_import.o
+	plug_io.o
+	plug_footprint.o
+	plug_footprint_act.o
+	polygon.o
+	polygon_act.o
+	rats_act.o
+	rats_patch.o
+	remove.o
+	remove_act.o
+	rotate.o
+	route.o
+	route_style.o
+	search.o
+	select.o
+	select_act.o
+	stub_draw.o
+	thermal.o
+	tool_logic.o
+	undo.o
+	undo_act.o
+	undo_old.o
+	view.o
+	vtpadstack.o
+	vtpadstack_t.o
+	vtr0.o
+	vtroutestyle.o
+	../src_3rd/qparse/qparse.o
+	../src_3rd/libuundo/uundo.o
+	../src_3rd/libuundo/uundo_debug.o
+@]
+
+put /local/pcb/LIBS_3RD [@
+	../src_3rd/libminuid/libminuid.a
+@]
+
+put /local/pcb/LIBS /local/pcb/LIBS_3RD
+
+# We do not compile these in the executable but we need rules for these for utils
+# e.g. ../src_3rd/genht/htsp.o
+put /local/pcb/OBJS_UTIL [@
+@]
+
+#---- modules ----#
+# extra rules for modules
+put /local/pcb/RULES {}
+put /local/pcb/CLEANFILES {}
+put /local/pcb/CLEANRULES {}
+put /local/pcb/EXEDEPS {}
+put /local/pcb/all {}
+put /local/pcb/buildin_init {}
+put /local/pcb/rules/install_ {}
+put /local/pcb/rules/install {}
+put /local/pcb/rules/linstall {}
+put /local/pcb/rules/uninstall {}
+put /local/pcb/mod/OBJS {}
+put /local/pcb/mod/OBJS_C99 {}
+put /local/pcb/mod/CONF {}
+put /local/pcb/mod/LDFLAGS {}
+put /local/pcb/mod/CFLAGS {}
+put /local/pcb/mod/YACC {}
+put /local/pcb/mod/LEX {}
+put /local/pcb/mod/BYACCIC {}
+put /local/pcb/mod/UREGLEX {}
+
+put /local/pcb/tmpasm/buildin         {../src_plugins/Buildin.tmpasm}
+put /local/pcb/tmpasm/plugin          {../src_plugins/Plugin.tmpasm}
+put /local/pcb/tmpasm/disable         {../src_plugins/Disable.tmpasm}
+put /local/pcb/tmpasm/common_enabled  {../src_plugins/Common_enabled.tmpasm}
+put /local/pcb/tmpasm/plugin_sphash   [@../@/local/pcb/librnd_root@/librnd/scconfig/template/plugin_sphash.tmpasm@]
+put /local/pcb/tmpasm/plugin_conf     [@../@/local/pcb/librnd_root@/librnd/scconfig/template/plugin_conf.tmpasm@]
+put /local/pcb/tmpasm/plugin_intconf  [@../@/local/pcb/librnd_root@/librnd/scconfig/template/plugin_intconf.tmpasm@]
+put /local/pcb/tmpasm/plugin_intmenu  [@../@/local/pcb/librnd_root@/librnd/scconfig/template/plugin_intmenu.tmpasm@]
+
+include {../src_plugins/plugins_ALL.tmpasm}
+
+# Lesstif requires that -lXm is before -lXt or else there is a runtime BadWindow error
+order /local/pcb/LDFLAGS {-lXm} {before} {-lXt}
+
+# ---- logic ----
+
+
+# Clean up variables
+uniq /local/pcb/OBJS
+uniq /local/pcb/OBJS_C99
+uniq /local/pcb/OBJS_3RDLIB
+uniq /local/pcb/OBJS_UTIL
+uniq /local/pcb/CFLAGS
+uniq /local/pcb/CFLAGS_GENERIC
+uniq /local/pcb/LDFLAGS
+uniq /local/pcb/LIBS
+uniq /local/pcb/LIBS_PRE
+uniq /local/pcb/LIBS_3RD
+uniq /local/pcb/EXEDEPS
+uniq /local/pcb/CLEANFILES
+uniq /local/pcb/DISTCLEANFILES
+uniq /local/pcb/CLEANRULES
+uniq /local/pcb/all
+put /local/pcb/SRCS /local/pcb/OBJS 
+append /local/pcb/SRCS ?/local/pcb/OBJS_C99
+append /local/pcb/SRCS ?/local/pcb/OBJS_3RDLIB
+gsub /local/pcb/SRCS {.o } {.c }
+
+# Makefile, static
+print [@
+# *** DO NOT EDIT THIS FILE ***
+# This file has been generated from Makefile.in by configure
+# *** DO NOT EDIT THIS FILE ***
+
+ROOT=..
+
+# plugin source
+PLUGDIR=$(ROOT)/src_plugins
+LIBRND_PLUGDIR=$(ROOT)/@/local/pcb/librnd_root@/librnd/plugins
+
+# plugin source install - so that pcb-rnd runs from source properly
+PLUGIDIR=plugins
+
+# src_3rd dir for the lib_ wrapper plugins
+SRC_3RD_DIR=$(ROOT)/src_3rd
+
+@?/local/pcb/TOPVARS@
+OBJS=@/local/pcb/OBJS@
+OBJS_C99=@/local/pcb/OBJS_C99@
+OBJS_3RDLIB=@/local/pcb/OBJS_3RDLIB@ ../src_3rd/libminuid/*.o
+OBJS_UTIL=@/local/pcb/OBJS_UTIL@
+SRCS=@/local/pcb/SRCS@
+CFLAGS=@?cc/argstd/std_c99@ @/local/pcb/CFLAGS@
+C89FLAGS=@/local/pcb/c89flags@ @/local/pcb/CFLAGS@
+LDFLAGS=@/local/pcb/LDFLAGS@
+LIBS_PRE=@/local/pcb/LIBS_PRE@
+LIBS=@/local/pcb/LIBS@ @libs/socket/socket/ldflags@ -lm @?/target/libs/ldl@
+LIBS_3RD=@/local/pcb/LIBS_3RD@
+EXEDEPS=@/local/pcb/EXEDEPS@
+CLEANFILES=@/local/pcb/CLEANFILES@
+CLEANRULES=@/local/pcb/CLEANRULES@
+CC=@/target/cc/cc@
+AR=@/target/fstools/ar@
+HOSTCC=@/host/cc/cc@
+CQUOTE=$(ROOT)/scconfig/cquote
+SPHASH_PATH=$(ROOT)/src_3rd/librnd-local/src_3rd/sphash
+SPHASH=$(SPHASH_PATH)/sphash
+PUPLUG=$(ROOT)/src_3rd/librnd-local/src_3rd/puplug/util/puplug
+GENCONF=$(ROOT)/src_3rd/librnd-local/src/librnd/scconfig/gen_conf.sh
+LIBMINUID_CFLAGS=@/local/pcb/CFLAGS_GENERIC@
+LIBMINUID_LDFLAGS=@cc/ldflags@
+GENLIST_CFLAGS=@/local/pcb/CFLAGS_GENERIC@
+GENLIST_LDFLAGS=@cc/ldflags@
+LIBRND=../@/local/pcb/librnd_root@/librnd
+
+all:
+	$(MAKE) revcheck
+	$(MAKE) maybe_local_librnd
+	$(MAKE) all_exe
+
+include $(ROOT)/Makefile.conf
+
+revcheck:
+	cd $(ROOT)/scconfig && ./revtest Rev.stamp < Rev.tab
+
+all_exe: pcb-rnd$(EXE) @/local/pcb/all@
+
+pcb-rnd$(EXE): $(OBJS) $(OBJS_C99) $(EXEDEPS) $(LIBS_3RD) ../src_3rd/librnd-local/src/librnd-hid.a ../src_3rd/librnd-local/src/librnd-poly.a
+	$(CC) $(OBJS) $(OBJS_C99) -o pcb-rnd$(EXE) $(LIBS_PRE) \
+		../src_3rd/librnd-local/src/librnd-poly.a ../src_3rd/librnd-local/src/librnd-hid.a ../src_3rd/librnd-local/src/librnd-3rd.a \
+		$(LDFLAGS) $(LIBS)
+
+@]
+
+if /local/pcb/librnd_is_local
+then
+print [@
+
+# Temporary for 2.3.x: use local librnd
+maybe_local_librnd:
+	cd ../src_3rd/librnd-local && $(MAKE) all
+
+@]
+else
+print [@
+
+# Temporary for 2.3.x: nop; use system installed librnd
+maybe_local_librnd:
+
+@]
+end
+
+print [@
+
+### pcb-rnd infra ###
+
+$(SPHASH): $(SPHASH_PATH)/sphash.c
+	$(HOSTCC) $(SPHASH_PATH)/sphash.c -o $(SPHASH)
+
+# needed by gsch2pcb-rnd
+../src_3rd/librnd-local/src_3rd/genlist/genadlist.o ../src_3rd/librnd-local/src_3rd/genlist/genlistalloc.o:
+	cd ../src_3rd/librnd-local/src_3rd/genlist && $(MAKE) GENLIST_CFLAGS="$(GENLIST_CFLAGS)" GENLIST_LDFLAGS="$(GENLIST_LDFLAGS)" CC=$(CC)
+
+buildin.c: $(PLUGDIR)/.builtin.pups $(PUPLUG)
+	cd $(PLUGDIR) && $(PUPLUG) buildin.c "-" < $(PLUGDIR)/.builtin.pups > $(ROOT)/src/buildin.c
+
+buildin.h: $(PLUGDIR)/.builtin.pups $(PUPLUG)
+	$(PUPLUG) buildin.h > buildin.h
+
+buildin.hidlib.c: $(PLUGDIR)/.builtin.hidlib.pups $(PUPLUG)
+	cd $(LIBRND_PLUGDIR) && ../../../../$(PUPLUG) buildin.c "-" < ../../../../$(PLUGDIR)/.builtin.hidlib.pups > ../../../../$(ROOT)/src/buildin.hidlib.c
+
+$(LIBRND)/core/buildin.hidlib.h: $(PLUGDIR)/.builtin.hidlib.pups $(PUPLUG)
+	$(PUPLUG) buildin.h > $(LIBRND)/core/buildin.hidlib.h
+
+../src_3rd/libminuid/libminuid.a: ../src_3rd/libminuid/libminuid.c ../src_3rd/libminuid/libminuid.h
+	cd  ../src_3rd/libminuid && $(MAKE) libminuid.a LIBMINUID_CFLAGS="$(LIBMINUID_CFLAGS)" LIBMINUID_LDFLAGS="$(LIBMINUID_LDFLAGS)" CC=$(CC)
+@]
+
+print [@
+##### module rules begin #####
+
+@/local/pcb/RULES@
+
+##### module rules end #####
+
+### default menu embed
+pcb_menu_default.c: pcb-menu-default.lht $(CQUOTE)
+	$(CQUOTE) -n rnd_hidlib_default_embedded_menu <pcb-menu-default.lht > pcb_menu_default.c
+
+pcblib_DATA= \
+	default_font \
+	default2.lht \
+	default4.lht \
+	pcb-menu-default.lht
+
+EXTRA_DIST= \
+	default_font \
+	default2.lht \
+	default4.lht \
+	pcbtest.sh.in
+
+all-local: pcbtest.sh
+
+conf_core_fields.h: conf_core.h $(ROOT)/doc/conf/tree/rc.html
+	AWK=@/host/fstools/awk@ $(GENCONF)  < conf_core.h > conf_core_fields.h
+
+$(LIBRND)/core/hidlib_conf_fields.h: $(LIBRND)/core/hidlib_conf.h $(ROOT)/doc/conf/tree/rc.html
+	AWK=@/host/fstools/awk@ $(GENCONF) < $(LIBRND)/core/hidlib_conf.h > $(LIBRND)/core/hidlib_conf_fields.h
+
+$(ROOT)/doc/conf/tree/rc.html: $(LIBRND)/core/hidlib_conf.h conf_core.h
+	cat conf_core.h $(LIBRND)/core/hidlib_conf.h | AWK=@/host/fstools/awk@ $(GENCONF) $(ROOT)/doc/conf/tree > /dev/null
+
+conf_internal.c: pcb-conf.lht $(CQUOTE)
+	$(CQUOTE) -n pcb_conf_internal < pcb-conf.lht > conf_internal.c
+
+defpcb_internal.c: default4.lht
+	$(CQUOTE) -n default_pcb_internal < default4.lht > defpcb_internal.c
+
+# do not make this automatic, most users won't need to regenerate font_internal.c
+gen_font:
+	$(ROOT)/util/devhelpers/font2c.sh < default_font > font_internal.c
+
+util_deps: $(OBJS) $(OBJS_UTIL) ../src_3rd/librnd-local/src_3rd/genlist/genadlist.o ../src_3rd/librnd-local/src_3rd/genlist/genlistalloc.o
+
+FORCE:
+
+
+DISTCLEANFILES = Makefile.depgen core_lists.h buildin.c buildin.h buildin.hidlib.c $(LIBRND)/core/buildin.hidlib.h $(LIBRND)/core/compat_inc.h $(LIBRND)/core/hidlib_conf_fields.h conf_core_fields.h conf_internal.c defpcb_internal.c pcb_menu_default.c ../src_plugins/.builtin.pups ../src_plugins/.builtin.hidlib.pups $(LIBRND)/core/librnd.mak @/local/pcb/DISTCLEANFILES@
+
+clean: $(CLEANRULES)
+	$(SCCBOX) rm -f -q  pcb-rnd $(OBJS) $(OBJS_C99) $(CLEANFILES)
+
+distclean: FORCE
+	$(SCCBOX) rm -f -q  $(DISTCLEANFILES) plugins
+
+install_pcbrnd:
+	$(SCCBOX) mkdir -p "$(BINDIR)" "$(DATADIR)" "$(LIBDIR)" "$(LIBDIR)/plugins" "$(CONFDIR)"
+	$(SCCBOX) $(HOW) "pcb-rnd$(EXE)" "$(BINDIR)/pcb-rnd$(EXE)"
+	$(SCCBOX) $(HOW) "pcb-conf.lht" "$(CONFDIR)/pcb-conf.lht"
+	$(SCCBOX) $(HOW) "pcb-menu-default.lht" "$(CONFDIR)/pcb-menu-default.lht"
+	$(SCCBOX) $(HOW) "default2.lht" "$(DATADIR)/default2.lht"
+	$(SCCBOX) $(HOW) "default4.lht" "$(DATADIR)/default4.lht"
+	$(SCCBOX) $(HOW) "default_font" "$(DATADIR)/default_font"@/local/pcb/rules/install_@
+
+install_librnd:
+	cp ../scconfig/sccbox ../src_3rd/librnd-local/scconfig/sccbox
+	cd ../src_3rd/librnd-local/src && make install
+
+linstall_librnd:
+	cp ../scconfig/sccbox ../src_3rd/librnd-local/scconfig/sccbox
+	cd ../src_3rd/librnd-local/src && make linstall
+
+uninstall_librnd:
+	cp ../scconfig/sccbox ../src_3rd/librnd-local/scconfig/sccbox
+	cd ../src_3rd/librnd-local/src && make uninstall
+
+@]
+
+# rndlib: build a list of header files to be installed with the hidlib
+put /local/pcb/HDRS_3RDLIB /local/pcb/OBJS_3RDLIB
+put /local/pcb/HDRS_HIDLIB {}
+uniq /local/pcb/HDRS_3RDLIB
+uniq /local/pcb/HDRS_HIDLIB
+gsub /local/pcb/HDRS_HIDLIB {.o } {.h }
+gsub /local/pcb/HDRS_3RDLIB {.o } {.h }
+
+# rndlib: corner case: some headers are not derived from the objects
+sub /local/pcb/HDRS_HIDLIB {$(LIBRND)/core/hid_dlg.h } {}
+sub /local/pcb/HDRS_HIDLIB {$(LIBRND)/core/conf_act.h } {}
+sub /local/pcb/HDRS_HIDLIB {$(LIBRND)/core/gui_act.h } {}
+sub /local/pcb/HDRS_HIDLIB {$(LIBRND)/core/main_act.h } {}
+append /local/pcb/HDRS_HIDLIB {$(LIBRND)/config.h $(LIBRND)/core/global_typedefs.h $(LIBRND)/core/globalconst.h $(LIBRND)/core/math_helper.h $(LIBRND)/core/buildin.hidlib.h $(LIBRND)/core/hid_inlines.h $(LIBRND)/core/rotate.h $(LIBRND)/core/fptr_cast.h $(LIBRND)/core/safe_fs_dir.h $(LIBRND)/core/compat_inc.h $(LIBRND)/poly/rtree2_compat.h $(LIBRND)/core/color_cache.h }
+# compatibility layer: remove this when librnd goes separate:
+append /local/pcb/HDRS_HIDLIB { $(LIBRND)/pcb_compat.h $(LIBRND)/core/pcb-printf.h }
+
+#TODO: remove these
+#gsub /local/pcb/HDRS_3RDLIB {../src_3rd/libulzw/libulzw_[^ ]*.h } {}
+#gsub /local/pcb/HDRS_3RDLIB {../src_3rd/libfungw/fungw_ptr.h ../src_3rd/libfungw/fungw_debug.h ../src_3rd/libfungw/fungw_call.h } {}
+#append /local/pcb/HDRS_3RDLIB {../src_3rd/genrtree/genrtree_api.h ../src_3rd/genrtree/genrtree_impl.h ../src_3rd/genrtree/genrtree_search.h ../src_3rd/genrtree/genrtree_delete.h ../src_3rd/genrtree/genrtree_debug.h }
+#append /local/pcb/HDRS_3RDLIB {../src_3rd/librnd-local/src_3rd/genlist/gentdlist_impl.h ../src_3rd/librnd-local/src_3rd/genlist/gentdlist_undef.h ../src_3rd/librnd-local/src_3rd/genlist/gendlist.h }
+#append /local/pcb/HDRS_3RDLIB {../src_3rd/libulzw/libulzw.h }
+
+# dynamic part of install_pcbrnd: hidlib headers
+foreach /local/h in /local/pcb/HDRS_HIDLIB
+	put /local/hd /local/h
+	switch /local/h
+		case {^$(LIBRND)/}
+			sub /local/hd {$(LIBRND)/} {}
+			end
+		case {^../}
+			sub /local/hd {^[.][.]/} {}
+			end
+		default
+			sub /local/hd {^} {core/}
+			end
+	end
+	print [@	$(SCCBOX) $(HOW) "@/local/h@" "$(HL_INCDIR)/@/local/hd@"@] {\n}
+end
+
+# dynamic part of install_pcbrnd: 3rdlib headers
+foreach /local/h in /local/pcb/HDRS_3RDLIB
+	put /local/hd /local/h
+	switch /local/h
+		case {^../}
+			sub /local/hd {^[.][.]/} {}
+			end
+		default
+			sub /local/hd {^} {src_3rd/}
+			end
+	end
+	print [@	$(SCCBOX) $(HOW) "@/local/h@" "$(HL_INCDIR)/@/local/hd@"@] {\n}
+end
+
+print [@
+
+install:
+	$(MAKE) install_pcbrnd HOW="install -f"
+	$(MAKE) install_librnd
+
+linstall:
+	$(MAKE) install_pcbrnd HOW="linstall -f"
+	$(MAKE) linstall_librnd
+
+uninstall:
+	$(MAKE) install_pcbrnd HOW="uninstall"
+	$(MAKE) uninstall_librnd
+
+# Note: mv and grep are temporary, while ./configure is shared with librnd
+# but build is not: plugin list in tmpasm shouldn't include hidlib plugins
+# while scconfig's plugin list header needs to contain them
+map_plugins:
+	cd ../src_plugins && PUPLUG=../src_3rd/librnd-local/src_3rd/puplug/util/puplug ../@/local/pcb/librnd_root@/librnd/plugins/map_plugins.sh ../src_plugins ../@/local/pcb/librnd_root@/librnd/plugins
+	mv ../src_plugins/plugins_ALL.tmpasm ../src_plugins/plugins_ALL.tmp
+	grep -v "/librnd-local/" < ../src_plugins/plugins_ALL.tmp > ../src_plugins/plugins_ALL.tmpasm
+@]
+
+# generate explicit rules for .c -> .o
+put /local/comp/OBJS /local/pcb/OBJS
+put /local/comp/OBJS_C99 ?/local/pcb/OBJS_C99
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/compile.tmpasm@]
+
+print [@
+# for extern utils:@]
+
+put /local/comp/OBJS /local/pcb/OBJS_UTIL
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/compile.tmpasm@]
+
+# generate deps
+put /local/dep/CFLAGS /local/pcb/CFLAGS
+put /local/dep/SRCS /local/pcb/SRCS
+
+gsub /local/pcb/DEPSRCS {.o } {.c }
+append /local/dep/SRCS /local/pcb/DEPSRCS
+include [@../@/local/pcb/librnd_root@/librnd/scconfig/template/cdep.tmpasm@]
+
+# librnd separation, temporary workaround:
+# since pcb-rnd is trying to build everything without using librnd's build system
+# our local builtins must contain librnd plugins too; but those plugins are
+# in a different subdir. The workaround is extending the file names with local,
+# relative path to that dir.
+put /local/pcb/buildin_hidlib_pups_fullpath ?/local/pcb/buildin_hidlib_pups
+gsub /local/pcb/buildin_hidlib_pups_fullpath {=} [@=../@/local/pcb/librnd_root@/librnd/plugins/@]
+
+redir {../src_plugins/.builtin.pups}
+print [@# Autogenerated by ./configure - do NOT edit - contains the list of buildins (generated from src/Makefile.in)
+@?/local/pcb/buildin_pups@
+@?/local/pcb/buildin_hidlib_pups_fullpath@
+@]
+
+redir {../src_plugins/.builtin.hidlib.pups}
+print [@# Autogenerated by ./configure - do NOT edit - contains the list of buildins for the hidlib
+@?/local/pcb/buildin_hidlib_pups@
+@]
+

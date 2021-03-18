@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd - FAQ </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+<!--AUTO head begin-->
+	<link rel="icon" href="resources/logo16.png">
+<!--AUTO head end-->
+</head>
+<body>
+
+<!--AUTO navbar begin-->
+<table border=0 cellspacing=2 cellpadding=10  bgcolor="#eeeeee" width="100%">
+<tr>
+<th align=center bgcolor="#ccc0cc"> <a href="index.html"> Main </a>
+<th align=center bgcolor="#ccc0cc"> <a href="news.html"> News </a>
+<th align=center bgcolor="#ccc0cc"> <a href="doc.html">Doc</a>&nbsp;&amp;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&amp;&nbsp;<a href="http://repo.hu/projects/pcb-rnd-aux/pool">pool</a>
+<th align=center bgcolor="#ccc0cc"> <a href="support.html"> Support </a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi">People</a>
+<th align=center bgcolor="#ccc0cc"> <a href="http://repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=events">Events</a>&nbsp;&amp;&nbsp;<a href="http://www.repo.hu/cgi-bin/pcb-rnd-people.cgi?cmd=timeline">timeline</a>
+<td align=right width="60%"> <font size="+2"><i>pcb-rnd</i></font> <img src="resources/logo32.png" alt="[pcb-rnd logo]">
+</table>
+<!--AUTO navbar end-->
+
+<br>
+<!--content-->
+<h1> pcb-rnd FAQ </h1>
+
+<h2 id="export"> 1. export </h2>
+
+<h3> 1.1. Gerber export not producing excellon drill files </h3>
+<p>
+That is correct, by default direct gerber export shouldn't
+produce excellon files as excellon is a different format. Direct
+gerber export also won't produce ps or png files.
+<p>
+You have two ways getting excellon files:
+<ul>
+<li> If you need only excellon drill files, you can do a direct export using 
+the execllon export format; on GUI use the "File/Export layout" menu or 
+the {f e} key combination and select excellon; on CLI use -x excellon. 
+Unless you have an CNC router it's unlikely you want drill files only.
+
+<li> What you probably should do instead of direct exporting is CAM 
+exporting, using "File/Export with CAM job..." or {f c} on the GUI or "-x 
+cam jobname" on the CLI. The CAM exporter is designed to invoke multiple 
+export plugins (e.g. gerber and excellon). pcb-rnd is shipped with 
+preconfigured CAM jobs for the most popular fab houses so you get file 
+names you can directly upload to them. If you have a fab not yet 
+supported, please contact me.
+</ul>
+
+<p>
+<small>
+Note: as of 2019, for the transition time, direct exporting to gerber using any of the old 
+naming styles (e.g. "fixed") will still cross-call the excellon export 
+plugin and produce the extra (non-gerber) drill files. It will also 
+generate a bunch of warnings telling you that this feature will be removed 
+soon. You shouldn't depend on this too much.
+</small>
+
+<h2 id="slots"> 2. padstacks </h2>
+
+<h3> 2.1. Intern copper layer shape not rendering </h3>
+<p>
+Does the padstack has a hole? Does the hole drill through any internal
+copper layer (in non-thru-hole case)?
+<p>
+Internal copper layers are special: there are multiple of them. The padstack
+will place the intern shape on any internal copper layer that the padstack's
+hole reaches. If the padstack has no hole, no internal layer shape is
+rendered, even if it is specified.
+
+
+<h2 id="slots"> 3. slots (oval holes) </h2>
+
+<h3> 3.1. My slot doesn't show up on screen or in exports </h3>
+<p>
+Make sure you have the right layer groups and layers set up:
+<ul>
+	<li> a mech layer group with purpose uroute and another with purpose proute for unplated and plated slots
+	<li> make sure there is a layer in each group that has <i>auto</i> in the comb flags - padstack side effects will land only on auto layers; auto layers are indicated with white hatching in the layer selector's layer color
+</ul>
+
+<h2 id="slots"> 4. DSN format </h2>
+<h3> 4.1. There are no holes in padstacks on import </h3>
+<p>
+The DSN format was originally designed for autorouting; an autorouter doesn't
+need to know the geometry of a hole, assuming copper annulus is always around
+the hole. Thus old versions of the file format simply does not have a way
+to describe holes. 
+<p>
+Some software extended the format and use a <i>hole</i> directive that pcb-rnd
+picks up - but if the file does not contain holes, pcb-rnd can't improvise them.
+<p>
+You can use query() to find offending padstacks and use propset() or 
+the padstack editor to install the holes.
+
+<h3> 4.2. There are no silk graphics on subcircuits after import </h3>
+<p>
+The DSN format does not specify silk. There are outline and keepout objects
+in the format and pcb-rnd loads them on special purpose documentation layers.
+The use of these objects vary from tool to tool - some tools will draw the
+bounding box of the part using lines on the outline layer, but other tools
+may just draw a large, rectangular filled polygon.
+<p>
+Use the per subcircuit layer bindings to map them on a board silk layer.
+
+<h3> 4.3. Missing solder mask cutouts and solder paste patterns after import </h3>
+<p>
+The DSN format does not specify solder mask or paste. Please use the padstack
+editor on the affected padstacks.
+
+</body>
+</html>

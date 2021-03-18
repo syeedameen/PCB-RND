@@ -1,0 +1,24 @@
+hash root
+ hash dst
+  text 'key1' = 'val1'
+  text 'key2' = 'val2'
+  symlink 'lnk' = '/'
+  list recurse
+   text '' = 'r1'
+   text '' = 'r2'
+   text '' = 'r3'
+ hash src1
+  text 'key11' = 'val11'
+  text 'key12' = 'val12'
+ hash src2
+  text 'key21' = 'val21'
+  symlink 'lnk' = '/'
+ hash src3
+  text 'key31' = 'val31'
+  symlink 'lnk' = 'foo'
+ hash src4
+  text 'key41' = 'val41'
+  list recurse
+   text '' = 'R40'
+   text '' = 'R41'
+*EOF*

@@ -1,0 +1,3 @@
+# ' on parse level this is valid; some tree walk would result in 'bar: not found''
+symlink 'foo' = 'bar'
+*EOF*

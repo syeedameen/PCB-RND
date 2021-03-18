@@ -1,0 +1,69 @@
+-----merge_hash.lht-----
+  ha:root {
+   ha:src1 {
+    key11 = val11
+    key12 = val12
+   }
+   ha:src2 {
+    sy:lnk = /
+    key21 = val21
+   }
+   ha:dst {
+    sy:lnk = /
+    key1 = val1
+    key2 = val2
+    li:recurse {
+     r1
+     r2
+     r3
+    }
+   }
+   ha:src3 {
+    key31 = val31
+    sy:lnk = foo
+   }
+   ha:src4 {
+    li:recurse {
+     R40
+     R41
+    }
+    key41 = val41
+   }
+  }
+-----text.lht-----
+  li:root {
+   key1 = val1
+   key2 = val2
+   key3 = val3
+   key4 = val4
+   key5 = val5
+   key6 = val6
+   anon1
+   anon2
+   anon3
+   empty = {}
+   empty2 = {}
+   empty3 = {}
+   {}
+   {}
+  }
+-----table.lht-----
+  li: {
+   ta:empty {
+   }
+   ta:non-empty {
+    { 11; 12 }
+    { 21; 22 }
+   }
+  }
+-----table_corners.lht-----
+  li: {
+   ta:empty {
+   }
+   ta:non-empty {
+    rowname0 { 00; 01 }
+    rowname1 { 10; 11 }
+    rowname2 { 20; li:21 { a; b; c; d; } }
+    rowname3 { 30; ha:31 { c = 3; d = 4; a = 1; b = 2; } }
+   }
+  }

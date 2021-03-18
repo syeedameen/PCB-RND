@@ -1,0 +1,48 @@
+---orig
+  ha:{root} [root] entries: 5
+   ha:{src1} entries: 2
+    te:{key11} {val11}
+    te:{key12} {val12}
+   ha:{src2} entries: 2
+    sy:{lnk} {/}
+    te:{key21} {val21}
+   ha:{dst} entries: 4
+    sy:{lnk} {/}
+    te:{key1} {val1}
+    te:{key2} {val2}
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {r1}
+     te:{} {r2}
+     te:{} {r3}
+   ha:{src3} entries: 2
+    te:{key31} {val31}
+    sy:{lnk} {foo}
+   ha:{src4} entries: 2
+    li:{recurse} FIRST te:{} LAST te:{}
+     te:{} {R40}
+     te:{} {R41}
+    te:{key41} {val41}
+---new
+  ha:{root} [root] [nodoc] entries: 5
+   ha:{src1} [nodoc] entries: 2
+    te:{key11} [nodoc] {val11}
+    te:{key12} [nodoc] {val12}
+   ha:{src2} [nodoc] entries: 2
+    sy:{lnk} [nodoc] {/}
+    te:{key21} [nodoc] {val21}
+   ha:{dst} [nodoc] entries: 4
+    sy:{lnk} [nodoc] {/}
+    te:{key1} [nodoc] {val1}
+    te:{key2} [nodoc] {val2}
+    li:{recurse} [nodoc] FIRST te:{} LAST te:{}
+     te:{} [nodoc] {r1}
+     te:{} [nodoc] {r2}
+     te:{} [nodoc] {r3}
+   ha:{src3} [nodoc] entries: 2
+    te:{key31} [nodoc] {val31}
+    sy:{lnk} [nodoc] {foo}
+   ha:{src4} [nodoc] entries: 2
+    li:{recurse} [nodoc] FIRST te:{} LAST te:{}
+     te:{} [nodoc] {R40}
+     te:{} [nodoc] {R41}
+    te:{key41} [nodoc] {val41}

@@ -1,0 +1,11 @@
+li:{
+	ta:empty {
+	}
+
+	ta:non-empty {
+		rowname0={00; 01}
+		rowname1={te:10; 11}
+		rowname2={20; li:21={a;b;c;d}}
+		rowname3={30; ha:31={a=1;b=2;c=3;d=4}}
+	}
+}

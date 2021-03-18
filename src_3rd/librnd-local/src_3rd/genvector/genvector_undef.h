@@ -1,0 +1,26 @@
+#ifndef GVT_DONT_UNDEF
+#	undef GVT
+#	undef GVTTYPE
+#	undef GVT_TERMSIZE
+#	undef GVT_ELEM_TYPE
+#	undef GVT_SIZE_TYPE
+#	undef GVT_DOUBLING_THRS
+#	undef GVT_START_SIZE
+#	undef GVT_TERM
+#	undef GVT_STRLEN
+#	undef GVT_REALLOC
+#	undef GVT_FREE
+#	undef GVT_USER_FIELDS
+#	undef GVT_NEED_APPEND_ARRAY
+#	undef GVT_FUNC
+#	undef GVT_SET_NEW_BYTES_TO
+#	undef GVT_ELEM_CONSTRUCTOR
+#	undef GVT_ELEM_COPY
+#	undef GVT_ELEM_DESTRUCTOR
+#	undef GVT_INIT_ELEM_FUNC
+#	undef GVT_OPTIONAL_NO_REALLOC
+#endif
+
+
+
+

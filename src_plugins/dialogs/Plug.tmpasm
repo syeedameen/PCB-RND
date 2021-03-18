@@ -1,0 +1,27 @@
+put /local/pcb/mod {dialogs}
+put /local/pcb/mod/OBJS [@
+ $(PLUGDIR)/dialogs/dialogs.o
+ $(PLUGDIR)/dialogs/dlg_about.o
+ $(PLUGDIR)/dialogs/dlg_export.o
+ $(PLUGDIR)/dialogs/dlg_flag_edit.o
+ $(PLUGDIR)/dialogs/dlg_fontsel.o
+ $(PLUGDIR)/dialogs/dlg_layer_binding.o
+ $(PLUGDIR)/dialogs/dlg_layer_flags.o
+ $(PLUGDIR)/dialogs/dlg_infobar.o
+ $(PLUGDIR)/dialogs/dlg_lib_pstk.o
+ $(PLUGDIR)/dialogs/dlg_library.o
+ $(PLUGDIR)/dialogs/dlg_loadsave.o
+ $(PLUGDIR)/dialogs/dlg_padstack.o
+ $(PLUGDIR)/dialogs/dlg_pref.o
+ $(PLUGDIR)/dialogs/dlg_view.o
+@]
+
+put /local/pcb/mod/CONFFILE {adialogs.conf}
+put /local/pcb/mod/CONF {$(PLUGDIR)/dialogs/adialogs_conf.h}
+put /local/pcb/mod/CONFVAR {adialogs_conf_internal}
+
+switch /local/pcb/dialogs/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

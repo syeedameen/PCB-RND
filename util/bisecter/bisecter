@@ -1,0 +1,339 @@
+#!/bin/sh
+#
+#   bisecter - cached svn bisection
+#   Copyright (C) 2017 Tibor 'Igor2' Palinkas
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License along
+#   with this program; if not, write to the Free Software Foundation, Inc.,
+#   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#   http://repo.hu/projects/pcb-rnd
+#
+
+if test -z "$CONF"
+then
+	CONF="./bisecter.conf"
+fi
+
+if test ! -f "$CONF"
+then
+	echo "Can't find the config file $CONF; please copy bisect.conf.in to $CONF and edit" >&2
+	exit 1
+fi
+
+. $CONF
+mkdir -p "$cache"
+
+wlog()
+{
+	echo "$*"
+}
+
+svn_list_externs()
+{
+	svn --xml stat "$1" | awk '
+		BEGIN { q="\"" }
+		function strip(s) {
+			sub("^[^=]*=" q, "", s)
+			sub(q ".*$", "", s)
+			return s
+		}
+		/[<]entry/ { state=1 }
+		(state == 1) && /path=\"/ { path=strip($0) }
+		(state == 1) && /wc-status/ { state = 2 }
+		(state == 2) && /item=\"/ { item=strip($0) }
+		/[<]\/entry/ {
+			if ((item == "external") && (path != ""))
+				print path
+			item=""
+			path=""
+			state = 0
+		}
+	'
+}
+
+svn_get_date()
+{
+	svn info "$1" | awk '
+		/Last Changed Date:/ {
+			print $4, $5
+		}
+	'
+}
+
+svn_get_rev()
+{
+	svn info "$1" | awk '
+		/Last Changed Rev:/ {
+			print $4
+		}
+	'
+}
+
+svn_co()
+{
+	local rev=$1 dt e
+	svn checkout $url@$rev "$tmp/$rev"
+	dt=`svn_get_date "$tmp/$rev"`
+	for e in `svn_list_externs "$tmp/$rev"`
+	do
+		svn up $e -r "{$dt}"
+	done
+}
+
+svn_cleanup()
+{
+	local rev=$1
+	rm -rf "$tmp/$rev"
+}
+
+cache_save()
+{
+	local rev=$1 exebn
+	exebn=`basename $exe`
+
+	cp "$tmp/$rev/$exe" "$cache/$exebn.$rev"
+	if test ! -z "$cache_strip"
+	then
+		eval $cache_strip "$cache/$exebn.$rev" $redir
+	fi
+
+	if test ! -z "$cache_compress"
+	then
+		eval $cache_compress "$cache/$exebn.$rev" $redir
+	fi
+}
+
+cache_build()
+{
+	local rev=$1 save=$2 redir=">>log.$1 2>&1" exebn
+
+	(echo -n "#########################################"; date) >> log.$1
+
+	wlog "Checkout r$1"
+	eval "svn_co $rev $redir"
+
+	wlog "Compile r$1"
+	eval "(cd \"$tmp/$rev\" && ./configure $confopts && make) $redir"
+
+	if test ! -f "$tmp/$rev/$exe"
+	then
+		echo '#!/bin/sh
+		      echo Sorry, revision '$rev' can not be compiled.' > "$tmp/$rev/$exe"
+		chmod +x "$tmp/$rev/$exe"
+	fi
+
+	if test "0$save" -gt 0
+	then
+		exebn=`basename $exe`
+		cp "$tmp/$rev/$exe" "./$exebn.$rev"
+	fi
+
+	wlog "Cache save r$1"
+	cache_save "$rev"
+
+	wlog "Cleanup r$1"
+	eval svn_cleanup $rev $redir
+
+	mv log.$1 $cache
+	if test ! -z "$cache_compress"
+	then
+		$cache_compress "$cache/log.$1"
+	fi
+}
+
+cache_get()
+{
+	local rev=$1 exebn
+
+	exebn=`basename $exe`
+
+	if test -f "$cache/$exebn.$rev$cache_compsuffix"
+	then
+		echo "Retrieving $exebn.$rev from cache..."
+		cp $cache/$exebn.$rev$cache_compsuffix .
+		if test ! -z "$cache_decompress"
+		then
+			$cache_decompress "$exebn.$rev$cache_compsuffix"
+		fi
+	else
+		cache_build $rev 1
+	fi
+}
+
+run()
+{
+	local rev=$1 exebn
+
+	shift 1
+	exebn=`basename $exe`
+
+	cache_get $rev
+	./$exebn.$rev \
+		-c "rc/default_font_file=" \
+		-c "rc/default_pcb_file=" \
+		"$@"
+	rm $exebn.$rev
+}
+
+bisect()
+{
+	local first="$1" last="$2"
+
+	if test -z "$first"
+	then
+		first=$first_rev
+	fi
+
+	if test -z "$last"
+	then
+		last=`svn_get_rev $url`
+	fi
+
+	gawk -v "first=$first" -v "last=$last" '
+		BEGIN {
+			print "Bisecting between " first " and " last ", inclusive"
+			print "Usage:"
+			print "  Type \"rev good\" or \"rev bad\""
+			print "  (rev is the revision number you ran; can be omitted when the)"
+			print "  it is the revision that the script last offered)"
+			print ""
+			last_good=first
+			first_bad=last
+			offer()
+		}
+
+		function offer() {
+			if (last_good+1 == first_bad) {
+				print ""
+				print "-------- Result --------"
+				print "last_good=" last_good " first_bad=" first_bad
+				exit 0
+			}
+			offered=int((last_good+first_bad)/2)
+			tries=int(log(first_bad-last_good)/log(2) + 0.5)
+			print ""
+			print "(last_good=" last_good " first_bad=" first_bad " in about " tries " tries)"
+			print "Next rev to test: " offered
+			printf "> "
+			fflush()
+		}
+
+		{
+			rev=$1
+			if (rev != int(rev)) {
+				rev = offered
+				res = tolower($1)
+			}
+			else
+				res=tolower($2)
+			if (rev <= last_good) {
+				print "rev error " rev ": too low"
+				flush
+				next
+			}
+			if (rev > first_bad) {
+				print "rev error " rev ": too high"
+				flush
+				next
+			}
+
+			if (res == "good")
+				last_good = rev
+			else if (res == "bad")
+				first_bad = rev
+			else {
+				print "Syntax error " $2 ": please say good or bad"
+				flush
+				next
+			}
+
+			offer()
+		}
+	'
+}
+
+near()
+{
+	local rev=$1 exebn
+	exebn=`basename $exe`
+	ls $cache/$exebn.* | gawk -v "front=$cache/$exebn." -v "rev=$rev" '
+	BEGIN {
+		fl=length(front)
+		rev=int(rev)
+	}
+	{
+		r = substr($0, fl+1)
+		sub("[.].*$", "", r)
+		r = int(r)
+		print r
+	}
+	' | sort -n | gawk -v "rev=$rev" '
+	{
+		r=$0
+		if (r == rev) {
+			print r
+			found = 1
+			exit
+		}
+		if (r > rev) {
+			print last, r
+			found = 1
+			exit
+		}
+		last = r
+	}
+	END {
+		if (!found)
+			print last
+	}
+	'
+}
+
+help()
+{
+	echo "bisecter - support bisecting by cached executables"
+	echo ""
+	echo "Usage: ./bisecter command [args]"
+	echo "Commands:"
+	echo "  build rev       force check out and build rev"
+	echo "  get rev         get the executable of rev in CWD (build if needed)"
+	echo "  co rev          safely check out rev in tmp, but do not compile"
+	echo "  run rev [args]  get rev and run it with args"
+	echo "  near rev        print revisions present in the cache that are close to rev"
+	echo "  bisect [st end] bisect suggestions, optionally between revisions st and end"
+	echo "  help            this help screen"
+	echo ""
+}
+
+cmd="$1"
+if test -z "$cmd"
+then
+	help
+	exit 1
+fi
+
+shift 1
+
+case "$cmd"
+in
+	build) cache_build "$@" ;;
+	get) cache_get "$@" ;;
+	co|checkout) svn_co "$@" && echo "checked out to $tmp/$rev/$1" ;;
+	run) run "$@" ;;
+	bisect) bisect "$@" ;;
+	near) near "$@" ;;
+	*) help ;;
+esac
+
+

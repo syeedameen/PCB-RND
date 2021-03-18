@@ -1,0 +1,16 @@
+list root
+ text 'key1' = 'val1'
+ text 'key2' = 'val2'
+ text 'key3' = 'val3'
+ text 'key4' = 'val4'
+ text 'key5' = 'val5'
+ text 'key6' = 'val6'
+ text '' = 'anon1'
+ text '' = 'anon2'
+ text '' = 'anon3'
+ text 'empty' = ''
+ text 'empty2' = ''
+ text 'empty3' = ''
+ text '' = ''
+ text '' = ''
+*EOF*

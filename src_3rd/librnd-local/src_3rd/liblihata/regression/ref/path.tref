@@ -1,0 +1,11 @@
+  ha:{root} [root] entries: 2
+  te:{key} {0}
+  te:{key} {1}
+  te:{key} {2}
+  te:{key} {3}
+Path error: path not found
+  * node is NULL *
+---
+  li:{rt} [root] FIRST te:{text} LAST sy:{symlink}
+  te:{text} {textnode}
+  li:{rt} [root] FIRST te:{text} LAST sy:{symlink}

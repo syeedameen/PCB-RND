@@ -1,0 +1,16 @@
+put /local/pcb/mod {asm}
+put /local/pcb/mod/CONF {$(PLUGDIR)/asm/asm_conf.h}
+put /local/pcb/mod/CONFFILE {asm.conf}
+put /local/pcb/mod/CONFVAR {asm_conf_internal}
+put /local/pcb/mod/MENUFILE {asm-menu.lht}
+put /local/pcb/mod/MENUVAR {asm_menu}
+put /local/pcb/mod/OBJS [@
+	$(PLUGDIR)/asm/asm.o
+@]
+
+
+switch /local/pcb/asm/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

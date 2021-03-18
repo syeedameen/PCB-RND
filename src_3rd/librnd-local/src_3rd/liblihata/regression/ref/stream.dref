@@ -1,0 +1,7 @@
+li:{x} [root] FIRST sy:{foo} LAST te:{bar3}
+ sy:{foo} {bar}
+ te:{bar1} {baz}
+ li:{hah} 
+ te:{bar2} {baz}
+ ha:{heh} entries: 0
+ te:{bar3} {baz}

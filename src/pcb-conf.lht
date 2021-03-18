@@ -1,0 +1,299 @@
+li:pcb-rnd-conf-v1 {
+	ha:overwrite {
+		ha:editor {
+			grid_unit = mil
+			grid = 25 mil
+			li:grids = {
+				{0.1 mil}; {1 mil}; {5 mil}; {10 mil}; {25 mil}; {50 mil}; {100 mil};
+				{0.01 mm}; {0.05 mm}; {0.1 mm}; {0.25 mm}; {0.5 mm}; {1 mm};
+			}
+			grids_idx = 4
+			zoom = 1
+			mode = -1
+			buffer_number = 0
+			clear_line = 1
+			clear_polypoly = 0
+			full_poly = 0
+			unique_names = 0
+			marker_snaps = 1
+			snap_pin = 1
+			snap_offgrid_line = 1
+			highlight_on_point = 0
+			show_solder_side = 0
+			save_last_command = 0
+			save_in_tmp = 0
+			draw_grid = 1
+			all_direction_lines = 0
+			line_refraction = 1
+			rubber_band_mode = 0
+			rubber_band_keep_midlinedir = 0
+			swap_start_direction = 0
+			show_drc = 0
+			auto_drc = 0
+			conn_find_rat = 1
+			show_number = 0
+			orthogonal_moves = 0
+			reset_after_element = 1
+			trace_auto_merge = 1
+			auto_place = 0
+			lock_names = 0
+			only_names = 0
+			thin_draw = 0
+			thin_draw_poly = 0
+			as_drawn_poly = 0
+			wireframe_draw = 0
+			local_ref = 0
+			check_planes = 0
+			hide_names = 0
+			description = 0
+			name_on_pcb = 1
+			enable_stroke = 1
+			live_routing = 0
+			beep_when_finished = 0
+			click_time = 200
+			click_objlist = 0
+			auto_via = 1
+			drc_inclusive_bbox = 0;
+			io_incomp_popup = 1
+			io_incomp_style = list
+			ha:view {
+				flip_x = 0
+				flip_y = 0
+			}
+			ha:selection {
+				disable_negative = 0
+				symmetric_negative = 0
+			}
+			undo_warning_size = 1024
+			fullscreen = 0
+			move_linepoint_uses_route = 1
+			subc_conv_refdes = U0
+		} # editor
+
+		ha:rc {
+			verbose = 0
+			quiet = 0
+			file_changed_interval = 2
+			backup_interval = 60
+			hid_fallback = 1
+			brave = {}
+			menu_file = {default}
+#			font_command = {}
+#			file_command = {}
+#			file_path = {}
+			library_shell = {}
+			export_basename = 0
+
+			emergency_name = {PCB.%ld.save}
+			emergency_format = {lihata}
+			backup_name = {%F.%P.backup}
+			backup_format = {lihata}
+
+			li:library_search_paths = {
+				?../pcblib
+				?~/pcblib/
+				$(rc.path.share)/pcblib
+			}
+
+			keep_save_backups = false
+			save_command = {}
+
+			li:default_font_file = {
+				{./default_font}
+				{$(rc.path.share)/default_font}
+			}
+			li:default_pcb_file = {
+				{./default4.lht}
+				{$(rc.path.share)/default4.lht}
+			}
+
+#			script_filename = {}
+#			action_string = {}
+#			rat_path = {}
+#			rat_command = {}
+			li:preferred_gui = { gtk2_gl; gtk2_gdk; lesstif; batch }
+			save_final_fallback_fmt = lihata
+			save_fp_fmt = lihata
+		} # rc
+
+		ha:design {
+# old DRC (design rule checked) section
+			bloat = 12.00 mil
+			shrink = 9.00 mil
+			min_drill = 15.00 mil
+			min_ring = 10.00 mil
+			min_slk = 7.00 mil
+			min_wid = 10.00 mil
+			line_thickness = 10.00 mil
+			clearance = 20.00 mil
+			poly_isle_area = 200000000.2
+
+			via_thickness = 2000.00 um
+			via_drilling_hole = 31.50 mil
+
+			text_scale = 100
+			text_thickness = 0
+			text_font_id = 0
+#			poly_isle_area = 0
+#			background_image = {}
+#			fab_author = {}
+			paste_adjust = 0
+		} # design
+
+		ha:appearance {
+			compact = 1
+			rat_thickness = 0.25 mm
+			mark_size = 50 mil
+			layer_alpha = 0.75
+			drill_alpha = 0.85
+			text_host_bbox = true
+			term_label_size = 50
+			subc_layer_per_side = 1
+			invis_other_groups = 0
+			black_current_group = 0
+			smart_labels = 0
+			label_thickness = 1nm
+
+			ha:loglevels {
+				debug_tag      = {}
+				debug_popup    = false
+				info_tag       = {}
+				info_popup     = false
+				warning_tag    = {<B>}
+				warning_popup  = true
+				error_tag      = {<R>}
+				error_popup    = true
+			}
+			ha:color {
+				background = {#e5e5e5}
+				cross = {#cdcd00}
+				mark = {#ff0000}
+				attached = {#ff0000}
+				drc = {#cdcd00}
+				selected = {#00ffff}
+				via = {#707070}
+				via_far = {#a0a0a0}
+				pin = {#404040}
+				pin_far = {#707070}
+				pin_name = {#ff0000}
+				element = {#000000}
+				subc = {#CC0000}
+				subc_nonetlist = {#cc9900}
+				extobj = {#EE0000}
+				padstackmark = {#cc0000}
+				rat = {#b8860b}
+				invisible_objects = {#cccccc}
+				connected = {#00ff00}
+				off_limit = {#aaaaaa}
+				grid = {#ff0000}
+				li:layer = {
+					{#8b2323}; {#3a5fcd}; {#104e8b}; {#cd3700}; {#548b54};
+					{#8b7355}; {#00868b}; {#228b22}; {#8b2323}; {#3a5fcd};
+					{#104e8b}; {#cd3700}; {#548b54}; {#8b7355}; {#00868b};
+					{#228b22};
+					{#8b2323}; {#3a5fcd}; {#104e8b}; {#cd3700}; {#548b54};
+					{#8b7355}; {#00868b}; {#228b22}; {#8b2323}; {#3a5fcd};
+					{#104e8b}; {#cd3700}; {#548b54}; {#8b7355}; {#00868b};
+					{#228b22};
+					{#8b2323}; {#3a5fcd}; {#104e8b}; {#cd3700}; {#548b54};
+					{#8b7355};
+				}
+				warn = {#ff8000}
+				mask = {#ff0000}
+				paste = {#cd00cd}
+			}
+			ha:padstack {
+				cross_thick = 1
+				cross_size = 0.1 mm
+			}
+			ha:subc {
+				dash_freq = 5
+			}
+			ha:messages {
+#				char_per_line = 0
+			}
+#			ha:misc {
+#				volume = 0
+#			} misc;
+		} # appearance;
+
+		ha:import {
+			ha:footprint_placement {
+				method = frame
+			}
+			ha:footprint_removal {
+				method = remove
+			}
+			ha:alien_format {
+				poly_side_clearance = false
+			}
+		}
+
+		ha:plugins {
+			ha:lib_hid_common {
+				ha:cli_history {
+					file = {$(rc.path.home)/.pcb-rnd/cli_history}
+					slots = 64
+				}
+			}
+			ha:io_lihata {
+				aux_pcb_pattern = {%D.%B.lht.pcb}
+			}
+			ha:mincut {
+				enable = 1
+			}
+			ha:djopt {
+				auto_only = 1
+			}
+			ha:diag {
+				auto_integrity = 0
+			}
+			ha:import_sch {
+				gnetlist_program = gnetlist
+				make_program = make
+				verbose = false
+			}
+			ha:import_mentor_sch {
+				li:map_search_paths = {
+					{./mentor_parts.map}
+					{$(rc.path.share)/mentor_parts.map}
+				}
+			}
+			ha:hid_gtk {
+				ha:local_grid {
+					enable = 0
+					radius = 16
+				}
+				ha:global_grid {
+					sparse = 0
+					min_dist_px = 4
+				}
+				ha:dialog {
+					transient_modal = 1
+					transient_modeless = 1
+					auto_present = 0
+				}
+			}
+			ha:report {
+				columns = 8
+			}
+			ha:fp_wget {
+				auto_update_gedasymbols = 0
+				auto_update_edakrill = 0
+			}
+			ha:export_gerber {
+				plated_g85_slot = 0
+				unplated_g85_slot = 0
+			}
+		} # plugins
+
+		ha:utils {
+			ha:gsch2pcb-rnd {
+				remove_unfound_elements = 1
+				quiet_mode = 0
+				verbose = 0
+			}
+		} # utils
+	} # main
+} # root
+

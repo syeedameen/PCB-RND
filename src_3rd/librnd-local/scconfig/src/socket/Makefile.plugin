@@ -1,0 +1,19 @@
+SOCKET_CFLAGS = -DPLUGIN_SOCKET
+SOCKET_OBJS = \
+  $(BIN)/socket/socket.o \
+  $(BIN)/socket/find_select.o \
+  $(BIN)/socket/find_dns.o \
+  $(BIN)/socket/find_socket.o
+
+
+$(BIN)/socket/find_socket.o: $(SRC)/socket/find_socket.c
+	$(CC) $(CFLAGS) -c $(SRC)/socket/find_socket.c -o $(BIN)/socket/find_socket.o
+
+$(BIN)/socket/socket.o: $(SRC)/socket/socket.c
+	$(CC) $(CFLAGS) -c $(SRC)/socket/socket.c -o $(BIN)/socket/socket.o
+
+$(BIN)/socket/find_select.o: $(SRC)/socket/find_select.c
+	$(CC) $(CFLAGS) -c $(SRC)/socket/find_select.c -o $(BIN)/socket/find_select.o
+
+$(BIN)/socket/find_dns.o: $(SRC)/socket/find_dns.c
+	$(CC) $(CFLAGS) -c $(SRC)/socket/find_dns.c -o $(BIN)/socket/find_dns.o

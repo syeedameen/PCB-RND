@@ -1,0 +1,3 @@
+- no preifx shouldn't use test_ as prefix
+- documentation (manual page)
+- better regression testing

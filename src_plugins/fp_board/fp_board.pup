@@ -1,0 +1,7 @@
+$class fp
+$short footprint library from boards
+$long Footprint: load a board and expose all the unique subcircuits on that board as a footprint library
+$state WIP
+$package (core)
+default buildin
+autoload 1

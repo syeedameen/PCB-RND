@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../default.css">
+</head>
+<body>
+<h1 nopdf="yes"> pcb-rnd - user manual </h1>
+
+<h2> 3. Where Data Is Stored </h2>
+<p>
+Pcb-rnd enables the user to design complex original boards in a standard EDA
+flow with netlists and other data inputs that aide in design. pcb-rnd also
+acts as a multiuse layout design CAD, opening board designs saved in a variety
+of legacy and contemporary software.
+<p>
+The user can import a variety of non-layout data sources commonly used in EDA
+flow. Schematics from gschem or kicad, netlists, reference images, tinyCAD,
+and more are available to the user.
+
+<h3> 3.1. Board </h3>
+<p>
+pcb-rnd can edit a single board at a time. To edit multiple boards, open
+multiple instances of pcb-rnd.
+
+<h3> 3.2. Paste Buffer</h3>
+There are multiple paste buffers available in pcb-rnd. The user can select
+one of them to be active - most buffer operations will work with the active
+buffer.
+<p>
+Buffers are board-independent: they have their own dynamic size and their
+own virtual layer stack. These enable buffers to act as a proxy between
+different boards with different properties.
+<p>
+The following operations can be done with buffers:
+<ul>
+	<li> clear: the content of the buffer is discarded
+	<li> copy from layout: copy objects from the layout to the buffer
+	<li> paste to layout: copy objects from the buffer to the layout
+	<li> load: load buffer from file (including footprints/subcircuits from the library)
+	<li> save subcircuit: save elements/subcircuits from buffer to file
+	<li> build a subcircuit in a buffer, from the objects stored in the buffer
+	<li> build a padstack in a buffer, from the objects stored in the buffer
+	<li> break up a subcircuit in a buffer
+<!--	<li> break up a padstack in a buffer -->
+	<li> rotate
+	<li> mirror
+</ul>
+
+<h3> 3.3. Footprint Libraries</h3>
+<h4> 3.3.1. Library handling </h4>
+<p>
+A footprint library is a collection of subcircuit files, optionally
+equipped with metadata. A footprint library is stored and accessed by
+footprint plugins (whose names are conventionally prefixed with fp_).
+Where the actual data is stored, how and when it is retrieved depends
+on the fp_ plugin.
+<p>
+There is a configuration node called <i>rc/library_search_paths</i> which
+is a list of footprint library search paths. How each path is interpreted
+also depends on the fp_ plugins.
+<p>
+Currently pcb-rnd offers the following fp_ plugins:
+<table border=1>
+	<tr><th>plugin <th> description <th> library_search_paths example
+	<tr><td>fp_fs
+		<td> list and load files from directories on the host file system
+		<td> ~/my_lib <br> /usr/lib/company_lib <br> $(rc.path.share)/pcblib
+	<tr><td>fp_board
+		<td> extract all footprints from an existing board file (given in
+		     any board format pcb-rnd can load) and use these footprints as
+		     a library
+		<td> board@/home/joe/ee/control/cpu.lht
+	<tr><td>fp_wget
+		<td> download a digested map of a footprint library from a web server,
+		     using wget; make all footprints and metadata available in the
+		     library but do not immediately download footprint files; keep
+		     a local (host file system) cache of footprints accessed. Currently
+		     supports <a href="http://repo.hu/projects/edakrill">edakrill</a>
+		     and <a href="http://www.gedasymbols.org">gedasymbols</a>.
+		<td> wget@edakrill <br> wget@gedasymbols
+</table>
+
+<h4> 3.3.2. footprint types </h4>
+<p>
+There are two types of footprints:
+<ul>
+	<li> static (file) footprints; and
+	<li> parametric (generated) footprints.
+</ul>
+<p>
+A static footprint is a data file that is loaded and parsed by one of
+the io_ plugins. pcb-rnd supports multiple file formats: the native lihata
+subcircuit format, kicad, eagle, gEDA footprints.
+<p>
+A parametric footprint is an external program or script that is executed
+by pcb-rnd. The external program shall write a valid footprint file to its
+standard output, which is then parsed and used the same way as in case of
+static footprints. The external program gets a list of parameters
+extracted from the footprint name by pcb-rnd.
+<p>
+The basic syntax for a parametric footprint is <i>name(arg1, arg2, ...
+argN)</i>. Any footprint name that contains a '(' is treated as parametric.
+The list of arguments is separated by commas. How arguments are interpreted,
+e.g. whether the are positional or named or both, is up to the external
+parametric footprint program.
+<p>
+The footprint programs are stored in the library tree, and are accessed
+using the fp_ plugins. There is no limitation on how the program is implemented
+other than the host operating system on which pcb-rnd runs has to be able to
+execute it.
+
+
+<h3> 3.4. file formats</h3>
+<p>
+pcb-rnd operates on an in-memory data tree of the board while it is being edited.
+The in-memory data tree can not be dumped in a file without conversion: loading
+any file means converting the given file format to the in-memory representation
+and saving from memory to any file format is just another conversion.
+
+<p>
+Lossless save/load round trips for all pcb-rnd features are guaranteed
+only when using the latest version of the native formats. The reason is
+that the native formats are always upgraded to support all features of
+the in-memory data model. It is possible (but not recommended) to use
+older versions of the native formats to retrain compatibility with older
+versions of pcb-rnd.
+
+<p>
+The <i>native</i> file formats of pcb-rnd are:
+<ul>
+	<li> lihata board for PCBs
+	<li> lihata subcircuit for footprints
+	<li> lihata based pcb-rnd-conf for configuration data
+</ul>
+
+<p>
+Non-native file formats are called <i>alien</i> formats. pcb-rnd supports
+a large variety of alien formats, but lossless save/load round trips are
+not guaranteed when alien formats are used. The code will always do its best
+to get good results, but different alien formats have different features,
+and most of them can not fully capture all features pcb-rnd offers.
+
+<p id="io">
+Some alien formats are implemented as io_ plugins and are accessible
+as normal board (and footprint) file formats directly from the load/save
+infrastructure and footprint library. These formats are trying to capture
+all details of the board (or footprint) and are usually close to
+producing lossless save/load round trips. 
+
+<p>
+Other alien formats are supported through import_ or export_ plugins.
+These formats do not capture enough aspects of a board (or footprint) to
+be used as a full load or save, round trip of any sort is impossible.
+
+<p>
+Typical export example is render outputs: png, ps, gerber are all
+export_ plugins: they export one aspect (geometry and sometimes layering)
+of the board, but do not export other aspects such as connections,
+subcircuits or padstack structure. Lacking that information, the exported
+board can never be loaded as a board from png, ps or gerber.
+
+<p>
+Typical import example is netlist (or schematics): it deals with one aspect
+of the project, connection info, and lacks any physical information such
+as geometry or layers. It is possible to import one aspect of the design from
+a netlist (or schematics), but it is not possible to reconstruct a full board
+using only the netlist information.
+
+<p>
+<img src="../09_appendix/bridges.svg" alt="a map of pcb-rnd format support">
+
+<p>
+For a detailed list of formats, please refer to
+<a href="../09_appendix/formats.html"> the list of supported file formats</a>
+in the appendix.
+
+

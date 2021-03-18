@@ -1,0 +1,48 @@
+---orig
+  li:{} [root] FIRST ta:{empty} LAST ta:{non-empty}
+   ta:{empty} cols: 0, rows: 0
+   ta:{non-empty} cols: 2, rows: 4
+    Row 0:{rowname0}
+     te:{} {00}
+     te:{} {01}
+    Row 1:{rowname1}
+     te:{} {10}
+     te:{} {11}
+    Row 2:{rowname2}
+     te:{} {20}
+     li:{21} FIRST te:{} LAST te:{}
+      te:{} {a}
+      te:{} {b}
+      te:{} {c}
+      te:{} {d}
+    Row 3:{rowname3}
+     te:{} {30}
+     ha:{31} entries: 4
+      te:{c} {3}
+      te:{d} {4}
+      te:{a} {1}
+      te:{b} {2}
+---new
+  li:{} [root] [nodoc] FIRST ta:{empty} LAST ta:{non-empty}
+   ta:{empty} [nodoc] cols: 0, rows: 0
+   ta:{non-empty} [nodoc] cols: 2, rows: 4
+    Row 0:{rowname0}
+     te:{} [root] [nodoc] {00}
+     te:{} [root] [nodoc] {01}
+    Row 1:{rowname1}
+     te:{} [root] [nodoc] {10}
+     te:{} [root] [nodoc] {11}
+    Row 2:{rowname2}
+     te:{} [root] [nodoc] {20}
+     li:{21} [root] [nodoc] FIRST te:{} LAST te:{}
+      te:{} [nodoc] {a}
+      te:{} [nodoc] {b}
+      te:{} [nodoc] {c}
+      te:{} [nodoc] {d}
+    Row 3:{rowname3}
+     te:{} [root] [nodoc] {30}
+     ha:{31} [root] [nodoc] entries: 4
+      te:{c} [nodoc] {3}
+      te:{d} [nodoc] {4}
+      te:{a} [nodoc] {1}
+      te:{b} [nodoc] {2}

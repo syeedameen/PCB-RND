@@ -1,0 +1,93 @@
+# use table_ins_col to test lihata 'insert new column' functionality
+
+echo -----test 1-----
+	echo insert one column to empty table
+	
+	load_doc D1 ta.lht
+	
+	root N1 D1
+	
+	path N1 empty
+	
+	echo **before**
+	print_tree N1
+	
+	table_ins_col N1 0
+	
+	echo **after**
+	
+	print_tree N1
+
+echo -----test 2-----
+	echo add one row
+	
+	echo **before**
+	print_tree N1
+	
+	table_ins_row N1 0
+	
+	echo **after**
+	
+	print_tree N1
+
+echo -----test 3-----
+	echo insert column (parameter 0)
+	
+	echo **before**
+	
+	new_text N5 AAA
+	equ_node N2 N1
+	table_cell N2 0 0
+	replace N2 N5
+	
+	print_tree N1
+	
+	echo **after**
+	
+	
+	table_ins_col N1 0
+	
+	new_text N5 BBB
+	equ_node N2 N1
+	table_cell N2 0 0
+	replace N2 N5
+	
+	print_tree N1
+
+echo -----test 4-----
+	echo insert column (parameter 2, this is the last row)
+	
+	echo **before**
+	
+	print_tree N1
+	
+	echo **after**
+	
+	table_ins_col N1 2
+	
+	new_text N5 CCC
+	equ_node N2 N1
+	table_cell N2 0 2
+	replace N2 N5
+	
+	print_tree N1
+
+echo -----test 5-----
+	echo insert column (parameter 1)
+	
+	echo **before**
+	
+	print_tree N1
+	
+	echo **after**
+	
+	table_ins_col N1 1
+	
+	new_text N5 DDD
+	equ_node N2 N1
+	table_cell N2 0 1
+	replace N2 N5
+	
+	print_tree N1
+	
+#free_doc D1

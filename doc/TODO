@@ -1,0 +1,94 @@
+0. old, still waiting for ack
+
+1. For the upcoming release ===============================================================================
+
+2. For later releases ===============================================================================
++ COMMIT: edakrill: commit in trunk.static for the edakrill fixes and static compilation [report: Igor2]
+- ADMIN: generate new keys, schedule next release before expiry (21 april)
+- CLEANUP: librnd sep:
+	- make user conf file reading automatic, without having to register file names - allows librnd to have its own config dir /etc/librnd; double check the effect of plugin unload on the conf system! [report: Igor2]
+	- make pcb-rnd -l use librnd; resolve how this would work with running from src/ without installation [report: Igor2]
+- CLEANUP: TODO27: undo's removed list shouldn't depend on object IDs but probably remove list index because IDs are not unique if we want our operations to retrain IDs. Repro: shift-click subc replace twice, then undo; or drag&drop move selected object and undo [report: Igor2]
+- CLEANUP/BUG: undo operation while drawing a multiple segment line doesn't change segment attached to the crosshair [report:wojciechk8]
+	- tool_line.c depends on pcb_undo()'s return value; can be fixed only when the old undo system is removed
+- CLEANUP: think over how to handle subc selection: selecting all parts automatically is bad for propedit; bug_files/subcsel.bug [report: Wojciech]
+	- BUG: propedit adding/deleting attributes inconsistency; search depth problem (see TODO#28)  bug_files/subcsel.bug [report: Ade]
+- CLEANUP: layer order from data
+	- central code for building a list of layer groups ordered by draw from front to back (omit disabled/invisible layers)
+	- rewrite both the draw_everything() and pcb_search_obj_by_location_() layer loop to use this list
+	- FEATURE: holes should be drawn below silk and mask - this could be a config setting
+- CLEANUP/FEATURE: lihata v8
+	- load/save text clearance (and make sure the GUI can set it), then remove the 0.5mm hardwired value from polygon.c
+	- deprecate saving rats [report: Igor2]
+	- make saving selected, found and warn flags optional to reduce VCS noise [report: Igor2]
+	- remove netlist net ->style, should be a plain attribute (but keep the dedicated field in old versions)
+	- remove via geometry from route style
+	- manual layer binding (to LID)
+- CLEANUP/FEATURE: new breadboard
+	- FEATURE: gfx rotated pixmap scale -> uneven x/y scale can not be done while rendering; change the API so the x/y aspect change is done in software during the rotation (pcb_pixmap_alloc_insert_transformed) and only an even x/y scale is done during rendering (ghid_draw_pixmap)
+	- DOC: pool node on how to use pixmap for breadboading
+- FEATUER: property editor on selection should refresh the tree (but try to keep the row and user entered value) when selection changes [report: Gene]
+- FEATURE: library window: allow long tags and long location text to split: rich text widget
+- FEATURE: (TT) route style upgrade to prototypes - requires lihata v8:
+	- BUG: set same {e s s} doesn't work on padstacks [report: Igor2]
+	- BUG: padstack doesn't show drc xor shape while moving - because the whole drawing is a cheat for old vias [report: igor2]
+	- replace the route style dialog box's via part
+	- proto copy to buffer - a buffer with a single padstack should also serve as a prototype copy vehicle? or just import by a list from the buffer
+	- load/import from buffer and file
+	- CLEANUP: remove PCB_MIN_PINORVIA* PCB_DEFAULT_DRILLINGHOLE macros - nothing should use them anymore
+	- add text font, update the pool node text_edit [report: Igor2]
+- FEATURE: DOC: new examples
+	- blinking led with parametric footprints
+	- example of nonetlist: 1206 jumpers and logos
+- FEATURE: export_dsn/new io_dsn (with King Kevin and celem) (NGI0):
+	- missing global padstack (via) export:
+		- FEATURE: need to think over and check the spec for how to do this with no-hole padstacks
+		- RTT tests: thermal_layer.dsn, comp1.dsn, padstack.dsn
+	- BUG: elem_pads_ds: do not export line shape in padstacks as polygons, that kills round cap lines
+- BUG: Lihata persistent save:
+	- flag compatibility: save unknown, string-flags as loaded by io_pcb
+	- ind: FONTS: second font indents incorrectly
+	- ind: indentation bug in inline struct therm: closing } is preceded by indentation whitespace for some reason
+	- keep numeric format: test all
+	- keep unknown subtrees
+	- doc/user/02_model/src/obj_arc.lht: Open/Save : Font section is embedded. Once manually removed, the file shows many diffs w.r.t original. Lihata V1 file.
+	- BUG: lhtpers indentation: bug_files/lhtpers_ins/; breakpoint in pers_table.c:34 and debug why the newline is getting in [report: Igor2]
+- BUG: I/O bugs:
+	- eagle:
+		- BUG: xml: eagle XML import fails on polygon import reported by miloh, test file pcb-rnd-aux poly_selfi/eagle_polygon_crash.brd [report: erich], due to input file containing an invalid polygon: a self intersecting poly in line 156 - consider handling "width"?
+		- bin: eagle binary format v3 and libraries do not have a DRC block specifying restring or minimum feature widths. Binary loader should add a DRC block in these cases to the tree with the minimum settings needed for padstacks and features to load sensibly. [erich].
+		- bin: padstack clearances for element pins will rely on connectivity to other polygons layer by layer defined in the netlist; test case: alien_fmt_test/io_eagle_bin/net_poly_conn
+- BUG: Rubberband move line endpoints ignores connected arc endpoints. [Fixing:Ade]
+
+3. Long term ===============================================================================
+- FEATURE: version 3.0.0:
+	- rename pcblib to footprint-rnd! rename pcblib/tru-hole to fix the typo; update configs
+	- ./configure --config should default to /etc - warning: librnd will have its own, different /etc path! Load both
+- BUG: in poly lib rewrite: bug_files/polyclpoly.lht: excess clearing into the corner of the outer poly; move the line a bit and it tends to disappear ml=3493 [report: gpaubert]
+- BUG: in poly lib rewrite: bug_files/phatch.lht: maybe {m d t} and PolyHatch(0, c) -> poly offseting bug on sharp corners ml=4159 [report: Majenko]
+- FEATURE: "thermal recipe" so a padstack thermal can be put in a padstack or subc and it is changed with the layer binding [report: jg]
+- FEATURE: netlist2: bug_files/ratside.txt optional rats constraints [report: Vuokko]
+- FEATURE: openems mesher: do not ignore padstack copper [report: Evan]
+- CLEANUP: padstack bbox:
+	- per layer: keep a bbox per transformed shape per prototype, then getting the bbox of a padstack ref on a specific layer is looking up the shape, then 4 integer additions [report: Wojciech]
+	- when calculating overall padstack bbox, ignore layers that are not present? but then a layer change would require a recalc (but this is true for subcs too!) [report: Wojciech]
+- FEATURE: depth controlled mech layers (routed) for internal cavities: http://www.saturnelectronics.com/products_capabilities/internal-cavity_boards.html -> user script, similar to on_every_layer: convert lines into bbvia slot padstacks; only when we already export bbvia in excellon; alternative: layer attribute on mech layers
+- XOR rendering upgrade:
+		- experiment with 'emboss' kind of drawing instead of xor so rendering can stay 'direct'
+		- if worked: allow padstack xor draw to draw all shapes on all layers
+- CLEANUP: layer group rewrite: remove PCB_MAX_LAYERGRP and PCB_MAX_LAYER and make them dynamic - use libualloc stack with reasonable page size and local var first page
+- CLEANUP: reduce: get rid of autorouter/vector.[ch]
+- vendor drill plugin:
+	- CLEANUP: check if we want to keep vendor name
+	- CLEANUP: search for /units, replace it with pcb-printf something
+	- CLEANUP: replace ignore_refdes, ignore_value and ignore_descr with genvector
+	- FEATURE: vendor: be able to load multiple vendor files (project spec for skips, central for vendor) [report: celem]
+	- FEATURE: add round down
+
+4. Low prio ===============================================================================
+- BUG?: Far-side silk text can be selected and moved when the mouse is over front-side subcircuit. (but this is what we had with elements too! -> rewrite search.c to be a 'script' config) bug_files/farsilk.lht [report: Ade]
+- BUG: elliptic: gtk2_gl: RTT/arc_sizes.lht - elliptical arc corner case render bug [report: Wed]
+- BUG: elliptic: RTT/arc_sizes.lht - unable to move arcs which have different width and height [report: Ade] - rewrite pcb_is_point_on_arc() elliptical case at the bottom
+- FEATURE: DRC should warn for thin poly hair
+- FEATURE: io_pcb: new, optional "layer tag" field in mainline's file format
+- FEATURE: scconfig: menuconfig and a config file for scconfig: requires a more declarative dependency handling system -> being done in scconfig2

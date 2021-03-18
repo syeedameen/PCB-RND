@@ -1,0 +1,38 @@
+This action allows making multiple-action bindings into an atomic
+operation that will be undone by a single Undo command.  For example,
+to optimize rat lines, you'd delete the rats and re-add them.  To
+group these into a single undo, you'd want the deletions and the
+additions to have the same undo serial number.  So, you <arg>Save</arg>,
+delete the rats, <arg>Restore</arg>, add the rats - using the same serial
+number as the deletes, then <arg>Block</arg>, which checks to see if the
+deletions or additions actually did anything.  If not, the serial
+number is set to the saved number, as there's nothing to undo.  If
+something did happen, the serial number is incremented so that these
+actions are counted as a single undo step.
+<p>
+An alternative mechanism is freeze/unfreeze for the case restoring between
+every two actions is not possible or not practical. The sequence is
+<arg>Save</arg>, <arg>Freeze</arg>, call actions, <arg>UnFreeze</arg>,
+<arg>Block</arg>.
+<p>
+Arguments:
+<p>
+<table border=1 cellspacing=0>
+	<tr><th> Save
+	<td> Saves the undo serial number.
+
+	<tr><th> Restore
+	<td> Returns it to the last saved number.
+
+	<tr><th> Close
+	<td> Sets it to 1 greater than the last save.
+
+	<tr><th> Block
+	<td> Does a Restore if there was nothing to undo, else does a Close.
+
+	<tr><th> Freeze
+	<td> Make sure no subsequent actions will bump the undo serial
+
+	<tr><th> UnFreeze or Thaw
+	<td> Allow subsequent actions to bump the undo serial again
+</table>

@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+</head>
+<body>
+<h2 autotoc="yes"> CAM support </h2>
+<p>
+The purpose of the CAM support is to provide a unified interface to export a
+board in different file formats using different exporter plugins. The
+interface consists of a CLI layer (each export plugin's "cam" option) and
+an optional GUI (the CAM plugin).
+
+<h3 autotoc="yes"> CAM export support in multi-layer plugins with '-x plugin --cam' </h3>
+<p>
+This section is about the syntax used by the exporters that export
+multiple layers (e.g. gerber, ps, png).
+<p id="cli">
+Each CAM-plugin-compatible exporter plugin offers an option called "cam".
+The syntax and capabilities are the same for all exporter's cam option.
+<p>
+The syntax is:
+<pre>
+outfile=[global-opts] layergrp,layergrp,...
+</pre>
+<p>
+where:
+<ul>
+	<li> outfile is the output file name template that substitutes %%:
+		<ul>
+			<li> %name% is substituted with the layer group name
+			<li> %base% is substituted with the base name of the output file path (the file name without directories)
+			<li> %top_offs% is substituted with the layer group offset from the top (top layer group being 0); only layer groups with the same material considered
+			<li> %bot_offs% is substituted with the layer group offset from the bottom (bottom layer group being 0); only layer groups with the same material considered
+		</ul>
+	<li> optionally [global-opts]: a comma separated list of group-global (but per-output-file) options in [] brackets. Options supported:
+		<ul>
+			<li> okempty-group: warning suppression: do not warn when none of the layer groups referenced for an outfile exists (outfile can not be created or will be empty)
+			<li> okempty-content: warning suppression: do not warn when all layer groups for an outfile were empty (outfile is normally created and valid, but is empty as no object got exported)
+			<li> okempty: shorthand that enables both okempty-group and okempty-content
+		</ul>
+	<li> layergrp: one or more layer group addresses separated by comma (syntax is documented in <a href="../../09_appendix/layer_addr.html">layer addressing appendix.</a>)
+</ul>
+<p>
+Examples:
+<table border=1 cellspacing=0>
+	<tr> <th> directive
+	     <th> explanation
+	<tr> <td> bot.gbr=@bottom_copper,@bottom_silk
+	     <td> export layer groups called bottom_copper and bottom_silk (by group name)
+	<tr> <td> asm_top.ps=top-virtual(purpose=assy)
+	     <td> export the top assembly layer group (by type)
+	<tr> <td> fabrication.ps=virtual(purpose=fab)
+	     <td> export the first virtual layer group with 'fab' purpose
+	<tr> <td> gnd=copper:2
+	     <td> export the second copper layer group from the top (the first internal copper layer group under the top copper layer group, if it is a multilayer board; for 2 layer boards this will be the bottom copper layer group)
+	<tr> <td> gnd=intern-copper:1
+	     <td> similar to the above, but addresses the first internal copper layer group explicitly so it can not end up being the bottom copper layer group
+	<tr> <td> pwr=copper:-2
+	     <td> export the second copper layer group from the bottom (the first internal copper layer group above the bottom copper layer group, if it is a multilayer board; for 2 layer boards this will be the top copper layer group)
+	<tr> <td> gnd=intern-copper:-1
+	     <td> similar to the above, but addresses the last internal copper layer group explicitly so it can not end up being the top copper layer group
+	<tr> <td> pst.gbr=top-paste(bloat=0.1mm),bottom-paste(bloat=0.1mm)
+	     <td> export the top and bottom paste groups in the same file with all objects bloated up by 0.1mm
+	<tr> <td> plated_drills.cnc=virtual(purpose=pdrill)
+	     <td> export plated drilled holes (padstack side effects, but no slots)
+	<tr> <td> unplated_drills.cnc=virtual(purpose=udrill)
+	     <td> export unplated drilled holes (padstack side effects, but no slots)
+	<tr> <td> unplated_drills.cnc=[okempty] virtual(purpose=udrill)
+	     <td> same as the previous, but do not print a warning if there was no unplated drill in the design
+</table>
+<p>
+If multiple layer groups match a layergrp specification, all matching
+layer groups are exported. If the file name is a static string, they are
+all merged. If the file name is templated, it is possible to export the
+layer groups in multiple files. For example:
+<table border=1 cellspacing=0>
+	<tr> <th> directive
+	     <th> explanation
+	<tr> <td> copper.gbr=copper
+	     <td> export all copper layers to copper.gbr
+	<tr> <td> copper-%top_offs%.gbr=copper
+	     <td> export all copper layers to numbered copper-<i>N</i>.gbr files where <i>N</i> is the offset from the top side, starting from 0 (for top copper)
+	<tr> <td> copper-%name%.gbr=copper
+	     <td> export all copper layers to numbered copper-<i>N</i>.gbr files where <i>N</i> is the full name of the group being exported
+</table>
+
+<h3 id="nolayer" autotoc="yes"> CAM export support in no-layer plugins with '-x plugin --cam' </h3>
+<p>
+This section is about the syntax used by the exporters export global digest
+of the board and not layers (e.g. XY).
+<p>
+For these exporters the above apply with no layergrp specified. In the simplest
+for this means the '=' and the rest of the line is omitted. However, if
+supplement needs to be passed, the syntax is filename=(supplement).
+For example the XY exporter can be used with
+<pre>
+--cam foo.xy
+</pre>
+or a <a href="#partial">partial</a> excellon export can be done using:
+<pre>
+--cam foo.exc=(partial)
+</pre>
+<p>
+The --cam option in these exporters are implemented for two reasons:
+<ul>
+	<li> to provide an unified syntax for the output file name
+	<li> to allow a CAM job to use these exporters
+</ul>
+
+<h3 id="partial" autotoc="yes"> partial export </h3>
+<p>
+In partial exporting the rendering code in core will draw only those object
+that have the EXPORTSEL flag set. The flag is normally set by a query() action
+using an expression.
+<p>
+A typical use of this feature is to export plugged/filled vias into a
+separate file, assuming the padstacks have a specific attribute set.
+
+<h3 autotoc="yes"> CAM plugin (CAM jobs) with '-x cam' </h3>
+<p>
+The CAM plugin is a way to manage output "jobs": collections of cam export
+settings for reproducing export packages in various formats. 
+<p>
+...
+<p>
+A job is a script that contains zero or more export directives, separated
+by semicolons or newlines. An export directive is one of these:
+<pre>
+desc text
+plugin name [--option value] [--option value] ...
+write outfile=layergrp[,layergrp,...]
+</pre>
+<p>
+desc is a free form one-liner that describes what the job is for. Multiple
+desc directives may be present (to bypass the limitation that the text can
+not contain newlines).
+<p>
+The plugin directive selects a plugin and sets plugin specific options.
+The plugin and options are active until the next plugin directive or the
+end of the script. The first outfile directive must be preceeded by a
+plugin directive.
+<p>
+The write directive argument has the same syntax as the cam argument for each
+cam-capable exporter, <a href="#cli">see above</a>. Each write is a call
+to an exporter the same way as if pcb-rnd was called with --cam and -x
+with the exporter and options taken from the last plugin directive.
+<p>
+For example, the following config tree defines a job called <i>doc_png</i>
+that generates two 600 DPI images from the sides of the board, copper and
+silk combined, all in the doc/ dir (that is created if necessary):
+<pre>
+li:pcb-rnd-conf-v1 {
+	ha:overwrite {
+		ha:plugins {
+			ha:cam {
+				li:jobs {
+					doc_png {
+						desc export top and bottom copper and silk in 600 DPI pngs
+						plugin png --dpi 600
+						write top.png=top-copper,top-silk
+						write bottom.png=bottom-copper,bottom-silk
+					}
+				}
+			}
+		}
+	}
+}
+</pre>
+<p>
+Once the above subtree is loaded in the config, the following action triggers
+the export:
+<pre>
+cam(call, doc_png)
+</pre>
+<p id="partial2">
+If the command <i>partial</i> appears in the job, a query() is executed
+with the expression specified in the command's argument, marking matching
+objects with the EXPORTSEL flag. The <i>full</i> command is used to remove
+the EXPORTSEL flag from all objects. Note: to export only marked objects,
+the <i>write</i> command will typically need the <i>partial</i> supplement.
+A typical use case is exporting filled vias in a separate file, using
+a custom object attribute called "process":
+<pre>
+li:pcb-rnd-conf-v1 {
+	ha:overwrite {
+		ha:plugins {
+			ha:cam {
+				li:jobs {
+					holes {
+						desc export all holes in excellon files, sorted by whether they are filled
+						plugin excellon
+						partial @.a.process == "filled"
+						write filled.exc=(partial)
+						full
+						partial @.a.process != "filled"
+						write unfilled.exc=(partial)
+						full
+						write all.exc
+					}
+				}
+			}
+		}
+	}
+}
+</pre>
+Note: the first <i>full</i> command is used to cancel the effect of the first
+<i>partial</i> command. Without <i>full</i>, at the second <i>partial</i>
+all the "filled" vias would still be marked and unfilled.exc would contain
+both filled and unfilled vias.
+
+<h3 autotoc="yes"> Tips for using with various exporters </h3>
+<p>
+When exporting to ps, consider using the --no-show-toc. It is
+possible to combine multiple layers (e.g. top silk and top copper, which
+may be useful for a single-layer board) using the --single-page option.
+<p>
+The plugin field has the same values command line -x has.
+The list of currently available exporter names can be acquired by running
+<pre>
+pcb-rnd -x
+</pre>
+Note: this list contains all exporter plugins currently available
+(depends on your configure time options and plugin availability). Some export
+plugins can not do per layer exporting and those will not support CAM exporting
+either.
+</body>
+</html>

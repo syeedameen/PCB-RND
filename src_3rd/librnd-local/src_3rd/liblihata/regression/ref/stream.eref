@@ -1,0 +1,9 @@
+# ' multiple roots; implicit eof is generated after the first and the second is ignored'
+list x
+ symlink 'foo' = 'bar'
+ text 'bar1' = 'baz'
+ list hah
+ text 'bar2' = 'baz'
+ hash heh
+ text 'bar3' = 'baz'
+*EOF*

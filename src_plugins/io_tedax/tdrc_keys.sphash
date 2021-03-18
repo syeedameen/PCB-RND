@@ -1,0 +1,24 @@
+loc
+ top
+ bottom
+ outer
+ inner
+ all
+ named
+type
+ copper
+ silk
+ mask
+ paste
+ pmech
+ umech
+ vcut
+ mech
+ all
+op
+ min_size
+ max_size
+ gap
+ overlap
+ min_dist_from_boundary
+ min_object_around_cut

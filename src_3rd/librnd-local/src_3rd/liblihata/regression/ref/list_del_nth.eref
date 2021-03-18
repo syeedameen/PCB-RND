@@ -1,0 +1,7 @@
+list 
+ list empty
+ list non-empty
+  text 'a' = 'val1'
+  text 'b' = 'val2'
+  text 'c' = 'val3'
+*EOF*

@@ -1,0 +1,240 @@
+<html>
+<body>
+
+<H2 autotoc="yes"> Query: the query language </H2>
+
+<h3 autotoc="yes"> Intro </h3>
+<p>
+A DRC program is an unordered list of rules. Rules are evaluated and
+violations reported. The advantage of a declarative language is that
+intermediate results can be cached and reused.
+<p>
+The language is intended to be human readable and human writable, but
+the main goal is to let programs and scripts (e.g. netlisters) to
+generate it.
+<p>
+A rule consists of three parts:
+<ul>
+	<li> the <i>rule</i> keyword; syntax: <b>rule NAME</b>, where NAME is an arbitrary string
+	<li> build variables (lists) using search statements, using the <i>let</i> keyword
+	<li> state assertions about those lists, using the <i>assert</i> keyword
+	<li> comments, empty lines
+</ul>
+<p>
+A simpler variant of a rule is a single expression, without any <i>rule</i> or
+<i>let</i> or <i>assert</i> keywords in it.
+<p>
+Various parts of pcb-rnd, including the <i>advanced search feature</i> and
+the <i>query()</i> action, runs a DRC rule (typically the simplified,
+single-expression variant) to find/select/list drawing objects.
+
+<h3 autotoc="yes"> Variables (lists) </h3>
+<p>
+Variables are named by the user and are local to the rule. A variable
+always holds a <i>list</i> of objects. Lists are ordered.
+A list is consists of zero or more objects. An object is on of the following:
+<ul>
+	<li> the board
+	<li> a layer
+	<li> a drawing primitive (line, arc, polygon, padstack, text), whether it is part of a subcircuit or is directly on the board
+	<li> a subcircuit
+	<li> a net
+</ul>
+
+<p>
+Objects have named properties (or fields):
+<ul>
+	<li> core attributes: for each object type a predefined set of key=value
+	     pairs that always exist (e.g. thickness of a line, start angle of
+	     an arc); these field names starts with "p."
+	<li> user attributes: free-form key=value pairs optionally assigned by
+	     the user; these field names start with "a."
+	<li> a "parent" of the object, e.g. "FOO.net" is the network object FOO is
+	     part of (assuming FOO is an object).
+</ul>
+
+<p>
+Note: the language is case sensitive with keywords and builtins using
+lowercase only. For better readability, in syntax description in this
+document uppercase words are user chosen identifiers or fields.  (This
+does not mean identifiers have to be uppercase in a program.)
+<p>
+Whitespace character sequences are usually treated as a single whitespace.
+<p>
+The syntax of a search statement that stores a result in a list is:
+<pre>
+let LISTNAME EXPR
+</pre>
+
+<p>
+It creates a list called LISTNAME and evaluates expression EXPR to all
+available objects and adds the objects that match EXPR to the list. Each
+matching object is added only once.
+<p>
+The particular order of objects on the list depends on how iterations are
+taken in EXPR. For example if EXPR refers to only one list (e.g. @), the
+ordering of that list is preserved in the result as well.
+<p>
+Object "matches EXPR" when the EXPR evaluated on the object yields true.
+
+<p>
+A special list that always exist is called @, and contains all subcircuits
+and drawing objects present on the board (including those that are part of
+subcircuits), in random order.
+
+<h3 autotoc="yes"> Expressions and values </h3>
+<p>
+An expression is evaluated to a value. A value can be:
+<ul>
+	<li>an object
+	<li>a list
+	<li>scalar: a number or string (might be suffixed, like "42 mm")
+	<li>void (empty, nil, also known as false)
+</ul>
+
+<p>
+A value is considered true if:
+<ul>
+	<li>it is an existing object; or
+	<li>it is a non-empty list; or
+	<li>it is a non-zero number or non-empty string
+</ul>
+
+<p>
+An expression is one of:
+
+<table border=1 cellspacing=0>
+<tr><th>syntax                      <th>meaning
+<tr><td>(EXPR)                      <td>change precedence
+<tr><td>EXPR || EXPR                <td>logical OR (result: number)
+<tr><td>EXPR &amp;&amp; EXPR        <td>logical AND (result: number)
+<tr><td>EXPR1 thus EXPR2            <td>evaluate to EXPR2 if EXPR1 is true, else to void
+<tr><td>EXPR + EXPR                 <td>add (numbers only)
+<tr><td>EXPR - EXPR                 <td>subtract (numbers only)
+<tr><td>EXPR * EXPR                 <td>multiply (numbers only)
+<tr><td>EXPR / EXPR                 <td>divide (numbers only)
+<tr><td>EXPR == EXPR                <td>the two values are equal (result: number)
+<tr><td>EXPR != EXPR                <td>the two values are not equal (result: number)
+<tr><td>EXPR ~ string               <td><a href="http://www.repo.hu/projects/genregex/genregex.7.html">extended regex</a> match left EXPR using pattern right string (result: number)
+<tr><td>EXPR &gt; EXPR              <td>left EXPR is greater than right EXPR (number only)
+<tr><td>EXPR &gt;= EXPR             <td>left EXPR is greater than or equal to right EXPR (number only)
+<tr><td>EXPR &lt; EXPR              <td>left EXPR is less than right EXPR (number only)
+<tr><td>EXPR &lt;= EXPR             <td>left EXPR is less than or equal to right EXPR (number only)
+<tr><td>!EXPR                       <td>logical NOT (result: number, 0 or 1)
+<tr><td>FUNC(EXPR, EXPR, ...)       <td>call a function with 0 or more arguments
+<tr><td>EXPR.field                  <td>evaluated to the value of an object field (see P45, P46)
+</table>
+
+<p>
+The syntax of an assertion is:
+<pre>
+assert EXPR
+</pre>
+
+<p>
+When running the DRC, if the EXPR in an assert evaluates to false, a
+DRC violation is generated. The return value of such an expression should
+normally be a list generated using the violation() function, so that it
+can pass on all relevant details (such as expected value, affected objects)
+to the DRC display.
+<p>
+When running a search, normally the result of an assert should be an object.
+
+<p>
+If an EXPR references a variable (list), it is evaluated for all
+valid members of the list, in order of the list. For example
+if there is a variable called FOO, which is a list of objects
+(built using a search statement), expression
+<pre>
+FOO.p.thickness
+</pre>
+<p>
+is evaluated as many times as many objects are on the list.
+If there is another similar list called BAR, an expression:
+<pre>
+(FOO.p.thickness &lt; BAR.p.thickness)
+</pre>
+<p>
+will compare each possible pair of FOO and BAR objects. That is, if
+FOO has 4 objects and BAR has 15 objects, that is 4*15 = 60 comparisons.
+<p>
+However, each list is iterated only once, even if it is referenced multiple
+times in the same expression. For example, with the above lists:
+<pre>
+(FOO.p.clearance &gt; 10 mil) &amp;&amp; (FOO.p.thickness &lt; BAR.p.thickness)
+</pre>
+the potential number of iterations is still 4*15, and not 4*4*15 (FOO is
+not iterated twice). In practice the engine leverages lazy evaluation so
+if FOO.p.clearance is smaller than 10 mil, the right side is not evaluated,
+which saves a few comparisons. See also: <a href="#fields">fields</a>.
+<p>
+If a function needs to be called with a whole list passed instead of
+calling to function for each element of the list, the special list()
+built-in function should be used. For example assume FOO is a list of 5
+objects:
+<pre>
+llen(list(FOO))
+</pre>
+<p>
+will pass FOO as a list to function llen(), which is called only once. Without
+the list() wrapping, llen() would be called five times, once for each item
+in the list.
+
+<h3 autotoc="yes"> Fields (properties and atributes) </h3>
+<p id="fields">
+A field reference is valid if the field exists. For example a line object
+has a thickness attribute, thus the .p.thickness is valid, but a polygon
+object does not have a thickness and .p.thickness on a polygon is invalid.
+An user attribute reference (e.g. field .a.baz) is valid if the attribute
+key exists in the given object.
+<p>
+Invalid fields evaluate to value void (and is not considered an error).
+Thus if variable BLOBB is a list
+that consists of 3 line, 2 arc and a layer objects, the following expression
+will be void (false) for at least the 3 line objects and can be true
+for at most 2 cases (the arc objects):
+<pre>
+(BLOBB.p.width &gt;= 10 mm)
+</pre>
+(because only arc objects have valid .p.width field, which is the horizontal
+radius of an arc).
+
+<p>
+A void value is never equal to anything. A void value is not equal
+even to another void value.
+
+<h3 autotoc="yes"> User functions </h3>
+<p id="user_func">
+User functions are defined with the <i>function</i> keyword, followed
+by the function name and a comma separated list of argument names in
+parenthesis. The argument list may be empty. Each argument passed must be
+an object or a list (i.e. numbers can not be passed).
+<p>
+The body of the function may contain the same constructs as the body of a rule.
+<p>
+A function definition ends with a <i>return</i> keyword followed by an expression.
+The experession is evaluated and the resulting value is returned. If the
+expression iterates, the last evaluated value is returned.
+<p>
+Example (counts the number of non-terminal, holed padstacks on a net object
+called LNET):
+<pre>
+function count_vias(LNET)
+let OBJS netobjs(LNET)
+let VIAS (OBJS.type == PSTK) &amp;&amp; (OBJS.hole &gt; 0) &amp;&amp; (OBJS.a."term" == "")
+return llen(list(VIAS))
+</pre>
+<p>
+On the calling side user functions are the same as built-in functions, e.g.
+the above functions can be called as:
+<pre>
+let ALLNETS netlist()
+assert (count_vias(ALLNETS) != 4)
+</pre>
+
+<h3 autotoc="yes"> Misc </h3>
+<p>
+Comments are lines starting with #
+
+</body>
+</html>

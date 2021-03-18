@@ -1,0 +1,41 @@
+put /local/pcb/mod {lib_gtk_common}
+put /local/pcb/mod/CONF {$(LIBRND_PLUGDIR)/lib_gtk_common/hid_gtk_conf.h}
+
+put /local/pcb/mod/OBJS [@
+  $(LIBRND_PLUGDIR)/lib_gtk_common/lib_gtk_common.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/lib_gtk_config.o
+@]
+
+put /local/pcb/mod/OBJS_C99 [@
+  $(LIBRND_PLUGDIR)/lib_gtk_common/bu_dwg_tooltip.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/bu_menu.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/bu_command.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/dlg_attribute.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/dlg_fileselect.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/dlg_topwin.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/in_keyboard.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/in_mouse.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/ui_crosshair.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/ui_zoompan.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/util_listener.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/util_timer.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/util_watch.o
+  $(LIBRND_PLUGDIR)/lib_gtk_common/wt_preview.o
+
+	$(LIBRND_PLUGDIR)/lib_gtk_common/glue_common.o
+	$(LIBRND_PLUGDIR)/lib_gtk_common/glue_hid.o
+@]
+
+switch /local/pcb/lib_gtk_common/controls
+	case {disable} end;
+	default
+		put /local/pcb/mod/CFLAGS   /target/libs/gui/gtkx/cflags
+		put /local/pcb/mod/LDFLAGS  /target/libs/gui/gtkx/ldflags
+	end
+end
+
+switch /local/pcb/lib_gtk_common/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

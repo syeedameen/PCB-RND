@@ -1,0 +1,10 @@
+# this version is compatible with tmpasm
+
+GENERATOR_OBJS = \
+  $(BIN)/generator/generator.o
+
+GENERATOR_CFLAGS = -I$(SRC)/generator
+
+$(BIN)/generator/generator.o: $(SRC)/generator/generator.c $(SRC)/default/dep.h $(SRC)/default/log.h $(SRC)/default/regex.h
+	$(CC) $(CFLAGS) -c $(SRC)/generator/generator.c -o $(BIN)/generator/generator.o
+

@@ -1,0 +1,18 @@
+li:{root} [root] FIRST te:{te:brace} LAST ta:{table spc}
+ te:{te:brace} {foo}
+ te:{TE:text node} {this has TE: in name}
+ te:{text node} {hello world}
+ sy:{sym link} {hello world}
+ li:{list node} FIRST te:{} LAST te:{}
+  te:{} {hello}
+  te:{} {world}
+ ha:{hash node} entries: 2
+  te:{1} {hello}
+  te:{2} {world}
+ ta:{table spc} cols: 2, rows: 2
+  Row 0:{}
+   te:{} {a}
+   te:{} {b}
+  Row 1:{}
+   te:{} {1}
+   te:{} {2}

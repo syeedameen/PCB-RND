@@ -1,0 +1,21 @@
+put /local/pcb/mod {lib_hid_gl}
+put /local/pcb/mod/OBJS_C99 [@
+  $(LIBRND_PLUGDIR)/lib_hid_gl/hidgl.o
+  $(LIBRND_PLUGDIR)/lib_hid_gl/lib_hid_gl.o
+  $(LIBRND_PLUGDIR)/lib_hid_gl/stencil_gl.o
+@]
+append /local/pcb/mod/DISTCLEANFILES { $(PLUGDIR)/lib_hid_gl/opengl.h }
+
+switch /local/pcb/lib_hid_gl/controls
+	case {disable} end;
+	default
+		put /local/pcb/mod/CFLAGS   [@@/target/libs/gui/gl/cflags@ @/target/libs/gui/glu/cflags@@]
+		put /local/pcb/mod/LDFLAGS  [@@/target/libs/gui/gl/ldflags@ @/target/libs/gui/glu/ldflags@@]
+	end
+end
+
+switch /local/pcb/lib_hid_gl/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

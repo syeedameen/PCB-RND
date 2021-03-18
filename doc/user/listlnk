@@ -1,0 +1,199 @@
+#!/bin/sh
+
+volmap="vol.map"
+
+unlinked_ignores='
+# care only about subdirs
+!($0 ~ "/")                 { next }
+
+# sources
+/\/src\//                   { next }
+/Makefile$/                 { next }
+/\/ID[.]desc$/              { next }
+/\/ID[.]name$/              { next }
+/[.]templ[.]html$/          { next }
+/[.]dot$/                   { next }
+/09_appendix\/action_src/   { next }
+
+/06_feature\/djopt\/.*\.txt$/           { next }
+/06_feature\/djopt\/Pre.html$/          { next }
+/06_feature\/djopt\/Post.html$/         { next }
+/06_feature\/scripting\/.*\/ex.html$/   { next }
+
+# tmp/backup leftover
+/[.]svg[.]png$/                { next }
+/[.]out[.]png$/                { next }
+/06_feature\/stroke\/.*\.png$/ { next }
+/PCB\.[^\/.]*\.save$/          { next }
+/PCB\.[^\/.]*\.backup$/        { next }
+/[.]pyc$/                      { next }
+'
+
+build_list()
+{
+	local vol=0 img=0
+
+	while test $# -gt 0
+	do
+		case "$1" in
+			-v|--vol) vol=1;;
+			-i|--img) img=1;;
+			*) echo "unknown list parameter $1" >&2; exit 1;;
+		esac
+		shift 1
+	done
+
+echo "index.html" | awk -v "vol=$vol" -v "volmap=$volmap" -v "img=$img" '
+	BEGIN {
+		nopen=0
+		dsq = "[\"'\'']"
+		if (vol) {
+			while((getline < volmap) == 1)
+				if (NF == 2)
+					VOL[$1] = $2
+		}
+	}
+
+	function append(path, vp)
+	{
+		if (path == "")
+			return 0
+		if (path in SEEN)
+			return 0
+		SEEN[path]= 1
+		if (vol) {
+			vp = path
+			sub("/.*", "", vp)
+			print path "\t" int(VOL[vp])
+		}
+		else
+			print path
+		return 1
+	}
+
+	function mkpath(cwd, path,   P,v,n,m,found)
+	{
+		if (path ~ "://")
+			return ""
+		sub("#.*$", "", path)
+		if (path == "")
+			return ""
+
+		path = cwd "/" path
+		gsub("//*", "/", path)
+		v = split(path, P, "/")
+		for(n = 2; n < v; n++) {
+			if (P[n] == "..") {
+				found=0
+				for(m = n-1; m >= 0; m--) {
+					if (P[m] != "") {
+						P[m] = ""
+						P[n] = ""
+						found=1
+						break;
+					}
+				}
+				# ponting to parent of root
+				if (!found)
+					return ""
+			}
+		}
+		path=""
+		for(n = 1; n < v; n++)
+			if (P[n] != "")
+				path = path P[n] "/"
+		path = path P[v]
+
+		m = "^" cwd
+		if ((cwd != "") && !(path ~ m)) {
+			# pointing to parent from the current search
+			return ""
+		}
+
+		return path
+	}
+
+	function dump_links(cwd, fn   , ors, line, path, found)
+	{
+		ors = RS
+		RS="[<]"
+		while((getline < fn) == 1) {
+			found = 0
+
+			if ((($1 == "a") || ($1 == "A")) && ($0 ~ "href=")) {
+				line=$0
+				gsub("\n", " ", line)
+				sub(".*href=" dsq, "", line)
+				sub(dsq ".*", "", line)
+				found=1
+			}
+
+			if (img && (tolower($1) == "img") && ($0 ~ "src=")) {
+				line=$0
+				gsub("\n", " ", line)
+				sub(".*src=" dsq, "", line)
+				sub(dsq ".*", "", line)
+				found=1
+			}
+
+			if (found) {
+				path = mkpath(cwd, line)
+				if (append(path))
+					process(path)
+			}
+		}
+		RS=ors
+	}
+
+	function process(fn)
+	{
+		if (fn == "")
+			return
+		cwd=fn
+		sub("[^/]*$", "", cwd)
+		dump_links(cwd, fn)
+	}
+
+	{ process(mkpath("", $0)); }
+
+'
+}
+
+unlinked()
+{
+	local sep="@@@"
+	(
+		build_list -i
+		echo "$sep"
+		find . -type f -print
+	) | awk -v "sep=$sep" '
+	
+	($0 == sep) { after_sep=1; next; }
+	(!after_sep) { FOUND[$0]++ }
+
+	{ sub("^./", "", $0) }
+
+	'"$unlinked_ignores"'
+
+	(after_sep) {
+		if (!($0 in FOUND))
+			print $0
+	}
+	'
+}
+
+### main ###
+
+cmd="$1"
+if test $# -gt 0
+then
+	shift 1
+fi
+
+case "$cmd"
+in
+	unlinked) unlinked "$@" ;;
+	""|list) build_list "$@" ;;
+	*) echo "unknown command $cmd" >&2; exit 1;;
+esac
+

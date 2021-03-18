@@ -1,0 +1,7 @@
+$class lib
+$short #s-expression library
+$long S-expression parser lib
+$state works
+$package lib-io
+$hidlib 1
+default disable-all

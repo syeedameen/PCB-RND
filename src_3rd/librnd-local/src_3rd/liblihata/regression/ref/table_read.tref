@@ -1,0 +1,36 @@
+root:
+  li:{} [root] FIRST ta:{empty} LAST ta:{non-empty}
+   ta:{empty} cols: 0, rows: 0
+   ta:{non-empty} cols: 2, rows: 2
+    Row 0:{}
+     te:{} {11}
+     te:{} {12}
+    Row 1:{}
+     te:{} {21}
+     te:{} {22}
+first table:
+  ta:{empty} cols: 0, rows: 0
+Reading from empty table:
+1) item (0,0)
+  * node is NULL *
+2) item (1,1)
+  * node is NULL *
+3) item (-1, -1)
+  * node is NULL *
+second table:
+  ta:{non-empty} cols: 2, rows: 2
+Reading from filled table:
+1) item (0,0)
+  te:{} {11}
+2) item (0,1)
+  te:{} {12}
+3) item (1,0)
+  te:{} {21}
+4) item (1,1)
+  te:{} {22}
+5) item (-1, -1)
+  * node is NULL *
+6) item (1,2)
+  * node is NULL *
+7) item (2,1)
+  * node is NULL *

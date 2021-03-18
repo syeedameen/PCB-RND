@@ -1,0 +1,19 @@
+put /local/fungw/mod {fungw_fawk}
+put /local/fungw/mod_dir {fawk}
+
+switch ?libs/script/fawk/presents
+	case {true}
+		put /local/fungw/mod_cflags {}
+		put /local/fungw/mod_ldflags {}
+		put /local/fungw/mod_src {fungw_fawk.c}
+		put /local/fingw/mod_extra_rules [@
+
+fungw_fawk.o: libfawk_sc/libfawk_sc_all.c
+
+@]
+		include {Plugin.tmpasm}
+		end
+	default
+		include {Disable.tmpasm}
+		end
+end

@@ -1,0 +1,18 @@
+pcb-rnd 2.3.1
+~~~~~~~~~~~~~
+
+The main objective of this release is to go further in librnd separation:
+the build system is prepared for the split, redundancies between pcb-rnd and
+librnd are mostly removed. Other than this, 2.3.1 is mainly a bugfix release
+with only a few new features.
+
+Feature highlight:
+
+1. Improved lock handling new hotkey {s k} for listing locked object.
+
+2. New feature plugin for printing net name on traces when zoom level is
+   high enough and the feature is enabled.
+
+3. Many bugfixes in IO code for eagle and kicad for a more lossless
+   load of alien board and footprint files.
+

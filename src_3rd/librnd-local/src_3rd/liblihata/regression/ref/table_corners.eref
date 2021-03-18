@@ -1,0 +1,24 @@
+list 
+ table empty
+ table non-empty
+  list rowname0
+   text '' = '00'
+   text '' = '01'
+  list rowname1
+   text '' = '10'
+   text '' = '11'
+  list rowname2
+   text '' = '20'
+   list 21
+    text '' = 'a'
+    text '' = 'b'
+    text '' = 'c'
+    text '' = 'd'
+  list rowname3
+   text '' = '30'
+   hash 31
+    text 'a' = '1'
+    text 'b' = '2'
+    text 'c' = '3'
+    text 'd' = '4'
+*EOF*

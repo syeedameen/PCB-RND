@@ -1,0 +1,9 @@
+$class export
+$short 3d export: STL
+$long Export stl (triangulated surface)
+$state WIP
+$fmt-native no
+$fmt-feature-w stl (3d triangulated surface model)
+$package export-extra
+default buildin
+autoload 1

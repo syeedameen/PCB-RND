@@ -1,0 +1,40 @@
+load_doc D1 list.lht
+
+root N1 D1
+list_child N1
+list_next N1
+
+equ_node N2 N1
+list_child N2
+
+echo The tree before detaching:
+print_tree N1
+echo The node before detaching:
+print_node N2
+
+tree_detach N2
+
+echo ---
+echo The tree after detaching:
+print_tree N1
+echo The node after detaching:
+print_node N2
+
+echo ========
+
+load_doc D1 list.lht
+root N1 D1
+echo The tree before detaching:
+print_tree N1
+echo The node before detaching:
+print_node N1
+
+tree_detach N1
+
+echo ---
+echo The tree after detaching:
+print_tree N1
+echo The node after detaching:
+print_node N1
+
+free_doc D1

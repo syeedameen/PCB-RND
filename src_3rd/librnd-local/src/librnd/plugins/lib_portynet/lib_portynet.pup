@@ -1,0 +1,7 @@
+$class lib
+$short #IPv4 tcp
+$long Partial libporty for IPv4 tcp
+$state works
+$package core
+$hidlib 1
+default buildin

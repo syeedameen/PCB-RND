@@ -1,0 +1,8 @@
+librnd 2.3.1
+~~~~~~~~~~~~~
+
+This version or librnd focuses on separation from its origins, pcb-rnd. Beside
+a lot of smallish fixes and build system upgrades, the main step is the script
+plugin relocation from pcb-rnd to librnd. This means the dozen-language
+scripting of pcb-rnd is now available in any librnd app. This includes the
+live script dialog as well.

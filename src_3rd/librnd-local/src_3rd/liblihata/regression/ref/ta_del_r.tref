@@ -1,0 +1,146 @@
+===== Original, untouched doc at the beginning
+  ha:{} [root] entries: 5
+   ta:{empty} cols: 0, rows: 0
+   ta:{table3} cols: 1, rows: 4
+    Row 0:{}
+     te:{} {row0}
+    Row 1:{}
+     te:{} {row1}
+    Row 2:{}
+     te:{} {row2}
+    Row 3:{}
+     te:{} {row3}
+   ta:{table4} cols: 4, rows: 4
+    Row 0:{}
+     te:{} {row0col0}
+     te:{} {row0col1}
+     te:{} {row0col2}
+     te:{} {row0col3}
+    Row 1:{}
+     te:{} {row1col0}
+     te:{} {row1col1}
+     te:{} {row1col2}
+     te:{} {row1col3}
+    Row 2:{}
+     te:{} {row2col0}
+     te:{} {row2col1}
+     te:{} {row2col2}
+     te:{} {row2col3}
+    Row 3:{}
+     te:{} {row3col0}
+     te:{} {row3col1}
+     te:{} {row3col2}
+     te:{} {row3col3}
+   ta:{table1} cols: 1, rows: 1
+    Row 0:{}
+     te:{} {row0}
+   ta:{table2} cols: 2, rows: 2
+    Row 0:{}
+     te:{} {row0col0}
+     te:{} {row0col1}
+    Row 1:{}
+     te:{} {row1col0}
+     te:{} {row1col1}
+===== Original table1
+  ta:{table1} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {row0}
+===== table_del_row N1 -1 (invalid)
+table_del_row: boundary check error: out of bounds
+  ta:{table1} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {row0}
+===== table_del_row N1 1 (invalid)
+table_del_row: boundary check error: out of bounds
+  ta:{table1} cols: 1, rows: 1
+   Row 0:{}
+    te:{} {row0}
+===== table_del_row N1 0 (valid)
+  ta:{table1} cols: 1, rows: 0
+===== table_del_row N1 0 (invalid)
+table_del_row: boundary check error: out of bounds
+  ta:{table1} cols: 1, rows: 0
+===== Original empty
+  ta:{empty} cols: 0, rows: 0
+===== table_del_row N2 0 (invalid)
+table_del_row: boundary check error: out of bounds
+  ta:{empty} cols: 0, rows: 0
+===== table2 before dels:
+  ta:{table2} cols: 2, rows: 2
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {row0col1}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {row1col1}
+===== After valid dels in table2:
+  ta:{table2} cols: 2, rows: 0
+===== table3 before dels:
+  ta:{table3} cols: 1, rows: 4
+   Row 0:{}
+    te:{} {row0}
+   Row 1:{}
+    te:{} {row1}
+   Row 2:{}
+    te:{} {row2}
+   Row 3:{}
+    te:{} {row3}
+===== After valid dels in table3:
+  ta:{table2} cols: 2, rows: 0
+===== table4 before dels:
+  ta:{table4} cols: 4, rows: 4
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {row2col0}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {row3col0}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+===== table_del_row N5 -1 (invalid)
+table_del_row: boundary check error: out of bounds
+===== table_del_row N5 4 (invalid)
+table_del_row: boundary check error: out of bounds
+===== table4 after invalid dels:
+  ta:{table4} cols: 4, rows: 4
+   Row 0:{}
+    te:{} {row0col0}
+    te:{} {row0col1}
+    te:{} {row0col2}
+    te:{} {row0col3}
+   Row 1:{}
+    te:{} {row1col0}
+    te:{} {row1col1}
+    te:{} {row1col2}
+    te:{} {row1col3}
+   Row 2:{}
+    te:{} {row2col0}
+    te:{} {row2col1}
+    te:{} {row2col2}
+    te:{} {row2col3}
+   Row 3:{}
+    te:{} {row3col0}
+    te:{} {row3col1}
+    te:{} {row3col2}
+    te:{} {row3col3}
+===== table4 after valid dels:
+  ta:{table4} cols: 4, rows: 0
+===== The document after deleting all rows:
+  ha:{} [root] entries: 5
+   ta:{empty} cols: 0, rows: 0
+   ta:{table3} cols: 1, rows: 0
+   ta:{table4} cols: 4, rows: 0
+   ta:{table1} cols: 1, rows: 0
+   ta:{table2} cols: 2, rows: 0

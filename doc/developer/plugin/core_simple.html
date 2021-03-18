@@ -1,0 +1,30 @@
+<html>
+<body>
+<h1> pcb-rnd hacking - simple core plugins </h1>
+
+<h2> Introduction </h2>
+
+<h2> Setting up a new core plugin </h2>
+<ul>
+	<li> 1. make up a name for the plugin. There are a few <a href="naming.html"> conventions. </a> This document will refer to the name as <i>plg</i>, always replace it with your chosen name.
+	<li> 2. cd src_plugins; svn mkdir <i>plg</i>
+	<li> 3. copy all files from the <a href="template">plugin template</a>
+	<li> 4. edit Makefile: replace "foobar" to <i>plg</i>
+	<li> 5. edit <i>plg</i>.pup; there should be short summary about the purpose of the plugin then "#key: value" pairs for statistics. Please refer to <a href="pup.html">the pup syntax</a>
+	<li> 6. edit <a href="tmpasm_vars.html">Plug.tmpasm</a>: replace "foobar" with <i>plg</i>, list all local objects you plan to have
+	<li> 7. rename and edit foobar.c: replace "foobar" with <i>plg</i>
+	<li> 8. create your C sources and headers in src_plugins/<i>plg</i>/
+	<li> 9. run "make map_plugins" in src/ to get your new plugin on the plugin list
+	<li> 10. run ./configure --buildin-<i>plg</i>
+	<li> 11. run make to see if it compiles and test
+	<li> (12. while developing, you can run make from src_plugins/<i>plg</i> - if
+	your plugin is a builtin, it will recompile pcb-rnd. For some of us it's convenient
+	to run make in the same directory where all the source files are.)
+</ul>
+
+Congratulations, you now have a compilable core plugin that does not do
+anything yet, with the <a href="api.html">basic API skeleton</a> in place.
+
+
+</body>
+</html>

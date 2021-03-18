@@ -1,0 +1,77 @@
+XML:
+
+eagle
+ drawing
+  settings
+  grid
+  layers
+   layer [name, color, fill, visible, active, number]
+  board
+   plain
+   libraries
+    library
+     description
+     packages
+      package [name]
+       description
+       wire [x1, y1, x2, y2, width, layer]
+       hole [name, x, y, drill, diameter, shape]
+       pad  [name, x, y, drill, diameter, shape]x
+       circle [x, y, radius, width, layer]
+       smd [x, y, dx, dy, rot, layer]     (smd pad)
+       text [x, y, size, rot, layer]
+       rectangle [x1, y1, x2, y2, layer]
+   attributes
+   variantdefs
+   classes
+   description
+   designrules
+   autorouter
+   elements
+    element [name, library, package, value, x, y, rot]
+   signals
+    signal [name]
+     contactref [element, pad]
+     wire [x1, y1, x2, y2, width, layer]
+     polygon [layer]
+      vertex [x, y]
+     via [name, x, y, drill, diameter, shape]
+ compatibility
+  @text
+
+
+bin:
+
+0x1000/start (->drawing?)
+ 0x1100/settings?
+ 0x1200/grid
+ 0x1300/layer !!!
+ 0x1b00/board
+  <plain (globals)>
+   0x2200/line
+   0x2600/rectangle
+  <libraries>
+   0x1900/packages (->library?)
+    0x1e00/package
+     0x2100/polygon
+      0x2200/line (->vertex?)
+     0x2600/rectangle
+     0x2200/line (->wire?)
+     0x2d00/smd
+     0x2a00/pad
+     0x2500/circle
+     0x3100/text?
+     0x2800/hole
+  <elements>
+   0x2e00/boardpackage?
+    0x2f00/boarkpackage2???
+    0x3400/smashedname?? -> description?
+    0x3500/smashedvalue?? -> description?
+  <signals>
+   0x1c00/boardnet -> signal
+    0x3e00/boardconnection -> contactref
+    0x2100/polygon
+     0x2200/line (->vertex?)
+    0x2200/line
+    0x2900/via
+

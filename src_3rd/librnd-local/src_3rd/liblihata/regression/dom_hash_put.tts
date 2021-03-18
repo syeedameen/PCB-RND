@@ -1,0 +1,26 @@
+load_doc D1 hash.lht
+root N1 D1
+new_text N2 "to_be_put"
+echo Doc before put:
+print_doc D1
+echo Node before put:
+print_node N2
+
+dom_hash_put N1 N2
+
+echo -
+echo Doc after put:
+print_doc D1
+echo Node after put:
+print_node N2
+
+new_text N3 "to_be_put_again"
+echo Node before put:
+print_node N3
+
+dom_hash_put N1 N3
+
+# since this node won't be part of the hash, it should be free'd
+dom_node_free N3
+
+free_doc D1

@@ -1,0 +1,315 @@
+ha:lht_tree_doc { ha:comm {
+
+	ha:data {
+		type=ha
+		desc { Layers and global objects of the board }
+		li:children {
+			ha:objects {
+				type=li
+				desc { List of global (non-layer/multi-layer) objects }
+				li:children {
+					ha:padstack_ref.ID {
+						type=ha
+						ver={>=4}
+						desc { a padstack reference (instance) placed on the board (e.g. used as a via) }
+						li:children {
+							ha:proto      = { valtype=integer; desc={padstack prototype ID to use, from the parent data's proto list }}
+							ha:x          = { valtype=coord;   desc={place padstack with origin at this horizontal coordinate }}
+							ha:y          = { valtype=coord;   desc={place padstack with origin at this vertical coordinate }}
+							ha:clearance  = { valtype=coord;   desc={global clearance; if non-zero, overrides local (per shape) clearance }}
+							ha:rot        = { valtype=angle;   desc={rotation angle in degrees }}
+							ha:xmirror    = { valtype=integer; desc={0 or 1; if 1, mirror all shapes over the x (horizontal) axis (so that y coords are flipped)}}
+							ha:smirror    = { valtype=integer; desc={0 or 1; if 1, mirror the layer stackup: bottom becomes top, top becomes bottom (a.k.a. "place on the other side")}}
+							sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+							sy:flags@dup  = {/lht_tree_doc/comm/flags_padstack}
+							ha:thermal {
+								type=li
+								desc { list of thermal shapes, per layer }
+								li:children {
+									ha:LAYERID {
+										type=li
+										desc { integer layer ID the thermal affects; each word is a boolean flag that is either present on the list or is missing; only one shape may be present }
+										li:children {
+											ha:on         = { valtype=none;  desc={ thermal is present on this layer; if not present, all other thermal flags are ignored on this layer }}
+											ha:diag       = { valtype=none;  desc={ thermal graphics is not axis aligned but diagonal (rotated by 45 degrees) }}
+											ha:round      = { valtype=none;  desc={ shape: rounded edge fingers }}
+											ha:sharp      = { valtype=none;  desc={ shape: sharp edge fingers }}
+											ha:solid      = { valtype=none;  desc={ shape: no thermal relief, solid connection without clearance }}
+											ha:noshape    = { valtype=none;  ver={>=6} desc={ shape: special: omit copper shape of the padstack on this layer }}
+										}
+									}
+								}
+							}
+						}
+					}
+					ha:via.ID {
+						type=ha
+						ver={<=4}
+						desc { an old via object (loaded as padstack in the new model) }
+						li:children {
+							ha:x          = { valtype=coord;   desc={place padstack with origin at this horizontal coordinate }}
+							ha:y          = { valtype=coord;   desc={place padstack with origin at this vertical coordinate }}
+							ha:thickness  = { valtype=coord;   desc={copper shape dimension (diameter) }}
+							ha:clearance  = { valtype=coord;   desc={copper clearance around the copper shape }}
+							ha:mask       = { valtype=coord;   desc={mask cutout shape dimension (diameter) }}
+							ha:hole       = { valtype=coord;   desc={drill/hole diameter }}
+							ha:name       = { valtype=string;  desc={optional name attribute }}
+							ha:number     = { valtype=string;  desc={for a pin (or to-be-pin) this is the terminal ID }}
+							sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+							sy:flags@dup  = {/lht_tree_doc/comm/flags_pinvia}
+						}
+					}
+				}
+			}
+			ha:layers {
+				type=li
+				desc={ordered list of layers; v1 required the order to be top-bottom physically; v1 also required silk layers to be at the end (same resrtictions as in the old .pcb format; only real (non-bound) layers have attributes)}
+				li:children {
+					ha:NAME {
+						type=ha
+						desc={a logical layer}
+						li:children {
+							ha:lid        = { valtype=integer;  ver={>=2} desc={layer ID}}
+							ha:visible    = { valtype=integer;  ver={<6} desc={only in real (non-boud) layers: 1 if the layer is visible, 0 if not (UI setting)}}
+							ha:group      = { valtype=integer;  desc={only in real (non-boud) layers: "parent" layer group ID }}
+							ha:color      = { valtype=string;  ver={>=5} desc={ layer color on UI, in #rrggbb format }}
+							ha:stack_offs = { valtype=integer;  desc={only in bound layers: match offset e.g. for internal copper layers}}
+							ha:type {
+								type=ha
+								desc={only for bound layers: try to bind to this type of layer on the host board}
+								sy:children {/lht_tree_doc/comm/layer_mask/children}
+							}
+							ha:purpose    = { valtype=integer; ver={>=6} desc={only in bound layers: match layer group purpose}}
+							ha:combining {
+								ver={>=2}
+								desc={layer combination (compositing) flags}
+								sy:children {/lht_tree_doc/comm/combining/children}
+							}
+							sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+							ha:objects {
+								type=li
+								desc={list of drawing primitives put on this layer}
+								li:children {
+									ha:line.ID {
+										type=ha
+										desc={round cap line}
+										li:children {
+											ha:x1        = { valtype=coord;   desc={line first endpoint, horizontal offset }}
+											ha:y1        = { valtype=coord;   desc={line first endpoint, vertical offset }}
+											ha:x2        = { valtype=coord;   desc={line second endpoint, horizontal offset }}
+											ha:y2        = { valtype=coord;   desc={line second endpoint, vertical offset }}
+											ha:thickness = { valtype=coord;   desc={width of the line }}
+											ha:clearance = { valtype=coord;   desc={copper clearance around the object }}
+											sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+											sy:flags@dup  = {/lht_tree_doc/comm/flags_line}
+											sy:hvthr@dup  = {/lht_tree_doc/comm/thermal_heavy}
+										}
+									}
+									ha:arc.ID {
+										type=ha
+										desc={round cap elliptic arc (only width==height is fully supported at the moment)}
+										li:children {
+											ha:x         = { valtype=coord;   desc={center, X coord}}
+											ha:y         = { valtype=coord;   desc={center, Y coord}}
+											ha:width     = { valtype=coord;   desc={radius (of the centerline of the arc) in X direction }}
+											ha:height    = { valtype=coord;   desc={radius (of the centerline of the arc) in Y direction }}
+											ha:thickness = { valtype=coord;   desc={width of the pen the arc is drawn with }}
+											ha:clearance = { valtype=coord;   desc={copper clearance around the object }}
+											ha:astart    = { valtype=angle;   desc={ start angle}}
+											ha:adelta    = { valtype=angle;   desc={ delta angle}}
+											sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+											sy:flags@dup  = {/lht_tree_doc/comm/flags_arc}
+											sy:hvthr@dup  = {/lht_tree_doc/comm/thermal_heavy}
+										}
+									}
+									ha:gfx.ID {
+										type=ha
+										ver={>=7}
+										desc={rectangular custom pixmap graphics}
+										li:children {
+											ha:sx         = { valtype=coord;    desc={visible size, X direction}}
+											ha:sy         = { valtype=coord;    desc={visible size, Y direction}}
+											ha:cx         = { valtype=coord;    desc={center, X coord}}
+											ha:cy         = { valtype=coord;    desc={center, Y coord}}
+											ha:rot        = { valtype=angle;    desc={rotation angle, CCW}}
+											ha:xmirror    = { valtype=ingteger; desc={0 or 1, whether the pixmap should be mirrored (x coord mirror, which means mirror against the y axis}}
+											ha:ymirror    = { valtype=ingteger; desc={0 or 1, whether the pixmap should be mirrored (y coord mirror, which means mirror against the x axis}}
+											ha:pixmap_ref = { valtype=ingteger; desc={ID of the pixmap to use from the pixmaps subtree; this pixmap represents the neutral state (no rotation, no mirror) pixmap of the object}}
+											sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+											sy:flags@dup  = {/lht_tree_doc/comm/flags_arc}
+											sy:hvthr@dup  = {/lht_tree_doc/comm/thermal_heavy}
+										}
+									}
+									ha:polygon.ID {
+										type=ha
+										desc={polygon, as drawn (unclipped)}
+										li:children {
+											ha:clearance = { valtype=coord; ver={>=3} desc={copper clearance around the object }}
+											ha:enforce_clearance = { valtype=coord; ver={>=7} desc={enforce minimum clearance on clearing objects within the polygon }}
+											sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+											sy:flags@dup  = {/lht_tree_doc/comm/flags_polygon}
+											sy:hvthr@dup  = {/lht_tree_doc/comm/thermal_heavy}
+											ha:geometry {
+												type=li
+												desc={first item is the outer contour, subsequent, optional items are holes}
+												li:children {
+													ha:contour = { valtype=coordtbl;   desc={2 column table of x;y coords for the outer contour}}
+													ha:hole    = { valtype=coordtbl;   desc={2 column table of x;y coords for a hole}}
+												}
+											}
+										}
+									}
+									ha:text.ID {
+										type=ha
+										desc={single line text object}
+										li:children {
+											ha:x         = { valtype=coord;   desc={placement: X coord}}
+											ha:y         = { valtype=coord;   desc={placement: Y coord}}
+											ha:role      = { valtype=string;  desc={when part of an old element, determines which of the three hardwired text object role is used (footprint, refdes or value)}}
+											ha:string    = { valtype=string;  desc={text string (payload)}}
+											ha:fid       = { valtype=integer; desc={font ID}}
+											ha:scale     = { valtype=integer; desc={text size scale in %}}
+											ha:scale_x   = { valtype=double;  desc={text size scale in X direction (width), as a multiplier; if 0, use scale/100}}
+											ha:scale_y   = { valtype=double;  desc={text size scale in Y direction (height), as a multiplier; if 0, use scale/100}}
+											ha:direction = { valtype=integer; ver={<=5} desc={rotation in 90 degree steps (0 is horizontal); between -3 and +3, inclusive. Starting from v6, the rot field shall be used instead of direction}}
+											ha:rot       = { valtype=angle;   ver={>=6} desc={rotation angle in degrees, [0..360), CCW}}
+											ha:thickness = { valtype=coord;   ver={>=6} desc={if zero, use the default width algorithm; if non-zero use this value as rotation angle in degrees}}
+											sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+											sy:flags@dup  = {/lht_tree_doc/comm/flags_text}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			ha:padstack_prototypes {
+				type=li
+				ver = {>=4}
+				li:children {
+					ha:unused          = { valtype=none;  desc={placeholder for marking unused slot to keep slot indices for early lihata v4 }}
+					ha:ps_proto_v4.PID {
+						type=ha
+						desc={padstack prototype specification, as introduced in lihata board v4}
+						li:children {
+							ha:hdia       = { valtype=coord;   desc={hole diameter; 0 means no hole }}
+							ha:htop       = { valtype=integer; desc={hole start: copper layer index from the top (positive) or bottom (negative) copper layer (0 means top copper layer)}}
+							ha:hbottom    = { valtype=integer; desc={hole start: copper layer index from the bottom (positive) or top (negative) copper layer (0 means bottom copper layer)}}
+							ha:hplated    = { valtype=integer; desc={0=hole and/or slot is unplated; 1=hole and/or slot is plated}}
+							ha:name       = { valtype=string; ver={>=5} desc={optional user assigned prototype name}}
+							ha:shape {
+								type=li
+								desc={shape per layer type definition}
+								li:children {
+									ha:ps_shape_v4 {
+										type=ha
+										desc={shape on a specific layer type (specified by layer_mask and combining), as specifie in lihata board v4; shape is either ps_poly, ps_line or ps_circ (only one of these will present per layer type); shape coords are relative to padstack origin; layer mask shall contain one material and at most one location bit}
+										li:children {
+											sy:layer_mask@dup = {/lht_tree_doc/comm/layer_mask}
+											ha:combining {
+												desc={layer compositing match}
+												sy:children   = {/lht_tree_doc/comm/combining/children}
+											}
+											ha:clearance  = { valtype=coord;   desc={local, per-layer-type clearance; applied if global padstack clearance is 0 }}
+											ha:ps_poly {
+												type=li
+												desc={arbitrary convex polygon shape; contains a list of x;y coordinates }
+											}
+											ha:ps_line {
+												type=ha
+												desc={straight line shape, round or square cap}
+												li:children {
+													ha:x1        = { valtype=coord;   desc={line first endpoint, horizontal offset }}
+													ha:y1        = { valtype=coord;   desc={line first endpoint, vertical offset }}
+													ha:x2        = { valtype=coord;   desc={line second endpoint, horizontal offset }}
+													ha:y2        = { valtype=coord;   desc={line second endpoint, vertical offset }}
+													ha:thickness = { valtype=coord;   desc={width of the line }}
+													ha:square    = { valtype=integer; desc={0=round cap; 1=square cap }}
+												}
+											}
+											ha:ps_circ {
+												type=ha
+												desc={filled circle shape}
+												li:children {
+													ha:x        = { valtype=coord;   desc={center, horizontal offset }}
+													ha:y        = { valtype=coord;   desc={center, vertical offset }}
+													ha:dia      = { valtype=coord;   desc={circle diameter }}
+												}
+											}
+											ha:ps_hshadow {
+												type=te
+												desc={hole/slot shadow}
+												ver={>=6}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			sy:subc.ID@dup {/lht_tree_doc/roots/pcb-rnd-subcircuit-v*/children/subc.ID}
+			ha:element.ID {
+				type=ha
+				desc={an instance (full copy) of an obsolete element footprint}
+				ver = {<3}
+				li:children {
+					ha:x          = { valtype=coord;   desc={element origin (diamond), horizontal offset }}
+					ha:y          = { valtype=coord;   desc={element origin (diamond), vertical offset }}
+					sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+					sy:flags@dup  = {/lht_tree_doc/comm/flags_element}
+					ha:objects {
+						type=li
+						desc={list of special objects that make up the element; lines and arcs are always on a silk layer}
+						li:children {
+							sy:line.ID  = {/lht_tree_doc/comm/data/children/layers/children/NAME/children/objects/children/line.ID}
+							sy:arc.ID   = {/lht_tree_doc/comm/data/children/layers/children/NAME/children/objects/children/arc.ID}
+							sy:text.ID  = {/lht_tree_doc/comm/data/children/layers/children/NAME/children/objects/children/text.ID}
+							ha:pad.ID {
+								type=ha
+								desc={SMD pad emulated using a line object; becomes a rectangle (but watch out for the cap-extended length!) when the square flag is set}
+								li:children {
+									ha:x1        = { valtype=coord;   desc={line first endpoint, horizontal offset }}
+									ha:y1        = { valtype=coord;   desc={line first endpoint, vertical offset }}
+									ha:x2        = { valtype=coord;   desc={line second endpoint, horizontal offset }}
+									ha:y2        = { valtype=coord;   desc={line second endpoint, vertical offset }}
+									ha:thickness = { valtype=coord;   desc={width of the line}}
+									ha:clearance = { valtype=coord;   desc={clearance around the line}}
+									ha:mask      = { valtype=coord;   desc={size of the mask cutout, as interpreted by gEDA/PCB}}
+									ha:name      = { valtype=string;  desc={symbolic name of the pad}}
+									ha:number    = { valtype=string;  desc={"pin number" for the netlist}}
+									sy:attr@dup   = {/lht_tree_doc/comm/attributes}
+									sy:flags@dup  = {/lht_tree_doc/comm/flags_pad}
+								}
+							}
+							ha:pin.ID {
+								type=ha
+								desc={thru-hole pin; emulated as an old-style via }
+								sy:children = {/lht_tree_doc/comm/data/children/objects/children/via.ID}
+							}
+						}
+					}
+				}
+			}
+			ha:rat.ID {
+				type=ha
+				desc={global rat line}
+				li:children {
+					ha:x1        = { valtype=coord;   desc={line first endpoint, horizontal offset }}
+					ha:y1        = { valtype=coord;   desc={line first endpoint, vertical offset }}
+					ha:x2        = { valtype=coord;   desc={line second endpoint, horizontal offset }}
+					ha:y2        = { valtype=coord;   desc={line second endpoint, vertical offset }}
+					ha:lgrp1     = { valtype=integer; desc={first endpoint's layer group ID }}
+					ha:lgrp2     = { valtype=integer; desc={second endpoint's layer group ID }}
+					ha:anchor1   = { valtype=string; ver={>=7}; desc={first endpoint's objet anchor written as an absolute idpath }}
+					ha:anchor2   = { valtype=string; ver={>=7}; desc={second endpoint's objet anchor written as an absolute idpath }}
+					sy:attr@dup  = {/lht_tree_doc/comm/attributes}
+					sy:flags@dup  = {/lht_tree_doc/comm/flags_line}
+				}
+			}
+		}
+	}
+
+}}

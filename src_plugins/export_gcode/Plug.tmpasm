@@ -1,0 +1,11 @@
+put /local/pcb/mod {export_gcode}
+put /local/pcb/mod/OBJS [@
+	$(PLUGDIR)/export_gcode/gcode.o
+@]
+
+
+switch /local/pcb/export_gcode/controls
+	case {buildin}   include /local/pcb/tmpasm/buildin; end;
+	case {plugin}    include /local/pcb/tmpasm/plugin; end;
+	case {disable}   include /local/pcb/tmpasm/disable; end;
+end

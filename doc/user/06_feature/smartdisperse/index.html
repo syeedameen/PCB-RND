@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> pcb-rnd user manual </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=us-ascii">
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+</head>
+<body>
+<h2 autotoc="yes"> smartdisperse - smart netlist disperse</h2>
+<p>
+The smartdisperse plugin provides an action called <i>smartdisperse</i> that
+uses a loaded netlist to arrange the layout subcircuits in a linear order at
+the top of the board, based on the netlist connections rather than arbitrary
+subcircuit order. To use, run in the cli with :smartdisperse() or
+:smartdisperse(all) to disperse all subcircuits, or :smartdisperse(selected) to
+only disperse selected.
+<p>
+The plugin is intended for use with any GUI HID for board layout. The layout
+must include a netlist for smartdisperse to work. The plugin uses the netlist
+to prioritize the dispersal of all the subcircuits into clusters prioritized by
+netlist connections.
+</body>
+</html>

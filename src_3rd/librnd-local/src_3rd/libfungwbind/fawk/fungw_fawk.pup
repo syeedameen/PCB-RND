@@ -1,0 +1,10 @@
+$desc fawk binding engine
+$state works
+$script-ext fawk .awk
+$script-ext fawk .fawk
+$script-ext fpas .pas
+$script-ext fpas .fpas
+$script-ext fbas .bas
+$script-ext fbas .fbas
+default buildin
+autoload 0

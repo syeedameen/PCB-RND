@@ -1,0 +1,41 @@
+<html>
+<body>
+<h1> pcb-rnd - plugin development - external fungw plugin </h1>
+<p>
+First of all: <b><a href="ext_dont.html">you should write a core plugin, not
+an external plugin</a></b>.
+<p>
+If you absolutely can't avoid writing an external plugin, you have two choices:
+a native puplug plugin or a fungw engine plugin. This page is about the fungw plugin
+method. Pros: simpler code, less boilerplate. Cons: loaded like a script,
+shouldn't access pcb-rnd APIs other than actions,
+requires system installed (full featured) fungw.
+<p>
+Note: this method is equivalent to using a script language and writing
+an user script - except that it's written in C, needs to be compiled, and
+if crashes, will bring down the whole process with it.
+<p>
+Please refer to the <a href="template_fungw/">example/template plugin</a>.
+After make, the resulting .so can be loaded from pcb-rnd using the script()
+action:
+<pre>
+LoadScript(foo, ./ext_bar.so, c)
+</pre>
+<p>
+The stderr message from init should appear. The ExtBar action should be
+available.
+<p>
+To start your external plugin, copy it to new directory and rename
+ext_bar both in file names and file content. Please preserve the ext_ prefix.
+
+<h2> how to develop the plugin </h2>
+<p>
+Some naming conventions  differ from core plugin development. It is not
+possible to register action help and syntax at the moment.
+
+<h2> Other considerations </h2>
+<p>
+As documented for <a href="ext_pup.html#other">puplug plugins</a>.
+
+</body>
+</html>

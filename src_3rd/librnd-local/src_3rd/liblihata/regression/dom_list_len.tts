@@ -1,0 +1,10 @@
+load_doc D1 list.lht
+root N1 D1
+dom_list_len N1
+
+load_doc D2 list_empty.lht
+root N2 D2
+dom_list_len N2
+
+free_doc D1
+free_doc D2
